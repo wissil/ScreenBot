@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.inject.Inject;
@@ -13,16 +13,20 @@ import com.util.ai.screenbot.output.ocr.TesseractAPI;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 
 public class OcrTest extends OutputHandlerTestBase {
+	
+	private static final String TESSDATA_PATH = "./tessdata";
+	
+	private static final String LANGUAGE = "eng";
 
 	@Inject
 	private OCR ocr;
 	
-	private TessBaseAPI api;
+	private static TessBaseAPI api;
 	
-	@Before
-	public void setup() {
+	@BeforeClass
+	public static void setup() {
 		// init API
-		this.api = TesseractAPI.getTesseract();
+		api = TesseractAPI.getTesseract(TESSDATA_PATH, LANGUAGE);
 	}
 	
 	@Test
@@ -46,6 +50,6 @@ public class OcrTest extends OutputHandlerTestBase {
 	@AfterClass
 	public static void after() {
 		// close API
-		TesseractAPI.destroyTesseract();
+		TesseractAPI.destroyTesseract(api);
 	}
 }

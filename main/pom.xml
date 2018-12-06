@@ -13,9 +13,52 @@
 
 	<dependencies>
 		<dependency>
+			<artifactId>input-handler</artifactId>
+			<groupId>com.util.ai.screenbot</groupId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>output-handler</artifactId>
+			<groupId>com.util.ai.screenbot</groupId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.util.ai.screenbot.main.App</mainClass>
+					<!-- <arguments> <argument>foo</argument> <argument>bar</argument> </arguments> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

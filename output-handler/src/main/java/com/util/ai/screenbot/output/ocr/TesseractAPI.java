@@ -5,10 +5,6 @@ import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import com.util.ai.screenbot.output.ocr.exceptions.OCRException;
 
 public class TesseractAPI {
-	
-	private static final String TESSDATA_PATH = "./tessdata";
-	
-	private static final String LANGUAGE = "eng";
 
 	private static TessBaseAPI instance;
 	
@@ -18,9 +14,9 @@ public class TesseractAPI {
 	 * 
 	 * @return Singleton instance of {@link TessBaseAPI}.
 	 */
-	public static TessBaseAPI getTesseract() {
+	public static TessBaseAPI getTesseract(String tessDataPath, String lang) {
 		if (instance == null) {
-			instance = initialize();
+			instance = initialize(tessDataPath, lang);
 		}
 		
 		return instance;
@@ -30,17 +26,17 @@ public class TesseractAPI {
 	 * Destroys the singleton instance of {@link TessBaseAPI}.
 	 * This method should be called only once on the program finish.
 	 */
-	public static void destroyTesseract() {
-		if (instance != null) {
-			instance.End();
-			instance.close();
+	public static void destroyTesseract(TessBaseAPI tesseract) {
+		if (tesseract != null) {
+			tesseract.End();
+			tesseract.close();
 		}
 	}
 	
-	private static TessBaseAPI initialize() {
+	private static TessBaseAPI initialize(String tessDataPth, String lang) {
         final TessBaseAPI api = new TessBaseAPI();
 		
-        if (api.Init(TESSDATA_PATH, LANGUAGE) != 0) {
+        if (api.Init(tessDataPth, lang) != 0) {
             throw new OCRException("Couldn't initialize Tesseract.");
         }
         

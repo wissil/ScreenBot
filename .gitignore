@@ -5,6 +5,7 @@ external/
 .classpath
 .settings
 .project
+logs/
 
 # IntelliJ files #
 .idea/
