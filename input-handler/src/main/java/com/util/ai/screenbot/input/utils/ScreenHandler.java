@@ -34,8 +34,8 @@ public abstract class ScreenHandler extends AbstractDeviceHandler {
         }
     }
 
-    abstract Rectangle getRect();
+    public abstract Rectangle getRect();
 
-    abstract String getCurrentWindowsName();
+    public abstract String getCurrentWindowName();
 
 }

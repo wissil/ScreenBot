@@ -69,4 +69,18 @@ public class KeyboardHandler extends AbstractDeviceHandler {
         robot.keyRelease(KeyEvent.VK_V);
         robot.keyRelease(KeyEvent.VK_CONTROL);
     }
+
+    public void pressSwitchApp(Integer numberOfHops) {
+        robot.keyPress(KeyEvent.VK_ALT);
+
+        // Keep ALT button pressed and press TAB numberOfHops number of times
+        for (int i = numberOfHops; i > 0; i--) {
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.delay(InputHandlerConstants.ACTION_DELAY);
+            robot.keyRelease(KeyEvent.VK_TAB);
+        }
+
+        robot.delay(InputHandlerConstants.ACTION_DELAY);
+        robot.keyRelease(KeyEvent.VK_ALT);
+    }
 }

@@ -10,7 +10,7 @@ import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
 
 public class WinScreenHandler extends ScreenHandler {
 
-	@Override
+    @Override
     public Rectangle getRect() {
         HWND hwnd = JNAConfig.User32DLL.GetForegroundWindow();
         if (hwnd == null) {
@@ -25,8 +25,8 @@ public class WinScreenHandler extends ScreenHandler {
         return rect.toRectangle();
     }
 
-	@Override
-    public String getCurrentWindowsName() {
+    @Override
+    public String getCurrentWindowName() {
 
         final int MAX_TITLE_LENGTH = 1024;
         char[] buffer = new char[MAX_TITLE_LENGTH * 2];
