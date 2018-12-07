@@ -1,6 +1,7 @@
 package com.util.ai.screenbot.input.logic;
 
-import com.google.inject.Inject;
+import java.util.Objects;
+
 import com.util.ai.screenbot.input.constants.ValueBettingConstants;
 import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
 import com.util.ai.screenbot.input.utils.KeyboardHandler;
@@ -10,11 +11,14 @@ public class ValueBettingBot {
 
     private final Integer MAX_NUMBER_OF_HOPS = 10;
 
-    @Inject
     private ScreenHandler screenHandler;
 
-    @Inject
     private KeyboardHandler keyboardHandler;
+    
+    public ValueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
+    		this.screenHandler = Objects.requireNonNull(screenHandler);
+    		this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
+    }
 
     public Boolean isValueBettingInForeground() {
         String currentWindowName = screenHandler.getCurrentWindowName();

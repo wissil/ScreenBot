@@ -1,6 +1,7 @@
 package com.util.ai.screenbot.input.config;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.util.ai.screenbot.input.logic.ValueBettingBot;
@@ -29,9 +30,10 @@ public class InputHandlerModule extends AbstractModule {
         return new WinScreenHandler();
     }
 
+    @Inject
     @Provides
     @Singleton
-    ValueBettingBot valueBettingBot() {
-        return new ValueBettingBot();
+    ValueBettingBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
+        return new ValueBettingBot(keyboardHandler, screenHandler);
     }
 }
