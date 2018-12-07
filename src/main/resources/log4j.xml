@@ -13,7 +13,7 @@
 		<param name="append" value="false" />
 		<param name="maxFileSize" value="50MB" />
 		<param name="maxBackupIndex" value="10" />
-		<param name="file" value="../logs/main/main.log" />
+		<param name="file" value="../logs/support/support.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
 		</layout>
@@ -23,7 +23,7 @@
 		<param name="append" value="false" />
 		<param name="maxFileSize" value="10MB" />
 		<param name="maxBackupIndex" value="10" />
-		<param name="file" value="../logs/main/daily/main.log" />
+		<param name="file" value="../logs/support/daily/support.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
 		</layout>
