@@ -16,7 +16,7 @@ public class RebelService {
     public void run() throws InterruptedException {
         log.info("Service started successfully!");
 
-        valueBettingBot.switchToValueBetting();
+        valueBettingBot.initialize();
 
         while (true) {
             Thread.sleep(1000);

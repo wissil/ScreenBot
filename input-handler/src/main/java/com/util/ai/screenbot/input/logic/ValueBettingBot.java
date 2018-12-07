@@ -1,5 +1,8 @@
 package com.util.ai.screenbot.input.logic;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -20,6 +23,8 @@ public class ValueBettingBot {
 
     private KeyboardHandler keyboardHandler;
 
+    private Rectangle appDimensions;
+
     public ValueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
         this.screenHandler = Objects.requireNonNull(screenHandler);
         this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
@@ -32,7 +37,7 @@ public class ValueBettingBot {
 
     }
 
-    public void switchToValueBetting() {
+    public void initialize() {
 
         // If Value Betting is in the foreground do nothing
         if (!isValueBettingInForeground()) {
@@ -58,8 +63,29 @@ public class ValueBettingBot {
 
             // If Value Betting is still NOT the foreground app throw the exception
             if (!isValueBettingInForeground()) {
-                throw new ValueBettingAppException("Value betting is not started");
+                throw new ValueBettingAppException("Value Betting is not started");
             }
+
+            // Initialize Value Betting screen dimensions
+            this.appDimensions = screenHandler.getRect();
+
+            if (this.appDimensions == null) {
+                throw new ValueBettingAppException("Not able to determine Value Betting app screen size");
+            }
+
+            // App works only if Value Betting is full screened
+            checkIsValueBettingFullScreen();
+        }
+    }
+
+    private void checkIsValueBettingFullScreen() {
+
+        // If full screen Value Betting app screen width should not be lower than monitor screen width
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println("Screen size:" + screenSize.getWidth());
+        System.out.println("App Screen size:" + this.appDimensions.getWidth());
+        if (this.appDimensions.getWidth() < screenSize.getWidth()) {
+            throw new ValueBettingAppException("Value Betting app should be started in full screen");
         }
     }
 }
