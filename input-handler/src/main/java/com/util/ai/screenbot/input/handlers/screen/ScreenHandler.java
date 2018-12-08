@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers.screen;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
+import com.util.ai.screenbot.input.handlers.AbstractDeviceHandler;
+import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
 
 /**
  * @author mcop
@@ -34,8 +36,6 @@ public abstract class ScreenHandler extends AbstractDeviceHandler {
         }
     }
 
-    abstract Rectangle getRect();
-
-    abstract String getCurrentWindowsName();
+    public abstract ActiveWindow getActiveWindow() throws Exception;
 
 }

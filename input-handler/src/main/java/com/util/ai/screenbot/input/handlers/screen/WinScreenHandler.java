@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers.screen;
 
 import java.awt.Rectangle;
 
@@ -7,11 +7,11 @@ import com.sun.jna.platform.win32.WinDef.HWND;
 import com.sun.jna.platform.win32.WinDef.RECT;
 import com.util.ai.screenbot.input.config.JNAConfig;
 import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
+import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
 
 public class WinScreenHandler extends ScreenHandler {
 
-	@Override
-    public Rectangle getRect() {
+    private static Rectangle getBounds() {
         HWND hwnd = JNAConfig.User32DLL.GetForegroundWindow();
         if (hwnd == null) {
             throw new DeviceHandlerException("Can not determine foreground window");
@@ -25,9 +25,7 @@ public class WinScreenHandler extends ScreenHandler {
         return rect.toRectangle();
     }
 
-	@Override
-    public String getCurrentWindowsName() {
-
+    private static String getCurrentWindowName() {
         final int MAX_TITLE_LENGTH = 1024;
         char[] buffer = new char[MAX_TITLE_LENGTH * 2];
 
@@ -35,4 +33,12 @@ public class WinScreenHandler extends ScreenHandler {
 
         return Native.toString(buffer);
     }
+
+	@Override
+	public ActiveWindow getActiveWindow() {
+		final String name = getCurrentWindowName();
+		final Rectangle bounds = getBounds();
+		
+		return new ActiveWindow(name, bounds);
+	}
 }

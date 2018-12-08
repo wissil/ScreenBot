@@ -1,8 +1,9 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers.mouse;
 
 import java.awt.event.InputEvent;
 
 import com.util.ai.screenbot.input.constants.InputHandlerConstants;
+import com.util.ai.screenbot.input.handlers.AbstractDeviceHandler;
 
 /**
  * @author mcop
