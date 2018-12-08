@@ -1,6 +1,10 @@
 package com.util.ai.screenbot.output.tests.ocr;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.junit.AfterClass;
@@ -44,6 +48,13 @@ public class OcrTest extends OutputHandlerTestBase {
 		
 		imagePath = "./external/res/test2.jpg";
 		textual = ocr.doOcr(api, imagePath);
+		System.out.println(textual);
+	}
+	
+	@Test
+	public void bufferedImageTest() throws IOException {
+		final BufferedImage bImage = ImageIO.read(new File("./external/res/zelenilo.jpg"));
+		final String textual = ocr.doOcr(api, bImage);
 		System.out.println(textual);
 	}
 	
