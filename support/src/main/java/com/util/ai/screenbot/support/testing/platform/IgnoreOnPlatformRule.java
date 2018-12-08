@@ -6,6 +6,9 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+import com.util.ai.screenbot.support.platform.Platform;
+import com.util.ai.screenbot.support.platform.PlatformResolver;
+
 public class IgnoreOnPlatformRule implements TestRule {
 
 	@Override
@@ -16,35 +19,18 @@ public class IgnoreOnPlatformRule implements TestRule {
 		if (annotation == null) {
 			return statement;
 		}
-
-		if (isCurrentPlatformIgnored(annotation, OS.MAC) || 
-				isCurrentPlatformIgnored(annotation, OS.WINDOWS)) {
+		
+		final Platform platform = PlatformResolver.resolveCurrentPlatform();
+		
+		if (isPlatformIgnored(annotation, platform)) {
 			return emptyStatement();
 		}
 
 		return statement;
 	}
 	
-	private static boolean isCurrentPlatformIgnored(IgnoreOnPlatform annotation, OS platform) {
-		return isCurrentPlatform(platform) && isPlatformIgnored(annotation, platform);
-	}
-	
-	private static boolean isPlatformIgnored(IgnoreOnPlatform annotation, OS platform) {
+	private static boolean isPlatformIgnored(IgnoreOnPlatform annotation, Platform platform) {
 		return Arrays.asList(annotation.value()).contains(platform);
-	}
-
-	private static boolean isCurrentPlatform(OS platform) {
-		if (platform.equals(OS.MAC)) return isCurrentPlatformMac();
-		if (platform.equals(OS.WINDOWS)) return isCurrentPlatformWin();
-		return false;
-	}
-	
-	private static boolean isCurrentPlatformMac() {
-		return System.getProperty("os.name").trim().toLowerCase().startsWith("mac");
-	}
-	
-	private static boolean isCurrentPlatformWin() {
-		return System.getProperty("os.name").trim().toLowerCase().startsWith("windows");
 	}
 	
 	private static Statement emptyStatement() {

@@ -57,7 +57,7 @@ public class MacScreenHandler extends ScreenHandler {
 		return engine.eval(SCRIPT_ACTIVE_WINDOW).toString().trim();
 	}
 	
-	private String getBoundsForWindow(String windowName) throws ScriptException {
+	private String getBoundsForWindow(String windowName) throws ScriptException, InterruptedException {
 		return engine.eval(String.format(SCRIPT_WINDOW_BOUNDS, windowName)).toString().trim();
 	}
 }

@@ -5,10 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.util.ai.screenbot.support.platform.Platform;
+
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface IgnoreOnPlatform {
 	
-    OS[] value();
+    Platform[] value();
 }
