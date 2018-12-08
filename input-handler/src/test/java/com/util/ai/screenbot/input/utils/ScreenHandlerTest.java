@@ -12,8 +12,8 @@ import org.junit.Test;
 import com.google.inject.Inject;
 import com.util.ai.screenbot.input.config.InputHandlerTestBase;
 import com.util.ai.screenbot.input.utils.ScreenHandler;
-import com.util.ai.screenbot.support.testing.IgnoreOnPlatform;
-import com.util.ai.screenbot.support.testing.OS;
+import com.util.ai.screenbot.support.testing.platform.IgnoreOnPlatform;
+import com.util.ai.screenbot.support.testing.platform.OS;
 
 public class ScreenHandlerTest extends InputHandlerTestBase {
 

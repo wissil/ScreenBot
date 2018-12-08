@@ -6,7 +6,7 @@ import org.junit.Rule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.util.ai.screenbot.input.config.InputHandlerModule;
-import com.util.ai.screenbot.support.testing.IgnoreOnPlatformRule;
+import com.util.ai.screenbot.support.testing.platform.IgnoreOnPlatformRule;
 
 public class InputHandlerTestBase {
     private final Injector injector = Guice.createInjector(new InputHandlerModule());

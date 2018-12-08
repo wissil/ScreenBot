@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.support.testing;
+package com.util.ai.screenbot.support.testing.platform;
 
 import java.util.Arrays;
 

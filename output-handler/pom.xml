@@ -24,6 +24,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.util.ai.screenbot</groupId>
+			<artifactId>support</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

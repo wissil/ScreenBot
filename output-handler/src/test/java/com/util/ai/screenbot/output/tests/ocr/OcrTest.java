@@ -9,12 +9,14 @@ import javax.imageio.ImageIO;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
 import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.ocr.TesseractAPI;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
+import com.util.ai.screenbot.support.testing.time.TimedExecution;
 
 public class OcrTest extends OutputHandlerTestBase {
 	
@@ -27,20 +29,32 @@ public class OcrTest extends OutputHandlerTestBase {
 	
 	private static TessBaseAPI api;
 	
+	private static BufferedImage bImage;
+	
 	@BeforeClass
-	public static void setup() {
+	public static void setup() throws IOException {
 		// init API
 		api = TesseractAPI.getTesseract(TESSDATA_PATH, LANGUAGE);
+		bImage = ImageIO.read(new File("./external/res/zelenilo.jpg"));
 	}
 	
 	@Test
-	public void interpretSingleImageTest() throws IOException {
+	@TimedExecution
+	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final String imagePath = "./external/res/zelenilo.jpg";
 		final String textual = ocr.doOcr(api, imagePath);
 		System.out.println(textual);
 	}
 	
 	@Test
+	@TimedExecution
+	public void ocrFromBufferedImage_SingleFile_Test() throws IOException {
+		final String textual = ocr.doOcr(api, bImage);
+		System.out.println(textual);
+	}
+	
+	@Test
+	@Ignore
 	public void interpretMultipleImagesTest() throws IOException {
 		String imagePath = "./external/res/t1.png";
 		String textual = ocr.doOcr(api, imagePath);
@@ -48,13 +62,6 @@ public class OcrTest extends OutputHandlerTestBase {
 		
 		imagePath = "./external/res/test2.jpg";
 		textual = ocr.doOcr(api, imagePath);
-		System.out.println(textual);
-	}
-	
-	@Test
-	public void bufferedImageTest() throws IOException {
-		final BufferedImage bImage = ImageIO.read(new File("./external/res/zelenilo.jpg"));
-		final String textual = ocr.doOcr(api, bImage);
 		System.out.println(textual);
 	}
 	
