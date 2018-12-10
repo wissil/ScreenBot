@@ -26,9 +26,7 @@ public class RebelService {
 
         Thread.sleep(3000); // Wait for 3s for user to check
 
-        Boolean betExists = valueBettingBot.checkTopBet();
-
-        System.out.println("Bet exists? " + betExists);
+        valueBettingBot.checkTopBet();
 
         while (true) {
             Thread.sleep(1000);

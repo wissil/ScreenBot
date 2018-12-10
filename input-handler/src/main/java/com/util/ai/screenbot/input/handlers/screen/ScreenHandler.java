@@ -23,10 +23,16 @@ public abstract class ScreenHandler extends AbstractDeviceHandler {
         return robot.getPixelColor(x, y);
     }
 
-    public void takeScreenshot(Integer x, Integer y, Integer width, Integer height, String screenShotName, String format, String path) {
+    public BufferedImage takeScreenshot(Integer x, Integer y, Integer width, Integer height) {
 
         Rectangle screenshotFrame = new Rectangle(x, y, width, height);
-        BufferedImage screenshot = robot.createScreenCapture(screenshotFrame);
+        return robot.createScreenCapture(screenshotFrame);
+
+    }
+
+    public void takeScreenshot(Integer x, Integer y, Integer width, Integer height, String screenShotName, String format, String path) {
+
+        BufferedImage screenshot = takeScreenshot(x, y, width, height);
         File image = new File(path, screenShotName + "." + format);
 
         try {

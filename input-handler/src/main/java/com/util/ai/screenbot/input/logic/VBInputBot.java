@@ -110,7 +110,7 @@ public class VBInputBot {
         mouseHandler.moveMouse(betX, betY);
     }
 
-    public void navigateToTopBetMiddle() {
+    public Boolean checkTopBet() {
 
         Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_MIDDLE_WIDTH);
 
@@ -120,25 +120,14 @@ public class VBInputBot {
         log.debug("topBetMiddleY: " + betY);
 
         mouseHandler.moveMouse(betX, betY);
-    }
-
-    public Boolean betExists() {
         mouseHandler.leftClick();
 
-        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_MIDDLE_WIDTH);
-        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_MIDDLE_HEIGHT);
-
         Color color = screenHandler.detectColor(betX, betY);
-        if (color.equals(Color.WHITE)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    public Boolean checkTopBet() {
-        navigateToTopBetMiddle();
-        return betExists();
+        Boolean topBetExists = !color.equals(Color.WHITE);
+
+        log.debug("Top bet exists? --> " + topBetExists);
+        return topBetExists;
     }
 
     private void checkIsValueBettingFullScreen() {
