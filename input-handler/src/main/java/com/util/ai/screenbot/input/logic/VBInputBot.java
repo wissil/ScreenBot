@@ -10,7 +10,9 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.util.ai.screenbot.input.constants.VBConstants;
+import com.util.ai.screenbot.input.config.ScreenConfig;
+import com.util.ai.screenbot.input.constants.AbstractVBConstants;
+import com.util.ai.screenbot.input.constants.VBConstants_96;
 import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
@@ -28,18 +30,21 @@ public class VBInputBot {
 
     private MouseHandler mouseHandler;
 
+    private AbstractVBConstants vbConstants;
+
     private Rectangle appDimensions;
 
-    public VBInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
+    public VBInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
         this.screenHandler = Objects.requireNonNull(screenHandler);
         this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
         this.mouseHandler = Objects.requireNonNull(mouseHandler);
+        this.vbConstants = Objects.requireNonNull(vbConstants);
     }
 
     public Boolean isValueBettingInForeground() {
         String currentWindowName = screenHandler.getActiveWindow().getName();
         log.info("Current app: " + currentWindowName);
-        return currentWindowName.trim().toLowerCase().startsWith(VBConstants.VALUE_BETTING_APP_PREFIX.toLowerCase());
+        return currentWindowName.trim().toLowerCase().startsWith(VBConstants_96.VALUE_BETTING_APP_PREFIX.toLowerCase());
 
     }
 
@@ -89,9 +94,9 @@ public class VBInputBot {
 
     public void navigateToTopBetUpperLeft() {
 
-        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_CORNER_WIDTH);
+        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_UPPER_CORNER_HEIGHT);
+        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
         log.debug("topBetUpperLeftX: " + betX);
         log.debug("topBetUpperLeftY: " + betY);
@@ -101,9 +106,9 @@ public class VBInputBot {
 
     public void navigateToTopBetLowerLeft() {
 
-        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_CORNER_WIDTH);
+        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_LOWER_CORNER_HEIGHT);
+        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
 
         log.debug("topBetLowerLeftX: " + betX);
         log.debug("topBetLowerLeftY: " + betY);
@@ -113,9 +118,9 @@ public class VBInputBot {
 
     public Boolean checkTopBet() {
 
-        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_MIDDLE_WIDTH);
+        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetMiddleWidth());
 
-        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_MIDDLE_HEIGHT);
+        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
 
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
@@ -133,18 +138,15 @@ public class VBInputBot {
 
     public BufferedImage takeTopBetScreenshot() {
 
-        // TODO - refactore this
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_CORNER_WIDTH);
-
-        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_UPPER_CORNER_HEIGHT);
+        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
 
-        return screenHandler.takeScreenshot(betX, betY, betX + Math.round(screenSize.width * VBConstants.BET_SCREENSHOT_WIDTH),
-                betY + Math.round(screenSize.height * VBConstants.BET_SCREENSHOT_HEIGHT));
+        return screenHandler.takeScreenshot(betX, betY, betX + (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
+                betY + (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
 
     }
 

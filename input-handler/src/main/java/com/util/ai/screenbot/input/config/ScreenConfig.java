@@ -3,6 +3,8 @@ package com.util.ai.screenbot.input.config;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import com.util.ai.screenbot.input.constants.ScreenResolution;
+
 /**
  * @author mcop
  * 
@@ -27,5 +29,9 @@ public class ScreenConfig {
         // int width = gd.getDisplayMode().getWidth();
         // int height = gd.getDisplayMode().getHeight()
         ////////////////////
+    }
+
+    public static ScreenResolution getScreenResolution() {
+        return null; // FIXME
     }
 }
