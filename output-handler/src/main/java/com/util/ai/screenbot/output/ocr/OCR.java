@@ -1,26 +1,17 @@
 package com.util.ai.screenbot.output.ocr;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.lept;
 import org.bytedeco.javacpp.lept.PIX;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
-import org.bytedeco.javacv.Java2DFrameConverter;
-import org.bytedeco.javacv.LeptonicaFrameConverter;
 
 public class OCR {
-	
-	private final Java2DFrameConverter javaConverter;
-	
-	private final LeptonicaFrameConverter leptonicaConverter;
-	
-	public OCR(Java2DFrameConverter javaConverter, LeptonicaFrameConverter leptonicaConverter) {
-		this.javaConverter = Objects.requireNonNull(javaConverter);
-		this.leptonicaConverter = Objects.requireNonNull(leptonicaConverter);
-	}
 
 	public String doOcr(TessBaseAPI api, String imagePath) throws IOException {	
         final PIX image = readPixFromPath(imagePath);
@@ -32,8 +23,12 @@ public class OCR {
 		return doOcr(image, api);
 	}
 	
-	private PIX convertToPixFromBufferedImage(BufferedImage bImage) {
-		return leptonicaConverter.convert(javaConverter.convert(bImage));
+	private PIX convertToPixFromBufferedImage(BufferedImage bImage) throws IOException {
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(bImage, "png", os);
+		
+        final byte[] bytes = os.toByteArray();
+        return lept.pixReadMemPng(bytes, bytes.length);
 	}
 	
 	private static PIX readPixFromPath(String imagePath) {

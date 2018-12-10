@@ -1,10 +1,8 @@
 package com.util.ai.screenbot.input.config;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.util.ai.screenbot.input.logic.ValueBettingBot;
 import com.util.ai.screenbot.input.utils.KeyboardHandler;
 import com.util.ai.screenbot.input.utils.MouseHandler;
 import com.util.ai.screenbot.input.utils.ScreenHandler;
@@ -18,22 +16,29 @@ public class InputHandlerModule extends AbstractModule {
         return new KeyboardHandler();
     }
 
-    @Provides
-    @Singleton
-    MouseHandler mouseHandler() {
-        return new MouseHandler();
-    }
+ 
+	@Provides
+	@Singleton
+	MouseHandler mouseHandler() {
+		return new MouseHandler();
+	}
+	
+	@Provides
+	@Singleton
+	ScriptEngine scriptEngine() {
+		return new ScriptEngineManager().getEngineByName("AppleScriptEngine");
+	}
 
-    @Provides
-    @Singleton
-    ScreenHandler screenHandler() {
-        return new WinScreenHandler();
-    }
+	@Inject
+	@Provides
+	@Singleton
+	ScreenHandler screenHandler(ScriptEngine engine) {
+		final Platform platform = PlatformResolver.resolveCurrentPlatform();
 
-    @Inject
-    @Provides
-    @Singleton
-    ValueBettingBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
-        return new ValueBettingBot(keyboardHandler, screenHandler);
-    }
+		switch (platform) {
+		case WINDOWS: return new WinScreenHandler();
+		case MAC: return new MacScreenHandler(engine);
+		default: throw new IllegalArgumentException(String.format("Platform %s is not known.", platform));
+		}
+	}
 }

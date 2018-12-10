@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers.keyboard;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -6,6 +6,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 
 import com.util.ai.screenbot.input.constants.InputHandlerConstants;
+import com.util.ai.screenbot.input.handlers.AbstractDeviceHandler;
 
 /**
  * @author mcop

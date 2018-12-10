@@ -13,7 +13,6 @@
 
 	<properties>
 		<tesseract.version>4.0.0-rc2-1.4.3</tesseract.version>
-		<javacv.version>1.4.3</javacv.version>
 	</properties>
 
 	<dependencies>
@@ -24,11 +23,10 @@
 			<version>${tesseract.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacv -->
 		<dependency>
-			<groupId>org.bytedeco</groupId>
-			<artifactId>javacv</artifactId>
-			<version>${javacv.version}</version>
+			<groupId>com.util.ai.screenbot</groupId>
+			<artifactId>support</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

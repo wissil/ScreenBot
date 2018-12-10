@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers;
 
 import java.awt.AWTException;
 import java.awt.Robot;

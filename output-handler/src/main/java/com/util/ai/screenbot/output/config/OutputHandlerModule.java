@@ -1,7 +1,5 @@
 package com.util.ai.screenbot.output.config;
 
-import org.bytedeco.javacv.Java2DFrameConverter;
-import org.bytedeco.javacv.LeptonicaFrameConverter;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -14,23 +12,11 @@ import com.util.ai.screenbot.output.parsing.VBPlaceBetElementParser;
 
 public class OutputHandlerModule extends AbstractModule {
 	
-	@Provides
-	@Singleton
-	Java2DFrameConverter javaConverter() {
-		return new Java2DFrameConverter();
-	}
-	
-	@Provides
-	@Singleton
-	LeptonicaFrameConverter leptonicaConverter() {
-		return new LeptonicaFrameConverter();
-	}
-	
 	@Inject
 	@Provides
 	@Singleton
-	OCR ocr(Java2DFrameConverter javaConverter, LeptonicaFrameConverter leptonicaConverter) {
-		return new OCR(javaConverter, leptonicaConverter);
+	OCR ocr() {
+		return new OCR();
 	}
 	
 	@Provides
