@@ -12,6 +12,7 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.WinScreenHandler;
+import com.util.ai.screenbot.input.logic.ValueBettingBot;
 import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.platform.PlatformResolver;
 
@@ -49,5 +50,12 @@ public class InputHandlerModule extends AbstractModule {
         default:
             throw new IllegalArgumentException(String.format("Platform %s is not known.", platform));
         }
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    ValueBettingBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
+        return new ValueBettingBot(keyboardHandler, screenHandler);
     }
 }
