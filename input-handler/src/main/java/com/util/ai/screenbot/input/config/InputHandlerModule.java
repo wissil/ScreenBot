@@ -30,12 +30,6 @@ public class InputHandlerModule extends AbstractModule {
         return new MouseHandler();
     }
 
-    @Provides
-    @Singleton
-    ScriptEngine scriptEngine() {
-        return new ScriptEngineManager().getEngineByName("AppleScriptEngine");
-    }
-
     @Inject
     @Provides
     @Singleton
@@ -46,7 +40,7 @@ public class InputHandlerModule extends AbstractModule {
         case WINDOWS:
             return new WinScreenHandler();
         case MAC:
-            return new MacScreenHandler(engine);
+            return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
         default:
             throw new IllegalArgumentException(String.format("Platform %s is not known.", platform));
         }
