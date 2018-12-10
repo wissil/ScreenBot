@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.utils;
+package com.util.ai.screenbot.input.handlers.screen;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -36,6 +36,6 @@ public abstract class ScreenHandler extends AbstractDeviceHandler {
         }
     }
 
-    public abstract ActiveWindow getActiveWindow() throws Exception;
+    public abstract ActiveWindow getActiveWindow();
 
 }

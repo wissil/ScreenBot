@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.constants.ValueBettingConstants;
 import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
-import com.util.ai.screenbot.input.utils.KeyboardHandler;
-import com.util.ai.screenbot.input.utils.ScreenHandler;
+import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
+import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 
 public class ValueBettingBot {
 
@@ -31,7 +31,7 @@ public class ValueBettingBot {
     }
 
     public Boolean isValueBettingInForeground() {
-        String currentWindowName = screenHandler.getCurrentWindowName();
+        String currentWindowName = screenHandler.getActiveWindow().getName();
         log.info("Current app: " + currentWindowName);
         return currentWindowName.trim().toLowerCase().startsWith(ValueBettingConstants.VALUE_BETTING_APP_PREFIX.toLowerCase());
 
@@ -67,7 +67,7 @@ public class ValueBettingBot {
             }
 
             // Initialize Value Betting screen dimensions
-            this.appDimensions = screenHandler.getRect();
+            this.appDimensions = screenHandler.getActiveWindow().getBounds();
 
             if (this.appDimensions == null) {
                 throw new ValueBettingAppException("Not able to determine Value Betting app screen size");
