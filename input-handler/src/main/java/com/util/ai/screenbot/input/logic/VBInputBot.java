@@ -13,9 +13,9 @@ import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 
-public class ValueBettingBot {
+public class VBInputBot {
 
-    private static final Logger log = LoggerFactory.getLogger(ValueBettingBot.class);
+    private static final Logger log = LoggerFactory.getLogger(VBInputBot.class);
 
     private final Integer MAX_NUMBER_OF_HOPS = 10;
 
@@ -25,7 +25,7 @@ public class ValueBettingBot {
 
     private Rectangle appDimensions;
 
-    public ValueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
+    public VBInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
         this.screenHandler = Objects.requireNonNull(screenHandler);
         this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
     }
