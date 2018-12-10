@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -128,6 +129,23 @@ public class VBInputBot {
 
         log.debug("Top bet exists? --> " + topBetExists);
         return topBetExists;
+    }
+
+    public BufferedImage takeTopBetScreenshot() {
+
+        // TODO - refactore this
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        Integer betX = Math.round(appDimensions.width * VBConstants.TOP_BET_CORNER_WIDTH);
+
+        Integer betY = Math.round(appDimensions.height * VBConstants.TOP_BET_UPPER_CORNER_HEIGHT);
+
+        log.debug("topBetMiddleX: " + betX);
+        log.debug("topBetMiddleY: " + betY);
+
+        return screenHandler.takeScreenshot(betX, betY, betX + Math.round(screenSize.width * VBConstants.BET_SCREENSHOT_WIDTH),
+                betY + Math.round(screenSize.height * VBConstants.BET_SCREENSHOT_HEIGHT));
+
     }
 
     private void checkIsValueBettingFullScreen() {

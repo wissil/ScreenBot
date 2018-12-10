@@ -26,7 +26,12 @@ public class RebelService {
 
         Thread.sleep(3000); // Wait for 3s for user to check
 
-        valueBettingBot.checkTopBet();
+        Boolean betExists = valueBettingBot.checkTopBet();
+
+        if (betExists) {
+            // TODO - add OCR functionality
+            valueBettingBot.takeTopBetScreenshot();
+        }
 
         while (true) {
             Thread.sleep(1000);

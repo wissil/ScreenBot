@@ -13,4 +13,8 @@ public class VBConstants {
     public static final Float TOP_BET_MIDDLE_HEIGHT = 0.112f; // 11.2% from top
 
     public static final Float TOP_BET_MIDDLE_WIDTH = 0.3f; // 30.0% from left
+
+    public static final Float BET_SCREENSHOT_WIDTH = 0.34f;
+
+    public static final Float BET_SCREENSHOT_HEIGHT = 0.02f;
 }
