@@ -47,7 +47,7 @@ public class InputHandlerModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    VBInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler) {
-        return new VBInputBot(keyboardHandler, screenHandler);
+    VBInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
+        return new VBInputBot(keyboardHandler, screenHandler, mouseHandler);
     }
 }
