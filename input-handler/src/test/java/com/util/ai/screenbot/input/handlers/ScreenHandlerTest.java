@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
@@ -35,6 +36,7 @@ public class ScreenHandlerTest extends InputHandlerTestBase {
 	}
 
 	@Test
+	@Ignore
 	@IgnoreOnPlatform(value = Platform.WINDOWS)
 	public void macTest() throws Exception {		
 		final ActiveWindow activeWindow = screenHandler.getActiveWindow();

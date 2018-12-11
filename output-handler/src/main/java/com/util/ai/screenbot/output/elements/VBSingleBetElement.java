@@ -1,6 +1,6 @@
 package com.util.ai.screenbot.output.elements;
 
-public class VBItemElement implements VBScreenElement {
+public class VBSingleBetElement implements VBScreenElement {
 
 	private final String value;
 	
@@ -14,7 +14,7 @@ public class VBItemElement implements VBScreenElement {
 	
 	private final String bookie;
 
-	public VBItemElement(String value, String stake, String participants, String outcome, String odds, String bookie) {
+	public VBSingleBetElement(String value, String stake, String participants, String outcome, String odds, String bookie) {
 		this.value = value;
 		this.stake = stake;
 		this.participants = participants;
