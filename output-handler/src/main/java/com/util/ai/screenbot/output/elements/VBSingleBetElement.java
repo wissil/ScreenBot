@@ -50,7 +50,7 @@ public class VBSingleBetElement implements VBScreenElement {
 
 	@Override
 	public String toString() {
-		return "VBItemElement [value=" + value + ", stake=" + stake + ", participants=" + participants + ", outcome="
+		return "VBSingleBetElement [value=" + value + ", stake=" + stake + ", participants=" + participants + ", outcome="
 				+ outcome + ", odds=" + odds + ", bookie=" + bookie + "]";
 	}	
 }

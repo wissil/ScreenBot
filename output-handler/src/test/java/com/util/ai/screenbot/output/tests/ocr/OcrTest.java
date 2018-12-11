@@ -41,7 +41,7 @@ public class OcrTest extends OutputHandlerTestBase {
 	@Test
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
-		final String imagePath = "./external/res/zelenilo.jpg";
+		final String imagePath = "./external/res/jakoKvalitetno-svijetlo.png";
 		final String textual = ocr.doOcr(api, imagePath);
 		System.out.println(textual);
 	}

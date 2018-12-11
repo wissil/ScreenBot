@@ -5,16 +5,15 @@ import java.awt.image.BufferedImage;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 
 import com.util.ai.screenbot.output.elements.VBOddsInputElement;
+import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.parsing.VBOddsInputElementParser;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.constants.VBScreenElementType;
 
-public class VBOddsInputInterpreter extends AbstractVBElementInterpreter<VBOddsInputElement> {
-	
-	private final VBOddsInputElementParser parser;
+public class VBOddsInputInterpreter extends AbstractVBElementInterpreter<VBOddsInputElement, VBOddsInputElementParser> {
 
-	public VBOddsInputInterpreter() {
-		this.parser = new VBOddsInputElementParser();
+	public VBOddsInputInterpreter(OCR ocr, VBOddsInputElementParser parser) {
+		super(ocr, parser);
 	}
 
 	@Override

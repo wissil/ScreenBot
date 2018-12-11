@@ -5,16 +5,15 @@ import java.awt.image.BufferedImage;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
+import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.parsing.VBSingleBetElementParser;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.constants.VBScreenElementType;
 
-public class VBSingleBetInterpreter extends AbstractVBElementInterpreter<VBSingleBetElement> {
+public class VBSingleBetInterpreter extends AbstractVBElementInterpreter<VBSingleBetElement, VBSingleBetElementParser> {
 	
-	private final VBSingleBetElementParser parser;
-
-	public VBSingleBetInterpreter() {
-		this.parser = new VBSingleBetElementParser();
+	public VBSingleBetInterpreter(OCR ocr, VBSingleBetElementParser parser) {
+		super(ocr, parser);
 	}
 
 	@Override
