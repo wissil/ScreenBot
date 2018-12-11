@@ -94,9 +94,9 @@ public class VBInputBot {
 
     public void navigateToTopBetUpperLeft() {
 
-        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
+        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
         log.debug("topBetUpperLeftX: " + betX);
         log.debug("topBetUpperLeftY: " + betY);
@@ -106,9 +106,9 @@ public class VBInputBot {
 
     public void navigateToTopBetLowerLeft() {
 
-        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
+        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
 
         log.debug("topBetLowerLeftX: " + betX);
         log.debug("topBetLowerLeftY: " + betY);
@@ -118,9 +118,9 @@ public class VBInputBot {
 
     public Boolean checkTopBet() {
 
-        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetMiddleWidth());
+        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetMiddleWidth());
 
-        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
+        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
 
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
@@ -138,9 +138,9 @@ public class VBInputBot {
 
     public BufferedImage takeTopBetScreenshot() {
 
-        Integer betX = Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
 
-        Integer betY = Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
+        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
