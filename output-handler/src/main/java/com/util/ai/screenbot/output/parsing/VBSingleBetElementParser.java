@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.util.ai.screenbot.output.elements.VBItemElement;
+import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 
-public class VBItemElementParser implements VBScreenElementParser<VBItemElement> {
+public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleBetElement> {
 
 	private static final String ANY_WHITESPACE = "\\s+";
 		
@@ -18,7 +18,7 @@ public class VBItemElementParser implements VBScreenElementParser<VBItemElement>
 	private static final int MIN_ELEMENTS = 8;
 	
 	@Override
-	public VBItemElement parse(String input) throws ScreenElementParseException {
+	public VBSingleBetElement parse(String input) throws ScreenElementParseException {
 		final String[] elements = input.split(ANY_WHITESPACE);
 		final int lastIndex = elements.length - 1;
 		
@@ -66,7 +66,7 @@ public class VBItemElementParser implements VBScreenElementParser<VBItemElement>
 		
 		final String participants = String.join(" ", participantElements);
 		
-		return new VBItemElement(value, stake, participants, outcome, odds, bookie);
+		return new VBSingleBetElement(value, stake, participants, outcome, odds, bookie);
 	}
 
 }
