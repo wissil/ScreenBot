@@ -5,9 +5,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.util.ai.screenbot.output.logic.VBElementInterpreter;
-import com.util.ai.screenbot.output.logic.VBElementInterpreterImpl;
-import com.util.ai.screenbot.output.logic.VBScreenElementParserProvider;
 import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.parsing.VBSingleBetElementParser;
 import com.util.ai.screenbot.output.parsing.VBOddsInputElementParser;
@@ -38,22 +35,5 @@ public class OutputHandlerModule extends AbstractModule {
 	@Singleton
 	VBPlaceBetElementParser placeBetParser() {
 		return new VBPlaceBetElementParser();
-	}
-	
-	@Inject
-	@Provides
-	@Singleton
-	VBScreenElementParserProvider parserProvider(
-			VBSingleBetElementParser singleBetParser,
-			VBOddsInputElementParser oddsInputParser,
-			VBPlaceBetElementParser placeBetParser) {
-		return new VBScreenElementParserProvider(oddsInputParser, placeBetParser, singleBetParser);
-	}
-	
-	@Inject
-	@Provides
-	@Singleton
-	VBElementInterpreter interpreter(OCR ocr, VBScreenElementParserProvider parserProvider) {
-		return new VBElementInterpreterImpl(ocr, parserProvider);
 	}
 }
