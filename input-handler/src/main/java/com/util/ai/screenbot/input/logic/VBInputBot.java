@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.AbstractVBConstants;
-import com.util.ai.screenbot.input.constants.VBConstants_96;
+import com.util.ai.screenbot.input.constants.VBConstants_1600x900;
 import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
@@ -44,7 +44,7 @@ public class VBInputBot {
     public Boolean isValueBettingInForeground() {
         String currentWindowName = screenHandler.getActiveWindow().getName();
         log.info("Current app: " + currentWindowName);
-        return currentWindowName.trim().toLowerCase().startsWith(VBConstants_96.VALUE_BETTING_APP_PREFIX.toLowerCase());
+        return currentWindowName.trim().toLowerCase().startsWith(VBConstants_1600x900.VALUE_BETTING_APP_PREFIX.toLowerCase());
 
     }
 

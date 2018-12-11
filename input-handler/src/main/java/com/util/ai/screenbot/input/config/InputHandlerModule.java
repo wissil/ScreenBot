@@ -7,8 +7,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.util.ai.screenbot.input.constants.AbstractVBConstants;
-import com.util.ai.screenbot.input.constants.ScreenResolution;
-import com.util.ai.screenbot.input.constants.VBConstants_96;
+import com.util.ai.screenbot.input.constants.SupportedScreenResolution;
+import com.util.ai.screenbot.input.constants.VBConstants_1600x900;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
@@ -51,11 +51,11 @@ public class InputHandlerModule extends AbstractModule {
     @Singleton
     AbstractVBConstants vbConstants() {
 
-        final ScreenResolution resolution = ScreenConfig.getScreenResolution();
+        final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 
         switch (resolution) {
-        case RESOLUTION_96:
-            return new VBConstants_96();
+        case RESOLUTION_1600x900:
+            return new VBConstants_1600x900();
         default:
             throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
         }

@@ -1,6 +1,6 @@
 package com.util.ai.screenbot.input.constants;
 
-public class VBConstants_96 extends AbstractVBConstants {
+public class VBConstants_1600x900 extends AbstractVBConstants {
 
     private static final Float TOP_BET_UPPER_CORNER_HEIGHT = 0.112f; // 10.6% from top
 

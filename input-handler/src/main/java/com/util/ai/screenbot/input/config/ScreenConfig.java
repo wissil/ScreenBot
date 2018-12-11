@@ -3,7 +3,7 @@ package com.util.ai.screenbot.input.config;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import com.util.ai.screenbot.input.constants.ScreenResolution;
+import com.util.ai.screenbot.input.constants.SupportedScreenResolution;
 
 /**
  * @author mcop
@@ -25,7 +25,7 @@ public class ScreenConfig {
         resolution = Toolkit.getDefaultToolkit().getScreenResolution();
 
         // screenCoef = width / height / (16.0 / 9.0);
-        screenCoef = 1.15;
+        screenCoef = 1.0;
         // For multi-monitor environemnts
         ////////////////////
         // GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -34,12 +34,12 @@ public class ScreenConfig {
         ////////////////////
     }
 
-    public static ScreenResolution getScreenResolution() {
-        // FIXME
-        if (resolution == 96) {
-            return ScreenResolution.RESOLUTION_96;
+    public static SupportedScreenResolution getScreenResolution() {
+
+        if (width.equals(1600.0) && height.equals(900.0)) {
+            return SupportedScreenResolution.RESOLUTION_1600x900;
         } else {
-            return null;
+            throw new IllegalStateException(String.format("Not supported resolution! Width: %s Height: %s", width, height));
         }
     }
 }
