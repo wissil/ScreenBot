@@ -32,6 +32,11 @@ public class ScreenConfig {
     }
 
     public static ScreenResolution getScreenResolution() {
-        return null; // FIXME
+        // FIXME
+        if (resolution == 96) {
+            return ScreenResolution.RESOLUTION_96;
+        } else {
+            return null;
+        }
     }
 }
