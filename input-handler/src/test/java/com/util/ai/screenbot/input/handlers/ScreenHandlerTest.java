@@ -38,7 +38,7 @@ public class ScreenHandlerTest extends InputHandlerTestBase {
 	@Test
 	@Ignore
 	@IgnoreOnPlatform(value = Platform.WINDOWS)
-	public void macTest() throws Exception {		
+	public void testGetActiveWindow_Mac() throws Exception {		
 		final ActiveWindow activeWindow = screenHandler.getActiveWindow();
 		
 		final String name = activeWindow.getName();
