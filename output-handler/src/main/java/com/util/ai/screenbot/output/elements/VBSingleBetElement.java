@@ -1,5 +1,6 @@
 package com.util.ai.screenbot.output.elements;
 
+
 public class VBSingleBetElement implements VBScreenElement {
 
 	private final String value;
