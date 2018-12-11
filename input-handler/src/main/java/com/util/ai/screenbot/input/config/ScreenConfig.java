@@ -15,6 +15,7 @@ public class ScreenConfig {
     public static Double width;
     public static Double height;
     public static Integer resolution; // Dots per inch
+    public static Double screenCoef;
 
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,6 +24,8 @@ public class ScreenConfig {
 
         resolution = Toolkit.getDefaultToolkit().getScreenResolution();
 
+        // screenCoef = width / height / (16.0 / 9.0);
+        screenCoef = 1.15;
         // For multi-monitor environemnts
         ////////////////////
         // GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();

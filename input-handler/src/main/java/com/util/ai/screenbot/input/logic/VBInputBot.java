@@ -94,10 +94,11 @@ public class VBInputBot {
 
     public void navigateToTopBetUpperLeft() {
 
-        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
         Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
+        log.debug("Coef: " + ScreenConfig.screenCoef);
         log.debug("topBetUpperLeftX: " + betX);
         log.debug("topBetUpperLeftY: " + betY);
 
@@ -106,7 +107,7 @@ public class VBInputBot {
 
     public void navigateToTopBetLowerLeft() {
 
-        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
         Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
 
@@ -118,7 +119,7 @@ public class VBInputBot {
 
     public Boolean checkTopBet() {
 
-        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetMiddleWidth());
+        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetMiddleWidth()));
 
         Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
 
@@ -138,7 +139,7 @@ public class VBInputBot {
 
     public BufferedImage takeTopBetScreenshot() {
 
-        Integer betX = appDimensions.x + Math.round(appDimensions.width * vbConstants.getTopBetCornerWidth());
+        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
         Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
