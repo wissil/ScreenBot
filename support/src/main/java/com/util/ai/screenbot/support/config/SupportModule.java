@@ -13,6 +13,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.util.ai.screenbot.support.email.EmailSender;
+import com.util.ai.screenbot.support.image.BWImageProcessor;
 
 public class SupportModule extends AbstractModule {
 	
@@ -40,5 +41,11 @@ public class SupportModule extends AbstractModule {
 	EmailSender emailSender(
 			@Named("mail-properties") Properties emailPropertis) {
 		return new EmailSender(emailPropertis);
+	}
+	
+	@Singleton
+	@Provides
+	BWImageProcessor bwImageProcessor() {
+		return new BWImageProcessor();
 	}
 }
