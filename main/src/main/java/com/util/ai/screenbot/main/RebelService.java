@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.logic.VBInputBot;
+import com.util.ai.screenbot.input.utils.DiskUtils;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.logic.VBOutputInterpreter;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
@@ -45,6 +46,8 @@ public class RebelService {
         if (betExists) {
 
             BufferedImage topBetScreenShot = valueBettingBot.takeTopBetScreenshot();
+            DiskUtils.saveBetToDisk(topBetScreenShot); // For debug purposes
+
             VBSingleBetElement singleBetElement = null;
             try {
 
