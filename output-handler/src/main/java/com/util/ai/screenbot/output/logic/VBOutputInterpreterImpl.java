@@ -12,8 +12,9 @@ import com.util.ai.screenbot.output.interpreters.VBOddsInputInterpreter;
 import com.util.ai.screenbot.output.interpreters.VBPlaceBetInterpreter;
 import com.util.ai.screenbot.output.interpreters.VBSingleBetInterpreter;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
+import com.util.ai.screenbot.support.image.ImageProcessor;
 
-public class VBOutputInterpreterImpl implements VBOutputInterpreter {
+public class VBOutputInterpreterImpl extends VBOutputInterpreter {
 	
 	private final VBOddsInputInterpreter oddsInputInterpreter;
 	
@@ -22,26 +23,28 @@ public class VBOutputInterpreterImpl implements VBOutputInterpreter {
 	private final VBSingleBetInterpreter singleBetInterpreter;
 	
 	public VBOutputInterpreterImpl(
+			ImageProcessor processor,
 			VBOddsInputInterpreter oddsInputInterpreter,
 			VBPlaceBetInterpreter placeBetInterpreter,
 			VBSingleBetInterpreter singleBetInterpreter) {
+		super(processor);
 		this.oddsInputInterpreter = Objects.requireNonNull(oddsInputInterpreter);
 		this.placeBetInterpreter = Objects.requireNonNull(placeBetInterpreter);
 		this.singleBetInterpreter = Objects.requireNonNull(singleBetInterpreter);
 	}
 
 	@Override
-	public VBOddsInputElement interpretOddsInput(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
+	protected VBOddsInputElement _interpretOddsInput(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
 		return oddsInputInterpreter.interpret(tesseract, image);
 	}
 
 	@Override
-	public VBPlaceBetElement interpretPlaceBet(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
+	protected VBPlaceBetElement _interpretPlaceBet(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
 		return placeBetInterpreter.interpret(tesseract, image);
 	}
 
 	@Override
-	public VBSingleBetElement interpretSingleBet(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
+	protected VBSingleBetElement _interpretSingleBet(TessBaseAPI tesseract, BufferedImage image) throws VBElementInterpretationException {
 		return singleBetInterpreter.interpret(tesseract, image);
 	}
 
