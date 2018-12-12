@@ -46,25 +46,25 @@ public class OcrTest extends OutputHandlerTestBase {
 		final String textual = ocr.doOcr(api, inputFile);
 		System.out.println(textual);
 	}
-		
-		@Test
-		@TimedExecution
-		public void ocrFromBufferedImage_SingleFile_Test() throws IOException {
-			final String textual = ocr.doOcr(api, bImage);
-			System.out.println(textual);
-		}
-		
-		@Test
-		@Ignore
-		public void interpretMultipleImagesTest() throws IOException {
-			String imagePath = "./external/res/t1.png";
-			String textual = ocr.doOcr(api, imagePath);
-			System.out.println(textual);
-			
-			imagePath = "./external/res/test2.jpg";
-			textual = ocr.doOcr(api, imagePath);
-			System.out.println(textual);
-		}
+
+	@Test
+	@TimedExecution
+	public void ocrFromBufferedImage_SingleFile_Test() throws IOException {
+		final String textual = ocr.doOcr(api, bImage);
+		System.out.println(textual);
+	}
+
+	@Test
+	@Ignore
+	public void interpretMultipleImagesTest() throws IOException {
+		String imagePath = "./external/res/t1.png";
+		String textual = ocr.doOcr(api, imagePath);
+		System.out.println(textual);
+
+		imagePath = "./external/res/test2.jpg";
+		textual = ocr.doOcr(api, imagePath);
+		System.out.println(textual);
+	}
 
 	@AfterClass
 	public static void after() {
