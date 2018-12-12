@@ -1,16 +1,27 @@
 package com.util.ai.screenbot.main;
 
+import java.awt.image.BufferedImage;
+
+import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.logic.VBInputBot;
+import com.util.ai.screenbot.output.elements.VBSingleBetElement;
+import com.util.ai.screenbot.output.logic.VBOutputInterpreter;
+import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 
 public class RebelService {
 
     @Inject
     private VBInputBot valueBettingBot;
+
+    @Inject
+    private VBOutputInterpreter vBOutputInterpreter;
+
+    private TessBaseAPI tesseract;
 
     private static final Logger log = LoggerFactory.getLogger(RebelService.class);
 
@@ -32,8 +43,19 @@ public class RebelService {
         Boolean betExists = valueBettingBot.checkTopBet();
 
         if (betExists) {
-            // TODO - add OCR functionality
-            valueBettingBot.takeTopBetScreenshot();
+
+            BufferedImage topBetScreenShot = valueBettingBot.takeTopBetScreenshot();
+            VBSingleBetElement singleBetElement = null;
+            try {
+
+                singleBetElement = vBOutputInterpreter.interpretSingleBet(tesseract, topBetScreenShot);
+            } catch (VBElementInterpretationException e) {
+
+                // FIXME
+                e.printStackTrace();
+            }
+
+            System.out.println("Top bet: " + singleBetElement.toString());
         }
 
         while (true) {
@@ -41,4 +63,9 @@ public class RebelService {
             log.debug("Running ...");
         }
     }
+
+    public void setTessBaseAPI(TessBaseAPI tesseract) {
+        this.tesseract = tesseract;
+    }
+
 }

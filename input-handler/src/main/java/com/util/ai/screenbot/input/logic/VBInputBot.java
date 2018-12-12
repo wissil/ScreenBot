@@ -5,7 +5,13 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,8 +152,23 @@ public class VBInputBot {
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
 
-        return screenHandler.takeScreenshot(betX, betY, betX + (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
-                betY + (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
+        BufferedImage image = screenHandler.takeScreenshot(betX, betY, (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
+                (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
+
+        // For debug purposes only
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        File outputDir = new File("./external/output/");
+        if (!outputDir.exists()) {
+            outputDir.mkdirs();
+        }
+        try {
+            ImageIO.write(image, "png", new File(outputDir, dt.format(new Date()) + ".png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return image;
 
     }
 
