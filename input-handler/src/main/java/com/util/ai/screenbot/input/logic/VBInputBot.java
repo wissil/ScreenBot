@@ -146,8 +146,10 @@ public class VBInputBot {
         log.debug("topBetMiddleX: " + betX);
         log.debug("topBetMiddleY: " + betY);
 
-        return screenHandler.takeScreenshot(betX, betY, betX + (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
-                betY + (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
+        BufferedImage image = screenHandler.takeScreenshot(betX, betY, (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
+                (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
+
+        return image;
 
     }
 
