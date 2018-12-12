@@ -6,7 +6,7 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
 
     private static final Float TOP_BET_LOWER_CORNER_HEIGHT = 0.132f; // 12.6% from top
 
-    private static final Float TOP_BET_CORNER_WIDTH = 0.1845f; // 18.45% from left
+    private static final Float TOP_BET_CORNER_WIDTH = 0.195f; // 18.45% from left
 
     private static final Float TOP_BET_MIDDLE_HEIGHT = 0.121f; // 11.2% from top
 
