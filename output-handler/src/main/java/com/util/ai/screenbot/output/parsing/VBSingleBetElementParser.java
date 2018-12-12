@@ -1,70 +1,44 @@
 package com.util.ai.screenbot.output.parsing;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 
 public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleBetElement> {
-
-	private static final String ANY_WHITESPACE = "\\s+";
-		
-	/*
-	 * value, stake, [starts in, ...], [participants, ...], type,
-	 * coef, @, bookie
-	 */
-	private static final int MIN_ELEMENTS = 8;
+	
+	private static final Pattern PATTERN_SINGLE_BET = Pattern.compile(
+			"([0-9]+\\.*[0-9]+)%"
+			+ "[ \\t]*"
+			+ "([0-9]+)"
+			+ "[ \\t]+"
+			+ "([0-9]+[ \\t]*(?:hour|hours|min)[ \\t]*(?:[0-9]+[ \\t]*min)?)"
+			+ "[ \\t]+"
+			+ "([a-zA-Z].*)"
+			+ "[ \\t]+"
+			+ "([A-Z]+[0-9]*\\(-*[0-9]+(?:\\.[0-9]+)?\\))"
+			+ "[ \\t]*"
+			+ "([0-9]+(?:\\.[0-9]+)?)"
+			+ "[ \\t]*"
+			+ "@"
+			+ "[ \\t]*"
+			+ "(.+)");
 	
 	@Override
 	public VBSingleBetElement parse(String input) throws ScreenElementParseException {
-		final String[] elements = input.split(ANY_WHITESPACE);
-		final int lastIndex = elements.length - 1;
-		
-		if (elements.length < MIN_ELEMENTS) {
+		final Matcher matcher = PATTERN_SINGLE_BET.matcher(input.trim());
+		if (!matcher.matches()) {
 			throw new ScreenElementParseException(
-					String.format("Illegal number of elements: %d in %s.", 
-							elements.length, Arrays.toString(elements)));
+					String.format("Input %s doesn't correspond to the SINGLE_BET pattern.", input.trim()));
 		}
 		
-		// first element: value
-		String value = elements[0];
-		if (!value.contains("%")) {
-			throw new ScreenElementParseException(
-					String.format("Value element %s didn't contain percentage symbol [%].", value));
-		}
-		
-		// remove the % symbol
-		value = value.substring(0, value.length()-1);
-		
-		// second element: stake
-		final String stake = elements[1];
-		
-		if (!elements[lastIndex-1].equals("@")) {
-			throw new ScreenElementParseException("The element before last should be a symbol: @.");
-		}
-		
-		// last element: bookie
-		final String bookie = elements[lastIndex];
-		final String odds = elements[lastIndex-2];
-		final String outcome = elements[lastIndex-3];
-		
-		final List<String> participantElements = new ArrayList<>();
-		
-		for (int i=2, n=lastIndex-3; i<n; i++) {
-			final String current = elements[i];
-			
-			// ignore time labels
-			if (current.contains("hour") || current.contains("min")) {
-				continue;
-			}
-			
-			// participant element
-			participantElements.add(current);
-		}
-		
-		final String participants = String.join(" ", participantElements);
+		final String value = matcher.group(1);
+		final String stake = matcher.group(2);
+		final String participants = matcher.group(4);
+		final String outcome = matcher.group(5);
+		final String odds = matcher.group(6);
+		final String bookie = matcher.group(7);
 		
 		return new VBSingleBetElement(value, stake, participants, outcome, odds, bookie);
 	}

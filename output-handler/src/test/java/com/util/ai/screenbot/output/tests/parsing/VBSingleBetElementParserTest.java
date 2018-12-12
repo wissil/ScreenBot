@@ -10,10 +10,10 @@ import com.util.ai.screenbot.output.parsing.VBSingleBetElementParser;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 
-public class VBItemElementParserTest extends OutputHandlerTestBase {
+public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 
 	private static final String input = 
-			"6.7% 2 1hour 53min  Tsen Tou vs Neftyanik Almetievsk AH1(1) 2.22 @ Marathonbet";
+			"6.7% 2 1hour 53min  Tsen Tou vs Neftyanik Almetievsk AH1(1) 2.22@Marathonbet";
 	
 	@Inject
 	private VBSingleBetElementParser parser;
