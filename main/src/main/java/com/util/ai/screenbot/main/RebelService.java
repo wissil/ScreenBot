@@ -55,6 +55,9 @@ public class RebelService {
             } catch (VBElementInterpretationException e) {
 
                 // FIXME
+                // Log the error
+                // Send an email
+                // Remove bet from betting list
                 e.printStackTrace();
             }
 
