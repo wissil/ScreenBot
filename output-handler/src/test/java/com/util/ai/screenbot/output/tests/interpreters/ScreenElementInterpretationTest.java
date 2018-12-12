@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -49,11 +48,5 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		final BufferedImage image = ImageIO.read(new File("./external/res/t1.png"));
 		VBOddsInputElement element = interpreter.interpretOddsInput(tesseract, image);
 		System.out.println(element);
-	}
-	
-	@AfterClass
-	public static void after() {
-		// close API
-		TesseractAPI.destroyTesseract(tesseract);
 	}
 }

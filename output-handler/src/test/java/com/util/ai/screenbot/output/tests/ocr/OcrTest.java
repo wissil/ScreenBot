@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -42,7 +41,7 @@ public class OcrTest extends OutputHandlerTestBase {
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final BufferedImage inputFile = 
-				ImageIO.read(new File("./external/res/jakoKvalitetno-kliknuto.png"));
+				ImageIO.read(new File("./external/res/somePh.png"));
 		final String textual = ocr.doOcr(api, inputFile);
 		System.out.println(textual);
 	}
@@ -64,11 +63,5 @@ public class OcrTest extends OutputHandlerTestBase {
 		imagePath = "./external/res/test2.jpg";
 		textual = ocr.doOcr(api, imagePath);
 		System.out.println(textual);
-	}
-
-	@AfterClass
-	public static void after() {
-		// close API
-		TesseractAPI.destroyTesseract(api);
 	}
 }
