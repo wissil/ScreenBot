@@ -40,7 +40,6 @@ public class App {
         }));
 
         final RebelService rebel = injector.getInstance(RebelService.class);
-        rebel.setTessBaseAPI(tesseract);
 
         log.info("Starting the service ...");
         rebel.run();

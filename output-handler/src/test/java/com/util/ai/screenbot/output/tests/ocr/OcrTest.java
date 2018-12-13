@@ -41,7 +41,7 @@ public class OcrTest extends OutputHandlerTestBase {
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final BufferedImage inputFile = 
-				ImageIO.read(new File("./external/res/somePh.png"));
+				ImageIO.read(new File("./external/res/jakoKvalitetno-kliknuto.png"));
 		final String textual = ocr.doOcr(api, inputFile);
 		System.out.println(textual);
 	}
