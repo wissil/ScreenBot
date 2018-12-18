@@ -18,4 +18,8 @@ public abstract class AbstractVBConstants {
 
     public abstract Float getBetScreenshotHeight();
 
+    public abstract Float getRemoveBetMouseMovementHeight();
+
+    public abstract Float getRemoveBetMouseMovementWidth();
+
 }

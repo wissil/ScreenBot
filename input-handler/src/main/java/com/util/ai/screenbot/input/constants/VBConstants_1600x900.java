@@ -16,6 +16,10 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
 
     private static final Float BET_SCREENSHOT_HEIGHT = 0.02f; // 2% down from left upper corner
 
+    private static final Float REMOVE_BET_MOUSE_MOVEMENT_HEIGHT = 0.02f; // 2% down from middle of top bet
+
+    private static final Float REMOVE_BET_MOUSE_MOVEMENT_WIDTH = 0.1f; // 1% right from top bet
+
     @Override
     public Float getTopBetLowerCornerHeight() {
 
@@ -57,4 +61,16 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
 
         return BET_SCREENSHOT_HEIGHT;
     }
+
+    @Override
+    public Float getRemoveBetMouseMovementHeight() {
+
+        return REMOVE_BET_MOUSE_MOVEMENT_HEIGHT;
+    }
+
+    @Override
+    public Float getRemoveBetMouseMovementWidth() {
+        return REMOVE_BET_MOUSE_MOVEMENT_WIDTH;
+    }
+
 }

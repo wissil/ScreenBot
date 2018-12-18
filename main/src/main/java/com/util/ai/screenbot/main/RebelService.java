@@ -41,6 +41,10 @@ public class RebelService {
 
         Thread.sleep(3000); // Wait for 3s for user to check
 
+        valueBettingBot.removeTopBet();
+
+        Thread.sleep(15000);
+
         Boolean betExists = valueBettingBot.checkTopBet();
 
         if (betExists) {
