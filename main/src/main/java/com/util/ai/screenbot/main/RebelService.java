@@ -3,6 +3,9 @@ package com.util.ai.screenbot.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.main.automata.VBStateMachine;
+import com.util.ai.screenbot.main.automata.VBStateMachineMock;
+
 
 public class RebelService {
 
@@ -10,11 +13,9 @@ public class RebelService {
 
     public void run() throws InterruptedException {
         log.info("Service started successfully!");
-
-        while (true) {
-            Thread.sleep(1000);
-            log.debug("Running ...");
-        }
+        final VBStateMachine machine = new VBStateMachineMock();
+        
+        machine.run();
     }
 
 }
