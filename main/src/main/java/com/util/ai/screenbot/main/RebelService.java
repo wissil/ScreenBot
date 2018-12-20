@@ -31,7 +31,7 @@ public class RebelService {
 
         log.debug("Screen resolution: " + ScreenConfig.resolution);
 
-        valueBettingBot.initialize();
+        valueBettingBot.initializeValueBetting();
 
         valueBettingBot.navigateToTopBetUpperLeft();
 
@@ -66,6 +66,10 @@ public class RebelService {
             }
 
             System.out.println("Top bet: " + singleBetElement.toString());
+
+            valueBettingBot.betOnTopBet();
+
+            valueBettingBot.initializeBettingBrowser();
         }
 
         while (true) {

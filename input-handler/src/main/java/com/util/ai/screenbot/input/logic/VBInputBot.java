@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.AbstractVBConstants;
-import com.util.ai.screenbot.input.constants.VBConstants_1600x900;
 import com.util.ai.screenbot.input.exceptions.ValueBettingAppException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
@@ -36,6 +35,8 @@ public class VBInputBot {
 
     private Rectangle appDimensions;
 
+    private Rectangle browserDimensions;
+
     public VBInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
         this.screenHandler = Objects.requireNonNull(screenHandler);
         this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
@@ -43,23 +44,23 @@ public class VBInputBot {
         this.vbConstants = Objects.requireNonNull(vbConstants);
     }
 
-    public Boolean isValueBettingInForeground() {
+    public Boolean isWindowInForeground(String windowName) {
         String currentWindowName = screenHandler.getActiveWindow().getName();
         log.info("Current app: " + currentWindowName);
-        return currentWindowName.trim().toLowerCase().startsWith(VBConstants_1600x900.VALUE_BETTING_APP_PREFIX.toLowerCase());
+        return currentWindowName.trim().toLowerCase().startsWith(windowName.toLowerCase());
 
     }
 
-    public void initialize() {
+    private void initialize(String windowName) {
 
         // If Value Betting is in the foreground do nothing
-        if (!isValueBettingInForeground()) {
+        if (!isWindowInForeground(windowName)) {
 
             Integer numberOfHops = 1;
 
             // While Value Betting is NOT the foreground app and number of switches is lower than max allowed, switch the active
             // app
-            while (!isValueBettingInForeground() && numberOfHops <= MAX_NUMBER_OF_HOPS) {
+            while (!isWindowInForeground(windowName) && numberOfHops <= MAX_NUMBER_OF_HOPS) {
 
                 log.info("Switching current app...");
 
@@ -75,23 +76,41 @@ public class VBInputBot {
             }
 
             // If Value Betting is still NOT the foreground app throw the exception
-            if (!isValueBettingInForeground()) {
+            if (!isWindowInForeground(windowName)) {
                 throw new ValueBettingAppException("Value Betting is not started");
             }
 
-            // Initialize Value Betting screen dimensions
-            this.appDimensions = screenHandler.getActiveWindow().getBounds();
-
-            log.debug("VB width: " + appDimensions.width);
-            log.debug("VB height: " + appDimensions.height);
-
-            if (this.appDimensions == null) {
-                throw new ValueBettingAppException("Not able to determine Value Betting app screen size");
-            }
-
-            // App works only if Value Betting is full screened
-            checkIsValueBettingFullScreen();
         }
+    }
+
+    private Rectangle checkScreen() {
+        Rectangle screen = screenHandler.getActiveWindow().getBounds();
+
+        log.debug("VB width: " + appDimensions.width);
+        log.debug("VB height: " + appDimensions.height);
+
+        if (this.appDimensions == null) {
+            throw new ValueBettingAppException("Not able to determine Value Betting app screen size");
+        }
+
+        // App works only if Value Betting window is full screened
+        checkIsWindowFullScreen();
+
+        return screen;
+    }
+
+    public void initializeValueBetting() {
+        initialize(AbstractVBConstants.VALUE_BETTING_APP_PREFIX);
+
+        // Initialize Value Betting screen dimensions
+        this.appDimensions = checkScreen();
+    }
+
+    public void initializeBettingBrowser() {
+        initialize(AbstractVBConstants.VALUE_BETTING_BROWSER_PREFIX);
+
+        // Initialize Betting Browser screen dimensions
+        this.browserDimensions = checkScreen();
     }
 
     public void navigateToTopBetUpperLeft() {
@@ -136,7 +155,25 @@ public class VBInputBot {
     }
 
     /**
-     * Place mouse cursor in the middle of top bet. Move it a bit lower and then right. Left click afterwards.
+     * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
+     */
+    public void betOnTopBet() {
+        BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+
+        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+        mouseHandler.leftClick();
+
+        mouseHandler.rightClick();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            // Do nothing
+        }
+        mouseHandler.leftClick();
+    }
+
+    /**
+     * Place mouse cursor in the middle of top bet. Right click. Move it a bit lower and then right. Left click afterwards.
      */
     public void removeTopBet() {
 
@@ -198,7 +235,7 @@ public class VBInputBot {
         return new BetCoordinates(betX, betY);
     }
 
-    private void checkIsValueBettingFullScreen() {
+    private void checkIsWindowFullScreen() {
 
         // If full screen Value Betting app screen width should not be lower than monitor screen width
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
