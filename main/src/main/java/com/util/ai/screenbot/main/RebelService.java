@@ -31,7 +31,7 @@ public class RebelService {
 
         log.debug("Screen resolution: " + ScreenConfig.resolution);
 
-        valueBettingBot.initialize();
+        valueBettingBot.initializeValueBetting();
 
         valueBettingBot.navigateToTopBetUpperLeft();
 
@@ -40,6 +40,10 @@ public class RebelService {
         valueBettingBot.navigateToTopBetLowerLeft();
 
         Thread.sleep(3000); // Wait for 3s for user to check
+
+        valueBettingBot.removeTopBet();
+
+        Thread.sleep(15000);
 
         Boolean betExists = valueBettingBot.checkTopBet();
 
@@ -62,6 +66,10 @@ public class RebelService {
             }
 
             System.out.println("Top bet: " + singleBetElement.toString());
+
+            valueBettingBot.betOnTopBet();
+
+            valueBettingBot.initializeBettingBrowser();
         }
 
         while (true) {

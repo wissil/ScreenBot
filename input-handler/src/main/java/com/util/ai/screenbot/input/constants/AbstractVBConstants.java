@@ -4,6 +4,8 @@ public abstract class AbstractVBConstants {
 
     public static final String VALUE_BETTING_APP_PREFIX = "ValueBetting";
 
+    public static final String VALUE_BETTING_BROWSER_PREFIX = "Betting Browser";
+
     public abstract Float getTopBetLowerCornerHeight();
 
     public abstract Float getTopBetUpperCornerHeight();
@@ -17,5 +19,9 @@ public abstract class AbstractVBConstants {
     public abstract Float getBetScreenshotWidth();
 
     public abstract Float getBetScreenshotHeight();
+
+    public abstract Float getRemoveBetMouseMovementHeight();
+
+    public abstract Float getRemoveBetMouseMovementWidth();
 
 }
