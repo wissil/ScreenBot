@@ -86,15 +86,11 @@ public class VBInputBot {
     private Rectangle checkScreen() {
         Rectangle screen = screenHandler.getActiveWindow().getBounds();
 
-        log.debug("VB width: " + appDimensions.width);
-        log.debug("VB height: " + appDimensions.height);
-
-        if (this.appDimensions == null) {
-            throw new ValueBettingAppException("Not able to determine Value Betting app screen size");
-        }
+        log.debug("VB screen width: " + screen.width);
+        log.debug("VB screen height: " + screen.height);
 
         // App works only if Value Betting window is full screened
-        checkIsWindowFullScreen();
+        checkIsWindowFullScreen(screen);
 
         return screen;
     }
@@ -235,12 +231,12 @@ public class VBInputBot {
         return new BetCoordinates(betX, betY);
     }
 
-    private void checkIsWindowFullScreen() {
+    private void checkIsWindowFullScreen(Rectangle screen) {
 
         // If full screen Value Betting app screen width should not be lower than monitor screen width
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         log.debug("Screen width:" + screenSize.getWidth());
-        if (this.appDimensions.getWidth() < screenSize.getWidth()) {
+        if (screen.getWidth() < screenSize.getWidth()) {
             throw new ValueBettingAppException("Value Betting app should be started in full screen");
         }
     }
