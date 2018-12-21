@@ -20,10 +20,10 @@ public class BWImageProcessorTest extends SupportTestBase {
 	@Test
 	public void negativeTest() throws IOException {
 		BufferedImage image = 
-				ImageIO.read(new File("./external/res/jakoKvalitetno-kliknuto.png"));
+				ImageIO.read(new File("./external/res/bilo1.png"));
 		
 		image = processor.process(image, Boolean.TRUE);
 
-		ImageIO.write(image, "png", new File("./external/output/klik_o1.png"));
+		ImageIO.write(image, "png", new File("./external/output/bilo_o1.png"));
 	}
 }

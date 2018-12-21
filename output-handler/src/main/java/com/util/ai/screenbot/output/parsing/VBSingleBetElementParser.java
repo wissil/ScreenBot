@@ -17,7 +17,7 @@ public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleB
 			+ "[ \\t]+"
 			+ "([a-zA-Z].*)"
 			+ "[ \\t]+"
-			+ "([A-Z]+[0-9]*\\(-*[0-9]+(?:\\.[0-9]+)?\\))"
+			+ "((?:[A-Z]+[0-9]*\\(-*[0-9]+(?:\\.[0-9]+)?\\))|(?:[0-9]+))"
 			+ "[ \\t]*"
 			+ "([0-9]+(?:\\.[0-9]+)?)"
 			+ "[ \\t]*"

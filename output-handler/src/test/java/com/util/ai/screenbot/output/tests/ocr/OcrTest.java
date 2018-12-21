@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.ocr.TesseractAPI;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
+import com.util.ai.screenbot.support.image.BWImageProcessor;
 import com.util.ai.screenbot.support.testing.time.TimedExecution;
 
 public class OcrTest extends OutputHandlerTestBase {
@@ -25,6 +26,9 @@ public class OcrTest extends OutputHandlerTestBase {
 
 	@Inject
 	private OCR ocr;
+	
+	@Inject
+	private BWImageProcessor imageProcessor;
 
 	private static TessBaseAPI api;
 
@@ -41,9 +45,13 @@ public class OcrTest extends OutputHandlerTestBase {
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final BufferedImage inputFile = 
-				ImageIO.read(new File("./external/res/jakoKvalitetno-kliknuto.png"));
+				ImageIO.read(new File("./external/res/bilo1.png"));
 		final String textual = ocr.doOcr(api, inputFile);
 		System.out.println(textual);
+		
+		BufferedImage inputAfter = imageProcessor.process(inputFile, Boolean.TRUE);
+		final String textualAfter = ocr.doOcr(api, inputAfter);
+		System.out.println(textualAfter);
 	}
 
 	@Test

@@ -38,7 +38,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void singleBetElementTest() throws VBElementInterpretationException, IOException {
-		final BufferedImage image = ImageIO.read(new File("./external/res/jakoKvalitetno-kliknuto.png"));
+		final BufferedImage image = ImageIO.read(new File("./external/res/bilo1.png"));
 		VBSingleBetElement element = interpreter.interpretSingleBet(tesseract, image);
 		System.out.println(element);
 	}

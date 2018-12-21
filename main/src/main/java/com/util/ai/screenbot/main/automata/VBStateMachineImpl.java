@@ -16,7 +16,7 @@ public class VBStateMachineImpl extends VBStateMachine {
 
 	@Override
 	public void logBet() throws InterruptedException {
-		new LogBetState().process();
+		// TODO: excel table
 	}
 
 	@Override
