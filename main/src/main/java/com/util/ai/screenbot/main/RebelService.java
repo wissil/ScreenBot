@@ -70,6 +70,8 @@ public class RebelService {
             valueBettingBot.betOnTopBet();
 
             valueBettingBot.initializeBettingBrowser();
+
+            valueBettingBot.takeOddsScreenshot();
         }
 
         while (true) {

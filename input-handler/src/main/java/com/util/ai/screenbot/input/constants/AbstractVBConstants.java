@@ -24,4 +24,8 @@ public abstract class AbstractVBConstants {
 
     public abstract Float getRemoveBetMouseMovementWidth();
 
+    public abstract Float getOddsInfoHeight();
+
+    public abstract Float getInfoWidth();
+
 }

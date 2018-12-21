@@ -150,6 +150,24 @@ public class VBInputBot {
 
     }
 
+    public BufferedImage takeOddsScreenshot() {
+        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getInfoWidth()));
+
+        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getOddsInfoHeight());
+
+        mouseHandler.moveMouse(betX, betY);
+
+        return null;
+    }
+
+    public BufferedImage takeStakeScreenshot() {
+        return null;
+    }
+
+    public BufferedImage takeValueScreenshot() {
+        return null;
+    }
+
     /**
      * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
      */
