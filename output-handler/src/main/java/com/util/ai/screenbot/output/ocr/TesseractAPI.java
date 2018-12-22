@@ -26,10 +26,10 @@ public class TesseractAPI {
 	 * Destroys the singleton instance of {@link TessBaseAPI}.
 	 * This method should be called only once on the program finish.
 	 */
-	public static void destroyTesseract(TessBaseAPI tesseract) {
-		if (tesseract != null) {
-			tesseract.End();
-			tesseract.close();
+	public static void destroyTesseract() {
+		if (instance != null) {
+			instance.End();
+			instance.close();
 		}
 	}
 	

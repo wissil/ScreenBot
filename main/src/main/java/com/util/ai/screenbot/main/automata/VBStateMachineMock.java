@@ -3,9 +3,16 @@ package com.util.ai.screenbot.main.automata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.main.handlers.input.InputHandler;
+import com.util.ai.screenbot.main.handlers.output.OutputHandler;
+
 public class VBStateMachineMock extends VBStateMachine {
 	
-    private static final Logger log = LoggerFactory.getLogger(VBStateMachineMock.class);
+    public VBStateMachineMock(InputHandler in, OutputHandler out) {
+		super(in, out);
+	}
+
+	private static final Logger log = LoggerFactory.getLogger(VBStateMachineMock.class);
 
     @Override
 	public void cleanBet() throws InterruptedException {

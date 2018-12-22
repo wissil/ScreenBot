@@ -1,5 +1,9 @@
 package com.util.ai.screenbot.main.automata;
 
+import java.util.Objects;
+
+import com.util.ai.screenbot.main.handlers.input.InputHandler;
+import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 
 public abstract class VBStateMachine {
 		
@@ -15,10 +19,16 @@ public abstract class VBStateMachine {
 //	PROCESS_BET --> (parse_element: fail) --> CLEAN_BET
 //	CLEAN_BET --> IDLE
 //	LOG_BET --> IDLE
+	
+    InputHandler in;
+    
+    OutputHandler out;
 
 	private VBState currentState;
 	
-	public VBStateMachine() {
+	public VBStateMachine(InputHandler in, OutputHandler out) {
+		this.in = Objects.requireNonNull(in);
+		this.out = Objects.requireNonNull(out);
 		this.currentState = VBState.INIT;
 	}
 	
@@ -62,17 +72,17 @@ public abstract class VBStateMachine {
 		}
 	}
 	
-	public abstract void cleanBet() throws InterruptedException;
+	abstract void cleanBet() throws InterruptedException;
 
-	public abstract void logBet() throws InterruptedException;
+	abstract void logBet() throws InterruptedException;
 
 	public abstract void placeBet() throws InterruptedException;
 
-	public abstract boolean parseBet() throws InterruptedException;
+	abstract boolean parseBet() throws InterruptedException;
 
-	public abstract boolean idle() throws InterruptedException;
+	abstract boolean idle() throws InterruptedException;
 
-	public abstract void init() throws InterruptedException;
+	abstract void init() throws InterruptedException;
 
 	private void goTo(VBState newState) {
 		this.currentState = newState;

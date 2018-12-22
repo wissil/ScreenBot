@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.util.ai.screenbot.input.constants.AbstractVBConstants;
+import com.util.ai.screenbot.input.constants.DefaultVBConstants;
 import com.util.ai.screenbot.input.constants.SupportedScreenResolution;
 import com.util.ai.screenbot.input.constants.VBConstants_1600x900;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
@@ -19,6 +20,9 @@ import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.platform.PlatformResolver;
 
 public class InputHandlerModule extends AbstractModule {
+	
+    private static final Platform PLATFORM = 
+    			PlatformResolver.resolveCurrentPlatform();
 
     @Provides
     @Singleton
@@ -35,21 +39,20 @@ public class InputHandlerModule extends AbstractModule {
     @Provides
     @Singleton
     ScreenHandler screenHandler() {
-        final Platform platform = PlatformResolver.resolveCurrentPlatform();
-
-        switch (platform) {
+        switch (PLATFORM) {
         case WINDOWS:
             return new WinScreenHandler();
         case MAC:
             return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
         default:
-            throw new IllegalArgumentException(String.format("Platform %s is not known.", platform));
+            throw new IllegalArgumentException(String.format("Platform %s is not known.", PLATFORM));
         }
     }
 
     @Provides
     @Singleton
     AbstractVBConstants vbConstants() {
+        if (PLATFORM.equals(Platform.MAC)) return new DefaultVBConstants();
 
         final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 

@@ -1,6 +1,13 @@
 package com.util.ai.screenbot.main.automata.states;
 
+
 public class PlaceBetState extends VBState {
+	
+//	private final VBPlaceBetElement element;
+//	
+//	public PlaceBetState(VBPlaceBetElement element) {
+//		this.element = Objects.requireNonNull(element);
+//	}
 
 	@Override
 	void onEnter() {
