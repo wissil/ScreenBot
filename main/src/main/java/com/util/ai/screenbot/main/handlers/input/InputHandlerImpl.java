@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import com.util.ai.screenbot.input.logic.VBInputBot;
+import com.util.ai.screenbot.main.bookie.Bookie;
 
 public class InputHandlerImpl implements InputHandler {
 	
@@ -24,6 +25,31 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
+	public void openBettingBrowserWindow() {
+		inputBot.initializeBettingBrowser();
+	}
+
+	@Override
+	public void openMainWindow() {
+		inputBot.initializeValueBetting();
+	}
+
+	@Override
+	public void removeTopBet() {
+		inputBot.removeTopBet();
+	}
+
+	@Override
+	public void placeBet(Bookie bookie) {
+		bookie.getHandler().placeBet();
+	}
+
+	@Override
+	public void removeBet(Bookie bookie) {
+		bookie.getHandler().removeBet();
+	}
+	
+	@Override
 	public BufferedImage getPlaceBetImage() {
 		// TODO Auto-generated method stub
 		return null;
@@ -33,6 +59,16 @@ public class InputHandlerImpl implements InputHandler {
 	public BufferedImage getOddsInputImage() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void clickOKAtBettingBrowser() {
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void clickCancelAtBettingBrowser() {
+		// TODO Auto-generated method stub	
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.main.bookie.Bookie;
+import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.output.elements.VBOddsInputElement;
@@ -14,7 +16,9 @@ import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.email.EmailSender;
 
-public class VBStateMachineImpl {
+import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
+
+public class VBStateMachineImpl implements VBStateMachine {
 	
     private static final Logger log = LoggerFactory.getLogger(VBStateMachineImpl.class);
 	
@@ -33,6 +37,11 @@ public class VBStateMachineImpl {
 		this.out = Objects.requireNonNull(out);
 		this.email = Objects.requireNonNull(email);
 	}
+	
+	@Override
+	public void run() throws InterruptedException {
+		idle();
+	}
 
 	public void cleanBet() throws InterruptedException {
 		log.debug("Enter state: CLEAN_BET ...");
@@ -48,6 +57,9 @@ public class VBStateMachineImpl {
 	public void placeBet(VBSingleBetElement element) throws InterruptedException {
 		log.debug("Enter state: PLACE_BET ...");
 		
+		// 1) go to betting browser
+		in.openBettingBrowserWindow();
+		
 		try {
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getPlaceBetImage();
@@ -55,20 +67,64 @@ public class VBStateMachineImpl {
 			final VBOddsInputElement oddsInput = out.readOddsInput(oddsInputImage);
 			final VBPlaceBetElement placeBet = out.readPlaceBet(placeBetImage);
 			
-			final double oddsLeft = Integer.parseInt(oddsInput.getOdds().trim());
-			final double oddsRight = Integer.parseInt(placeBet.getOdds().trim());
+			final double oddsLeft = Double.parseDouble(oddsInput.getOdds().trim());
+			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());
 			
+			final Bookie bookie = Bookie.fromString(element.getBookie());
+						
 			if (oddsRight >= oddsLeft) {
 				// place bet logic
+				
+				// 1) kladionica.placeBet()
+				in.placeBet(bookie);
+				
+				// 2) click OK on the betting browser
+				in.clickOKAtBettingBrowser();
+				
+				// 3) log bet
+				in.openMainWindow();
+				logBet();
 			} else {
-				// remove bets logic
+				// clean bets logic
+				
+				// 1) kladionica.removeBet()
+				in.removeBet(bookie);
+				
+				// 2) click Cancel
+				in.clickCancelAtBettingBrowser();
+				
+				// 3) go to main screen
+				in.openMainWindow();
+				
+				// while (najgornji == taj_isti) makni najgornji
+				final String participantsToRemove = element.getParticipants();
+				while (in.isNewBetPresent()) {
+					final BufferedImage image = in.getSingleBetImage();
+					final VBSingleBetElement newElement = out.readSingleBet(image);
+					
+					final String newParticipants = newElement.getParticipants();
+					if (consideredEqual(participantsToRemove, newParticipants)) {
+						in.removeTopBet();
+					} else {
+						break;
+					}
+				}
+				idle();
 			}
 		} catch (VBElementInterpretationException e) {
 			// TODO: handle exception
 			// TODO: send email
-		}	
-		
-		logBet();
+			
+			// remove top bet --> idle()
+			in.openMainWindow();
+			in.removeTopBet();
+			idle();
+		} catch (UnknownBookieException e) {
+			log.error("Bookie not known.", e);
+			in.openMainWindow();
+			in.removeTopBet();
+			idle();
+		}
 	}
 
 	public void parseBet() throws InterruptedException {
@@ -83,9 +139,10 @@ public class VBStateMachineImpl {
 			log.error("Problem occurred while parsing bet.", e);
 			// TODO: send email
 			
-			cleanBet();
-		}
-		
+			// remove top bet --> idle()
+			in.removeTopBet();
+			idle();
+		}	
 	}
 
 	public void idle() throws InterruptedException {

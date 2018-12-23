@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 
-public class VBStateMachineMock extends VBStateMachine {
+public class VBStateMachineMock extends AbstractVBStateMachine {
 	
     public VBStateMachineMock(InputHandler in, OutputHandler out) {
 		super(in, out);
