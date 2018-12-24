@@ -1,21 +1,21 @@
-package com.util.ai.screenbot.output.tests.config;
+package com.util.ai.screenbot.main.config;
 
 import org.junit.Before;
-import org.junit.Rule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.util.ai.screenbot.input.config.InputHandlerModule;
 import com.util.ai.screenbot.output.config.OutputHandlerModule;
 import com.util.ai.screenbot.support.config.SupportModule;
-import com.util.ai.screenbot.support.testing.time.JUnitStopwatch;
 
-public class OutputHandlerTestBase {
+public class MainTestBase {
 	
 	private final Injector injector = 
-			Guice.createInjector(new OutputHandlerModule(), new SupportModule());
-	
-	@Rule
-	public JUnitStopwatch stopwatch = new JUnitStopwatch();
+			Guice.createInjector(
+					new MainModule(), 
+					new SupportModule(), 
+					new OutputHandlerModule(),
+					new InputHandlerModule());
 
 	@Before
 	public void prepareGuice() {

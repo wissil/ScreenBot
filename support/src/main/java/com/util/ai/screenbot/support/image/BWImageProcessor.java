@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class BWImageProcessor implements ImageProcessor {
 	
-	private static final int WHITE_TRESHOLD = 215;
+	private static final int WHITE_TRESHOLD = 220;
 	private static final int BLACK_TRESHOLD = 110;
 	
 	private static final Color WHITE = new Color(255, 255, 255);
