@@ -96,6 +96,10 @@ public abstract class VBInputBot {
         }
     }
 
+    public void write(String text) {
+        this.keyboardHandler.write(text);
+    }
+
     protected class BetCoordinates {
         public Integer x;
         public Integer y;

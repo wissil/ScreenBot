@@ -20,9 +20,23 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
 
     private static final Float REMOVE_BET_MOUSE_MOVEMENT_WIDTH = 0.1f; // 1% right from top bet
 
-    private static final Float ODDS_INFO_HEIGHT = 0.15f; // 2% down from middle of top bet
+    private static final Float ODDS_INFO_HEIGHT = 0.17f;
 
-    private static final Float INFO_WIDTH = 0.05f; // 1% right from top bet
+    private static final Float STAKE_INFO_HEIGHT = 0.195f;
+
+    private static final Float VALUE_INFO_HEIGHT = 0.225f;
+
+    private static final Float INFO_WIDTH = 0.0495f;
+
+    private static final Float CANCEL_BUTTON_WIDTH = 0.96f;
+
+    private static final Float CONFIRM_BUTTON_WIDTH = 0.88f;
+
+    private static final Float BROWSER_BUTTONS_HEIGHT = 0.965f;
+
+    private static final Float CONFIRM_OK_BUTTON_WIDTH = 0.6f;
+
+    private static final Float CONFIRM_OK_BUTTON_HEIGHT = 0.6f;
 
     @Override
     public Float getTopBetLowerCornerHeight() {
@@ -85,6 +99,42 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
     @Override
     public Float getInfoWidth() {
         return INFO_WIDTH;
+    }
+
+    @Override
+    public Float getStakeInfoHeight() {
+        return STAKE_INFO_HEIGHT;
+    }
+
+    @Override
+    public Float getValueInfoHeight() {
+        return VALUE_INFO_HEIGHT;
+    }
+
+    @Override
+    public Float getBrowserButtonsHeight() {
+
+        return BROWSER_BUTTONS_HEIGHT;
+    }
+
+    @Override
+    public Float getCancelButtonWidth() {
+        return CANCEL_BUTTON_WIDTH;
+    }
+
+    @Override
+    public Float getConfirmButtonWidth() {
+        return CONFIRM_BUTTON_WIDTH;
+    }
+
+    @Override
+    public Float getConfirmOkButtonWidth() {
+        return CONFIRM_OK_BUTTON_WIDTH;
+    }
+
+    @Override
+    public Float getConfirmOkButtonHeight() {
+        return CONFIRM_OK_BUTTON_HEIGHT;
     }
 
 }

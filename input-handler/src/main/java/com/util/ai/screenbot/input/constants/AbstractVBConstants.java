@@ -26,6 +26,20 @@ public abstract class AbstractVBConstants {
 
     public abstract Float getOddsInfoHeight();
 
+    public abstract Float getStakeInfoHeight();
+
+    public abstract Float getValueInfoHeight();
+
     public abstract Float getInfoWidth();
+
+    public abstract Float getBrowserButtonsHeight();
+
+    public abstract Float getConfirmButtonWidth();
+
+    public abstract Float getCancelButtonWidth();
+
+    public abstract Float getConfirmOkButtonWidth();
+
+    public abstract Float getConfirmOkButtonHeight();
 
 }

@@ -40,10 +40,50 @@ public class VBBrowserInputBot extends VBInputBot {
     }
 
     public BufferedImage takeStakeScreenshot() {
+        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+
+        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getStakeInfoHeight());
+
+        mouseHandler.moveMouse(betX, betY);
         return null;
     }
 
     public BufferedImage takeValueScreenshot() {
+        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+
+        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
+
+        mouseHandler.moveMouse(betX, betY);
         return null;
+    }
+
+    public void clickCancel() {
+        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getCancelButtonWidth()));
+
+        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+
+        mouseHandler.moveMouse(betX, betY);
+
+        // mouseHandler.leftClick(); - FIXME
+    }
+
+    public void clickConfirm() {
+        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmButtonWidth()));
+
+        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+
+        mouseHandler.moveMouse(betX, betY);
+
+        mouseHandler.leftClick();
+    }
+
+    public void clickConfirmOk() {
+        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmOkButtonWidth()));
+
+        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getConfirmOkButtonHeight());
+
+        mouseHandler.moveMouse(betX, betY);
+
+        // mouseHandler.leftClick(); - FIXME
     }
 }
