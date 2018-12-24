@@ -15,14 +15,14 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.WinScreenHandler;
-import com.util.ai.screenbot.input.logic.VBInputBot;
+import com.util.ai.screenbot.input.logic.VBBrowserInputBot;
+import com.util.ai.screenbot.input.logic.VBMainInputBot;
 import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.platform.PlatformResolver;
 
 public class InputHandlerModule extends AbstractModule {
-	
-    private static final Platform PLATFORM = 
-    			PlatformResolver.resolveCurrentPlatform();
+
+    private static final Platform PLATFORM = PlatformResolver.resolveCurrentPlatform();
 
     @Provides
     @Singleton
@@ -52,7 +52,8 @@ public class InputHandlerModule extends AbstractModule {
     @Provides
     @Singleton
     AbstractVBConstants vbConstants() {
-        if (PLATFORM.equals(Platform.MAC)) return new DefaultVBConstants();
+        if (PLATFORM.equals(Platform.MAC))
+            return new DefaultVBConstants();
 
         final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 
@@ -68,8 +69,16 @@ public class InputHandlerModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    VBInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-        return new VBInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+    VBMainInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
+        return new VBMainInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
+            AbstractVBConstants vbConstants) {
+        return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
     }
 
 }

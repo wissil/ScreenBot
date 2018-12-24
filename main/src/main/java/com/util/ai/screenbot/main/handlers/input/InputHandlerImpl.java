@@ -3,72 +3,76 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import com.util.ai.screenbot.input.logic.VBInputBot;
+import com.util.ai.screenbot.input.logic.VBBrowserInputBot;
+import com.util.ai.screenbot.input.logic.VBMainInputBot;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public class InputHandlerImpl implements InputHandler {
-	
-	private final VBInputBot inputBot;
-	
-	public InputHandlerImpl(VBInputBot inputBot) {
-		this.inputBot = Objects.requireNonNull(inputBot);
-	}
 
-	@Override
-	public boolean isNewBetPresent() {
-		return inputBot.checkTopBet();
-	}
+    private final VBMainInputBot mainBot;
 
-	@Override
-	public BufferedImage getSingleBetImage() {
-		return inputBot.takeTopBetScreenshot();
-	}
+    private final VBBrowserInputBot browserBot;
 
-	@Override
-	public void openBettingBrowserWindow() {
-		inputBot.initializeBettingBrowser();
-	}
+    public InputHandlerImpl(VBMainInputBot mainBot, VBBrowserInputBot browserBot) {
+        this.mainBot = Objects.requireNonNull(mainBot);
+        this.browserBot = Objects.requireNonNull(browserBot);
+    }
 
-	@Override
-	public void openMainWindow() {
-		inputBot.initializeValueBetting();
-	}
+    @Override
+    public boolean isNewBetPresent() {
+        return mainBot.checkTopBet();
+    }
 
-	@Override
-	public void removeTopBet() {
-		inputBot.removeTopBet();
-	}
+    @Override
+    public BufferedImage getSingleBetImage() {
+        return mainBot.takeTopBetScreenshot();
+    }
 
-	@Override
-	public void placeBet(Bookie bookie) {
-		bookie.getHandler().placeBet();
-	}
+    @Override
+    public void openBettingBrowserWindow() {
+        browserBot.initializeBettingBrowser();
+    }
 
-	@Override
-	public void removeBet(Bookie bookie) {
-		bookie.getHandler().removeBet();
-	}
-	
-	@Override
-	public BufferedImage getPlaceBetImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void openMainWindow() {
+        mainBot.initializeValueBetting();
+    }
 
-	@Override
-	public BufferedImage getOddsInputImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void clickOKAtBettingBrowser() {
-		// TODO Auto-generated method stub	
-	}
+    @Override
+    public void removeTopBet() {
+        mainBot.removeTopBet();
+    }
 
-	@Override
-	public void clickCancelAtBettingBrowser() {
-		// TODO Auto-generated method stub	
-	}
+    @Override
+    public void placeBet(Bookie bookie) {
+        bookie.getHandler().placeBet();
+    }
+
+    @Override
+    public void removeBet(Bookie bookie) {
+        bookie.getHandler().removeBet();
+    }
+
+    @Override
+    public BufferedImage getPlaceBetImage() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public BufferedImage getOddsInputImage() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void clickOKAtBettingBrowser() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void clickCancelAtBettingBrowser() {
+        // TODO Auto-generated method stub
+    }
 
 }
