@@ -1,11 +1,9 @@
 package com.util.ai.screenbot.support.email;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -21,10 +19,10 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.name.Named;
 
 public class EmailSender {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(EmailSender.class);
 
-	
+
 	private final Properties prop;
 
 	private final String username;
@@ -32,9 +30,9 @@ public class EmailSender {
 	private final String password;
 
 	private final String recipientEmails;
-	
+
 	private final String content;
-	
+
 	private final String subject;
 
 	public EmailSender(
@@ -47,37 +45,37 @@ public class EmailSender {
 		this.subject = prop.getProperty("mail.subject");
 	}
 
-	public void send(String fileName) throws MessagingException {
+	public void send(String fileName) {
 		Session session = Session.getInstance(prop, new Authenticator() {
-			
+
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
-		});		
+		});
 
-		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(username));
-		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.join(",", recipientEmails)));
-		message.setSubject(subject);
-		
-		Multipart multipart = new MimeMultipart();
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.join(",", recipientEmails)));
+			message.setSubject(subject);
 
-		MimeBodyPart mimeBodyPart = new MimeBodyPart();
-		mimeBodyPart.setText(content);
-		mimeBodyPart.setContent(content, "text/html");
-		
-		// attachment
-        try {
+			Multipart multipart = new MimeMultipart();
+
+			MimeBodyPart mimeBodyPart = new MimeBodyPart();
+			mimeBodyPart.setText(content);
+			mimeBodyPart.setContent(content, "text/html");
+
+			// attachment
 			mimeBodyPart.attachFile(fileName);
-		} catch (IOException e) {
-			log.error("Couldn't attach a file.", e);
+
+			multipart.addBodyPart(mimeBodyPart);
+
+			message.setContent(multipart);
+
+			Transport.send(message);
+		} catch (Exception e) {
+			log.error("Exception occurred while sending email.", e);
 		}
-        
-        multipart.addBodyPart(mimeBodyPart);
-
-		message.setContent(multipart);
-
-		Transport.send(message);
 	}
 }

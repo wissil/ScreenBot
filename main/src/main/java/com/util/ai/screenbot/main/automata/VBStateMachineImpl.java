@@ -21,6 +21,8 @@ import static com.util.ai.screenbot.support.strings.StringComparator.consideredE
 public class VBStateMachineImpl implements VBStateMachine {
 	
     private static final Logger log = LoggerFactory.getLogger(VBStateMachineImpl.class);
+    
+    private static final String LOG_FILE_PATH = "../logs/daily/main.log";
 	
 	/** A period used for checking whether the new bet has occurred, in ms. */
 	private static final int BET_CHECK_PERIOD = 2_000;
@@ -29,7 +31,6 @@ public class VBStateMachineImpl implements VBStateMachine {
 	
 	private final OutputHandler out;
 	
-	@SuppressWarnings("unused")
 	private final EmailSender email;
 	
 	public VBStateMachineImpl(InputHandler in, OutputHandler out, EmailSender email) {
@@ -112,8 +113,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 				idle();
 			}
 		} catch (VBElementInterpretationException e) {
-			// TODO: handle exception
-			// TODO: send email
+			log.error("Interpretation failed.", e);
+			email.send(LOG_FILE_PATH);
 			
 			// remove top bet --> idle()
 			in.openMainWindow();
@@ -135,9 +136,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final VBSingleBetElement element = out.readSingleBet(image);
 			placeBet(element);
 		} catch (VBElementInterpretationException e) {
-			// TODO: handle exception
 			log.error("Problem occurred while parsing bet.", e);
-			// TODO: send email
+			email.send(LOG_FILE_PATH);
 			
 			// remove top bet --> idle()
 			in.removeTopBet();
