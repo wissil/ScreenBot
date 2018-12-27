@@ -1,5 +1,6 @@
 package com.util.ai.screenbot.support.email;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -14,9 +15,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.name.Named;
 
 public class EmailSender {
+	
+	private static final Logger log = LoggerFactory.getLogger(EmailSender.class);
+
 	
 	private final Properties prop;
 
@@ -40,7 +47,7 @@ public class EmailSender {
 		this.subject = prop.getProperty("mail.subject");
 	}
 
-	public void send() throws MessagingException {
+	public void send(String fileName) throws MessagingException {
 		Session session = Session.getInstance(prop, new Authenticator() {
 			
 			@Override
@@ -53,12 +60,21 @@ public class EmailSender {
 		message.setFrom(new InternetAddress(username));
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(String.join(",", recipientEmails)));
 		message.setSubject(subject);
+		
+		Multipart multipart = new MimeMultipart();
 
 		MimeBodyPart mimeBodyPart = new MimeBodyPart();
+		mimeBodyPart.setText(content);
 		mimeBodyPart.setContent(content, "text/html");
-
-		Multipart multipart = new MimeMultipart();
-		multipart.addBodyPart(mimeBodyPart);
+		
+		// attachment
+        try {
+			mimeBodyPart.attachFile(fileName);
+		} catch (IOException e) {
+			log.error("Couldn't attach a file.", e);
+		}
+        
+        multipart.addBodyPart(mimeBodyPart);
 
 		message.setContent(multipart);
 

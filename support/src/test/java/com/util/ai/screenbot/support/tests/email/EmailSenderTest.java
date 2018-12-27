@@ -17,9 +17,11 @@ public class EmailSenderTest extends SupportTestBase {
 	
     @Test
     @Ignore
-    public void shouldSendEmailTest() throws MessagingException {    		
+    public void shouldSendEmailTest() throws MessagingException {
+    		final String fileName = "../logs/daily/main.log";
+    	
     		System.out.println("Sending ...");
-    		sender.send();
+    		sender.send(fileName);
     		System.out.println("Sent!");
     }
 }
