@@ -22,7 +22,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 	
     private static final Logger log = LoggerFactory.getLogger(VBStateMachineImpl.class);
     
-    private static final String LOG_FILE_PATH = "../logs/daily/main.log";
+    private static final String LOG_FILE_PATH = "../logs/main/daily/main.log";
 	
 	/** A period used for checking whether the new bet has occurred, in ms. */
 	private static final int BET_CHECK_PERIOD = 2_000;
