@@ -9,7 +9,7 @@ import com.google.inject.Singleton;
 import com.util.ai.screenbot.input.constants.AbstractVBConstants;
 import com.util.ai.screenbot.input.constants.DefaultVBConstants;
 import com.util.ai.screenbot.input.constants.SupportedScreenResolution;
-import com.util.ai.screenbot.input.constants.VBConstants_1600x900;
+import com.util.ai.screenbot.input.constants.VBConstants_1366x768;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
@@ -22,63 +22,64 @@ import com.util.ai.screenbot.support.platform.PlatformResolver;
 
 public class InputHandlerModule extends AbstractModule {
 
-    private static final Platform PLATFORM = PlatformResolver.resolveCurrentPlatform();
+	private static final Platform PLATFORM = PlatformResolver.resolveCurrentPlatform();
 
-    @Provides
-    @Singleton
-    KeyboardHandler keyboardHandler() {
-        return new KeyboardHandler();
-    }
+	@Provides
+	@Singleton
+	KeyboardHandler keyboardHandler() {
+		return new KeyboardHandler();
+	}
 
-    @Provides
-    @Singleton
-    MouseHandler mouseHandler() {
-        return new MouseHandler();
-    }
+	@Provides
+	@Singleton
+	MouseHandler mouseHandler() {
+		return new MouseHandler();
+	}
 
-    @Provides
-    @Singleton
-    ScreenHandler screenHandler() {
-        switch (PLATFORM) {
-        case WINDOWS:
-            return new WinScreenHandler();
-        case MAC:
-            return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
-        default:
-            throw new IllegalArgumentException(String.format("Platform %s is not known.", PLATFORM));
-        }
-    }
+	@Provides
+	@Singleton
+	ScreenHandler screenHandler() {
+		switch (PLATFORM) {
+		case WINDOWS:
+			return new WinScreenHandler();
+		case MAC:
+			return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
+		default:
+			throw new IllegalArgumentException(String.format("Platform %s is not known.", PLATFORM));
+		}
+	}
 
-    @Provides
-    @Singleton
-    AbstractVBConstants vbConstants() {
-        if (PLATFORM.equals(Platform.MAC))
-            return new DefaultVBConstants();
+	@Provides
+	@Singleton
+	AbstractVBConstants vbConstants() {
+		if (PLATFORM.equals(Platform.MAC))
+			return new DefaultVBConstants();
 
-        final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
+		final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 
-        switch (resolution) {
-        case RESOLUTION_1600x900:
-            return new VBConstants_1600x900();
-        default:
-            throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
-        }
+		switch (resolution) {
+		case RESOLUTION_1366x768:
+			return new VBConstants_1366x768();
+		default:
+			throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
+		}
 
-    }
+	}
 
-    @Inject
-    @Provides
-    @Singleton
-    VBMainInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-        return new VBMainInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-    }
+	@Inject
+	@Provides
+	@Singleton
+	VBMainInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
+			MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
+		return new VBMainInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+	}
 
-    @Inject
-    @Provides
-    @Singleton
-    VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
-            AbstractVBConstants vbConstants) {
-        return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-    }
+	@Inject
+	@Provides
+	@Singleton
+	VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
+			MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
+		return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+	}
 
 }
