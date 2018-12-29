@@ -14,76 +14,152 @@ import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 
 public class VBBrowserInputBot extends VBInputBot {
 
-    protected static final Logger log = LoggerFactory.getLogger(VBBrowserInputBot.class);
+	protected static final Logger log = LoggerFactory.getLogger(VBBrowserInputBot.class);
 
-    private Rectangle browserDimensions;
+	private Rectangle browserDimensions;
 
-    public VBBrowserInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-        super(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-    }
+	public VBBrowserInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
+			AbstractVBConstants vbConstants) {
+		super(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+	}
 
-    public void initializeBettingBrowser() {
-        initialize(AbstractVBConstants.VALUE_BETTING_BROWSER_PREFIX);
+	public void initializeBettingBrowser() {
+		initialize(AbstractVBConstants.VALUE_BETTING_BROWSER_PREFIX);
 
-        // Initialize Betting Browser screen dimensions
-        this.browserDimensions = checkScreen();
-    }
+		// Initialize Betting Browser screen dimensions
+		this.browserDimensions = checkScreen();
+	}
 
-    public BufferedImage takeOddsScreenshot() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+	public void navigateToOddsUpperLeftCorner() {
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getOddsInfoHeight());
+		BetCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
-        mouseHandler.moveMouse(betX, betY);
+		mouseHandler.moveMouse(oddsCoordinates.x, oddsCoordinates.y);
+	}
 
-        return null;
-    }
+	public BufferedImage takeOddsScreenshot() {
+		BetCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
-    public BufferedImage takeStakeScreenshot() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+		return null;
+	}
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getStakeInfoHeight());
+	public void navigateToStakeUpperLeftCorner() {
 
-        mouseHandler.moveMouse(betX, betY);
-        return null;
-    }
+		BetCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
 
-    public BufferedImage takeValueScreenshot() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+		mouseHandler.moveMouse(stakeCoordinates.x, stakeCoordinates.y);
+	}
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
+	public BufferedImage takeStakeScreenshot() {
+		BetCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
+		return null;
+	}
 
-        mouseHandler.moveMouse(betX, betY);
-        return null;
-    }
+	public void navigateToValueUpperLeftCorner() {
 
-    public void clickCancel() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getCancelButtonWidth()));
+		BetCoordinates valueCoordinates = getValueUpperLeftCoordinates();
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
+	}
 
-        mouseHandler.moveMouse(betX, betY);
+	public BufferedImage takeValueScreenshot() {
+		BetCoordinates valueCoordinates = getValueUpperLeftCoordinates();
+		return null;
+	}
 
-        // mouseHandler.leftClick(); - FIXME
-    }
+	public void navigateToCancelButton() {
 
-    public void clickConfirm() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmButtonWidth()));
+		BetCoordinates cancelButtonCoordinates = getCancelButtonCoordinates();
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+		mouseHandler.moveMouse(cancelButtonCoordinates.x, cancelButtonCoordinates.y);
+	}
 
-        mouseHandler.moveMouse(betX, betY);
+	public void clickCancel() {
+		navigateToCancelButton();
 
-        mouseHandler.leftClick();
-    }
+		mouseHandler.leftClick();
+	}
 
-    public void clickConfirmOk() {
-        Integer betX = (int) (browserDimensions.x + Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmOkButtonWidth()));
+	public void navigateToConfirmButton() {
 
-        Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getConfirmOkButtonHeight());
+		BetCoordinates confirmButtonCoordinates = getConfirmButtonCoordinates();
 
-        mouseHandler.moveMouse(betX, betY);
+		mouseHandler.moveMouse(confirmButtonCoordinates.x, confirmButtonCoordinates.y);
+	}
 
-        // mouseHandler.leftClick(); - FIXME
-    }
+	public void clickConfirm() {
+		navigateToConfirmButton();
+
+		mouseHandler.leftClick();
+	}
+
+	public void navigateToConfirmOkButton() {
+
+		BetCoordinates confirmOkButtonCoordinates = getConfirmOkButtonCoordinates();
+
+		mouseHandler.moveMouse(confirmOkButtonCoordinates.x, confirmOkButtonCoordinates.y);
+	}
+
+	public void clickConfirmOk() {
+		navigateToConfirmOkButton();
+
+		mouseHandler.leftClick();
+	}
+
+	private BetCoordinates getOddsUpperLeftCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+
+		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getOddsInfoHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getStakeUpperLeftCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+
+		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getStakeInfoHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getValueUpperLeftCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
+
+		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getCancelButtonCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getCancelButtonWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getConfirmButtonCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmButtonWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getConfirmOkButtonCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math
+				.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmOkButtonWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * vbConstants.getConfirmOkButtonHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
 }

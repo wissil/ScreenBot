@@ -6,7 +6,7 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float TOP_BET_LOWER_CORNER_HEIGHT = 0.155f;
 
-	private static final Float TOP_BET_CORNER_WIDTH = 0.225f;
+	private static final Float TOP_BET_CORNER_WIDTH = 0.226f;
 
 	private static final Float TOP_BET_MIDDLE_HEIGHT = 0.138f;
 
@@ -20,13 +20,13 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float REMOVE_BET_MOUSE_MOVEMENT_WIDTH = 0.1f;
 
-	private static final Float ODDS_INFO_HEIGHT = 0.17f;
+	private static final Float ODDS_INFO_HEIGHT = 0.202f;
 
-	private static final Float STAKE_INFO_HEIGHT = 0.195f;
+	private static final Float STAKE_INFO_HEIGHT = 0.229f;
 
-	private static final Float VALUE_INFO_HEIGHT = 0.225f;
+	private static final Float VALUE_INFO_HEIGHT = 0.263f;
 
-	private static final Float INFO_WIDTH = 0.0495f;
+	private static final Float INFO_WIDTH = 0.057f;
 
 	private static final Float CANCEL_BUTTON_WIDTH = 0.96f;
 
@@ -34,7 +34,7 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float BROWSER_BUTTONS_HEIGHT = 0.965f;
 
-	private static final Float CONFIRM_OK_BUTTON_WIDTH = 0.6f;
+	private static final Float CONFIRM_OK_BUTTON_WIDTH = 0.5f;
 
 	private static final Float CONFIRM_OK_BUTTON_HEIGHT = 0.6f;
 
