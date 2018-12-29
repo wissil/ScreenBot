@@ -17,141 +17,153 @@ import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 
 public class VBMainInputBot extends VBInputBot {
 
-    protected static final Logger log = LoggerFactory.getLogger(VBMainInputBot.class);
+	protected static final Logger log = LoggerFactory.getLogger(VBMainInputBot.class);
 
-    private Rectangle appDimensions;
+	private Rectangle appDimensions;
 
-    public VBMainInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-        super(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-    }
+	public VBMainInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
+			AbstractVBConstants vbConstants) {
+		super(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+	}
 
-    public void initializeValueBetting() {
-        initialize(AbstractVBConstants.VALUE_BETTING_APP_PREFIX);
+	public void initializeValueBetting() {
+		initialize(AbstractVBConstants.VALUE_BETTING_APP_PREFIX);
 
-        // Initialize Value Betting screen dimensions
-        this.appDimensions = checkScreen();
-    }
+		// Initialize Value Betting screen dimensions
+		this.appDimensions = checkScreen();
+	}
 
-    public void navigateToTopBetUpperLeft() {
+	public void navigateToTopBetUpperLeft() {
 
-        BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
+		BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
 
-        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-    }
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+	}
 
-    public void navigateToTopBetLowerLeft() {
+	public void navigateToTopBetLowerLeft() {
 
-        BetCoordinates betCoordinates = getTopBetLowerLeftCornerCoordinates();
+		BetCoordinates betCoordinates = getTopBetLowerLeftCornerCoordinates();
 
-        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-    }
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+	}
 
-    public Boolean checkTopBet() {
+	public void navigateToTopBetMiddle() {
 
-        BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
-        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-        mouseHandler.leftClick();
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+	}
 
-        Color color = screenHandler.detectColor(betCoordinates.x, betCoordinates.y);
+	public Boolean checkTopBet() {
 
-        Boolean topBetExists = !color.equals(Color.WHITE);
+		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
-        log.debug("Top bet exists? --> " + topBetExists);
-        return topBetExists;
-    }
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+		mouseHandler.leftClick();
 
-    public BufferedImage takeTopBetScreenshot() {
+		Color color = screenHandler.detectColor(betCoordinates.x, betCoordinates.y);
 
-        BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
+		Boolean topBetExists = !color.equals(Color.WHITE);
 
-        BufferedImage image = screenHandler.takeScreenshot(betCoordinates.x, betCoordinates.y,
-                (int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
-                (int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
+		log.debug("Top bet exists? --> " + topBetExists);
+		return topBetExists;
+	}
 
-        return image;
+	public BufferedImage takeTopBetScreenshot() {
 
-    }
+		BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
 
-    /**
-     * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
-     */
-    public void betOnTopBet() {
-        BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BufferedImage image = screenHandler.takeScreenshot(betCoordinates.x, betCoordinates.y,
+				(int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
 
-        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-        mouseHandler.leftClick();
+		return image;
 
-        mouseHandler.rightClick();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            // Do nothing
-        }
-        mouseHandler.leftClick();
-    }
+	}
 
-    /**
-     * Place mouse cursor in the middle of top bet. Right click. Move it a bit lower and then right. Left click afterwards.
-     */
-    public void removeTopBet() {
+	/**
+	 * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
+	 */
+	public void betOnTopBet() {
+		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
-        BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+		mouseHandler.leftClick();
 
-        mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-        mouseHandler.leftClick();
+		mouseHandler.rightClick();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+		mouseHandler.leftClick();
+	}
 
-        mouseHandler.rightClick();
-        Point p = MouseInfo.getPointerInfo().getLocation();
+	/**
+	 * Place mouse cursor in the middle of top bet. Right click. Move it a bit lower
+	 * and then right. Left click afterwards.
+	 */
+	public void removeTopBet() {
 
-        int newY = p.y + (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
+		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
-        mouseHandler.moveMouse(p.x, newY);
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+		mouseHandler.leftClick();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            // Do nothing
-        }
+		mouseHandler.rightClick();
+		Point p = MouseInfo.getPointerInfo().getLocation();
 
-        int newX = p.x + (int) Math.round(ScreenConfig.width * vbConstants.getRemoveBetMouseMovementWidth());
+		int newY = p.y + (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
 
-        mouseHandler.moveMouse(newX, newY);
+		mouseHandler.moveMouse(p.x, newY);
 
-        // mouseHandler.leftClick(); FIXME - test purposes
-    }
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
 
-    private BetCoordinates getTopBetMiddleCoordinates() {
-        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetMiddleWidth()));
+		int newX = p.x + (int) Math.round(ScreenConfig.width * vbConstants.getRemoveBetMouseMovementWidth());
 
-        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
+		mouseHandler.moveMouse(newX, newY);
 
-        log.debug("topBetMiddleX: " + betX);
-        log.debug("topBetMiddleY: " + betY);
+		// mouseHandler.leftClick(); FIXME - test purposes
+	}
 
-        return new BetCoordinates(betX, betY);
-    }
+	private BetCoordinates getTopBetMiddleCoordinates() {
+		Integer betX = (int) (appDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetMiddleWidth()));
 
-    private BetCoordinates getTopBetTopLeftCornerCoordinates() {
-        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
+		Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetMiddleHeight());
 
-        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
+		log.debug("topBetMiddleX: " + betX);
+		log.debug("topBetMiddleY: " + betY);
 
-        log.debug("topBetLeftUpperCornerX: " + betX);
-        log.debug("topBetLeftUpperCornerY: " + betY);
+		return new BetCoordinates(betX, betY);
+	}
 
-        return new BetCoordinates(betX, betY);
-    }
+	private BetCoordinates getTopBetTopLeftCornerCoordinates() {
+		Integer betX = (int) (appDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
-    private BetCoordinates getTopBetLowerLeftCornerCoordinates() {
-        Integer betX = (int) (appDimensions.x + Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
+		Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
 
-        Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
+		log.debug("topBetLeftUpperCornerX: " + betX);
+		log.debug("topBetLeftUpperCornerY: " + betY);
 
-        log.debug("topBetLeftLowerCornerX: " + betX);
-        log.debug("topBetLeftLowerCornerY: " + betY);
+		return new BetCoordinates(betX, betY);
+	}
 
-        return new BetCoordinates(betX, betY);
-    }
+	private BetCoordinates getTopBetLowerLeftCornerCoordinates() {
+		Integer betX = (int) (appDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
+
+		Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
+
+		log.debug("topBetLeftLowerCornerX: " + betX);
+		log.debug("topBetLeftLowerCornerY: " + betY);
+
+		return new BetCoordinates(betX, betY);
+	}
 
 }
