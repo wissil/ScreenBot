@@ -26,7 +26,7 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float VALUE_INFO_HEIGHT = 0.263f;
 
-	private static final Float INFO_WIDTH = 0.057f;
+	private static final Float INFO_WIDTH = 0.056f;
 
 	private static final Float CANCEL_BUTTON_WIDTH = 0.96f;
 
@@ -37,6 +37,14 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 	private static final Float CONFIRM_OK_BUTTON_WIDTH = 0.5f;
 
 	private static final Float CONFIRM_OK_BUTTON_HEIGHT = 0.6f;
+
+	private static final Float BET_INFO_SCREENSHOT_WIDTH = 0.03f;
+
+	private static final Float BET_INFO_SCREENSHOT_HEIGHT = 0.024f;
+
+	private static final Float BROWSING_STATUS_WIDTH = 0.269f;
+
+	private static final Float BROWSING_STATUS_HEIGHT = 0.899f;
 
 	@Override
 	public Float getTopBetLowerCornerHeight() {
@@ -135,6 +143,26 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 	@Override
 	public Float getConfirmOkButtonHeight() {
 		return CONFIRM_OK_BUTTON_HEIGHT;
+	}
+
+	@Override
+	public Float getBetInfoScreenshotWidth() {
+		return BET_INFO_SCREENSHOT_WIDTH;
+	}
+
+	@Override
+	public Float getBetInfoScreenshotHeight() {
+		return BET_INFO_SCREENSHOT_HEIGHT;
+	}
+
+	@Override
+	public Float getBrowsingStatusWidth() {
+		return BROWSING_STATUS_WIDTH;
+	}
+
+	@Override
+	public Float getBrowsingStatusHeight() {
+		return BROWSING_STATUS_HEIGHT;
 	}
 
 }

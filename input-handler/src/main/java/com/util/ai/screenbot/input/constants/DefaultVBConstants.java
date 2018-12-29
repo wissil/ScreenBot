@@ -2,110 +2,132 @@ package com.util.ai.screenbot.input.constants;
 
 public class DefaultVBConstants extends AbstractVBConstants {
 
-    @Override
-    public Float getTopBetLowerCornerHeight() {
+	@Override
+	public Float getTopBetLowerCornerHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getTopBetUpperCornerHeight() {
+	@Override
+	public Float getTopBetUpperCornerHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getTopBetCornerWidth() {
+	@Override
+	public Float getTopBetCornerWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getTopBetMiddleHeight() {
+	@Override
+	public Float getTopBetMiddleHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getTopBetMiddleWidth() {
+	@Override
+	public Float getTopBetMiddleWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getBetScreenshotWidth() {
+	@Override
+	public Float getBetScreenshotWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getBetScreenshotHeight() {
+	@Override
+	public Float getBetScreenshotHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getRemoveBetMouseMovementHeight() {
+	@Override
+	public Float getRemoveBetMouseMovementHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getRemoveBetMouseMovementWidth() {
+	@Override
+	public Float getRemoveBetMouseMovementWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getOddsInfoHeight() {
+	@Override
+	public Float getOddsInfoHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getStakeInfoHeight() {
+	@Override
+	public Float getStakeInfoHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getValueInfoHeight() {
+	@Override
+	public Float getValueInfoHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getInfoWidth() {
+	@Override
+	public Float getInfoWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getCancelButtonWidth() {
+	@Override
+	public Float getCancelButtonWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getBrowserButtonsHeight() {
+	@Override
+	public Float getBrowserButtonsHeight() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getConfirmButtonWidth() {
+	@Override
+	public Float getConfirmButtonWidth() {
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public Float getConfirmOkButtonWidth() {
-        return null;
-    }
+	@Override
+	public Float getConfirmOkButtonWidth() {
+		return null;
+	}
 
-    @Override
-    public Float getConfirmOkButtonHeight() {
-        return null;
-    }
+	@Override
+	public Float getConfirmOkButtonHeight() {
+		return null;
+	}
+
+	@Override
+	public Float getBetInfoScreenshotWidth() {
+
+		return null;
+	}
+
+	@Override
+	public Float getBetInfoScreenshotHeight() {
+
+		return null;
+	}
+
+	@Override
+	public Float getBrowsingStatusWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getBrowsingStatusHeight() {
+		return null;
+	}
 
 }

@@ -40,7 +40,12 @@ public class VBBrowserInputBot extends VBInputBot {
 	public BufferedImage takeOddsScreenshot() {
 		BetCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
-		return null;
+		BufferedImage image = screenHandler.takeScreenshot(oddsCoordinates.x, oddsCoordinates.y,
+				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
+
+		return image;
+
 	}
 
 	public void navigateToStakeUpperLeftCorner() {
@@ -52,7 +57,12 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public BufferedImage takeStakeScreenshot() {
 		BetCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
-		return null;
+
+		BufferedImage image = screenHandler.takeScreenshot(stakeCoordinates.x, stakeCoordinates.y,
+				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
+
+		return image;
 	}
 
 	public void navigateToValueUpperLeftCorner() {
@@ -64,7 +74,12 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public BufferedImage takeValueScreenshot() {
 		BetCoordinates valueCoordinates = getValueUpperLeftCoordinates();
-		return null;
+
+		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
+				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
+
+		return image;
 	}
 
 	public void navigateToCancelButton() {
@@ -104,6 +119,23 @@ public class VBBrowserInputBot extends VBInputBot {
 		navigateToConfirmOkButton();
 
 		mouseHandler.leftClick();
+	}
+
+	public void navigateToBrowsingStatus() {
+
+		BetCoordinates browsingStatusCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
+
+		mouseHandler.moveMouse(browsingStatusCoordinates.x, browsingStatusCoordinates.y);
+	}
+
+	public BufferedImage takeBrowsingStatusScreenshot() {
+		BetCoordinates valueCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
+
+		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
+				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
+
+		return image;
 	}
 
 	private BetCoordinates getOddsUpperLeftCoordinates() {
@@ -159,6 +191,16 @@ public class VBBrowserInputBot extends VBInputBot {
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * vbConstants.getConfirmOkButtonHeight());
+
+		return new BetCoordinates(betX, betY);
+	}
+
+	private BetCoordinates getBrowsingStatusUpperLeftCornerCoordinates() {
+		Integer betX = (int) (browserDimensions.x
+				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getBrowsingStatusWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * vbConstants.getBrowsingStatusHeight());
 
 		return new BetCoordinates(betX, betY);
 	}
