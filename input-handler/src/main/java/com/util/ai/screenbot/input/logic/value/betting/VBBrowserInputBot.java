@@ -32,13 +32,13 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToOddsUpperLeftCorner() {
 
-		BetCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
+		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
 		mouseHandler.moveMouse(oddsCoordinates.x, oddsCoordinates.y);
 	}
 
 	public BufferedImage takeOddsScreenshot() {
-		BetCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
+		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(oddsCoordinates.x, oddsCoordinates.y,
 				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
@@ -50,13 +50,13 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToStakeUpperLeftCorner() {
 
-		BetCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
+		BotCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
 
 		mouseHandler.moveMouse(stakeCoordinates.x, stakeCoordinates.y);
 	}
 
 	public BufferedImage takeStakeScreenshot() {
-		BetCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
+		BotCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(stakeCoordinates.x, stakeCoordinates.y,
 				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
@@ -67,13 +67,13 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToValueUpperLeftCorner() {
 
-		BetCoordinates valueCoordinates = getValueUpperLeftCoordinates();
+		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
 
 		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
 	}
 
 	public BufferedImage takeValueScreenshot() {
-		BetCoordinates valueCoordinates = getValueUpperLeftCoordinates();
+		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
 				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
@@ -84,7 +84,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToCancelButton() {
 
-		BetCoordinates cancelButtonCoordinates = getCancelButtonCoordinates();
+		BotCoordinates cancelButtonCoordinates = getCancelButtonCoordinates();
 
 		mouseHandler.moveMouse(cancelButtonCoordinates.x, cancelButtonCoordinates.y);
 	}
@@ -97,7 +97,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToConfirmButton() {
 
-		BetCoordinates confirmButtonCoordinates = getConfirmButtonCoordinates();
+		BotCoordinates confirmButtonCoordinates = getConfirmButtonCoordinates();
 
 		mouseHandler.moveMouse(confirmButtonCoordinates.x, confirmButtonCoordinates.y);
 	}
@@ -110,7 +110,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToConfirmOkButton() {
 
-		BetCoordinates confirmOkButtonCoordinates = getConfirmOkButtonCoordinates();
+		BotCoordinates confirmOkButtonCoordinates = getConfirmOkButtonCoordinates();
 
 		mouseHandler.moveMouse(confirmOkButtonCoordinates.x, confirmOkButtonCoordinates.y);
 	}
@@ -123,13 +123,13 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void navigateToBrowsingStatus() {
 
-		BetCoordinates browsingStatusCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
+		BotCoordinates browsingStatusCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
 
 		mouseHandler.moveMouse(browsingStatusCoordinates.x, browsingStatusCoordinates.y);
 	}
 
 	public BufferedImage takeBrowsingStatusScreenshot() {
-		BetCoordinates valueCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
+		BotCoordinates valueCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
 				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
@@ -138,70 +138,74 @@ public class VBBrowserInputBot extends VBInputBot {
 		return image;
 	}
 
-	private BetCoordinates getOddsUpperLeftCoordinates() {
+	private BotCoordinates getOddsUpperLeftCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
 
 		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getOddsInfoHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getStakeUpperLeftCoordinates() {
+	private BotCoordinates getStakeUpperLeftCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
 
 		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getStakeInfoHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getValueUpperLeftCoordinates() {
+	private BotCoordinates getValueUpperLeftCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
 
 		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getCancelButtonCoordinates() {
+	private BotCoordinates getCancelButtonCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getCancelButtonWidth()));
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getConfirmButtonCoordinates() {
+	private BotCoordinates getConfirmButtonCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmButtonWidth()));
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getConfirmOkButtonCoordinates() {
+	private BotCoordinates getConfirmOkButtonCoordinates() {
 		Integer betX = (int) (browserDimensions.x + Math
 				.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getConfirmOkButtonWidth()));
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * vbConstants.getConfirmOkButtonHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getBrowsingStatusUpperLeftCornerCoordinates() {
+	private BotCoordinates getBrowsingStatusUpperLeftCornerCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getBrowsingStatusWidth()));
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * vbConstants.getBrowsingStatusHeight());
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
+	}
+
+	public Rectangle getBrowserDimensions() {
+		return this.browserDimensions;
 	}
 }

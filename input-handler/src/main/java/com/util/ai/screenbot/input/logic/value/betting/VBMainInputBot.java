@@ -35,28 +35,28 @@ public class VBMainInputBot extends VBInputBot {
 
 	public void navigateToTopBetUpperLeft() {
 
-		BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
+		BotCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 	}
 
 	public void navigateToTopBetLowerLeft() {
 
-		BetCoordinates betCoordinates = getTopBetLowerLeftCornerCoordinates();
+		BotCoordinates betCoordinates = getTopBetLowerLeftCornerCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 	}
 
 	public void navigateToTopBetMiddle() {
 
-		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 	}
 
 	public Boolean checkTopBet() {
 
-		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
@@ -71,7 +71,7 @@ public class VBMainInputBot extends VBInputBot {
 
 	public BufferedImage takeTopBetScreenshot() {
 
-		BetCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
+		BotCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(betCoordinates.x, betCoordinates.y,
 				(int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
@@ -85,7 +85,7 @@ public class VBMainInputBot extends VBInputBot {
 	 * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
 	 */
 	public void betOnTopBet() {
-		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
@@ -105,7 +105,7 @@ public class VBMainInputBot extends VBInputBot {
 	 */
 	public void removeTopBet() {
 
-		BetCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
@@ -130,7 +130,7 @@ public class VBMainInputBot extends VBInputBot {
 		// mouseHandler.leftClick(); FIXME - test purposes
 	}
 
-	private BetCoordinates getTopBetMiddleCoordinates() {
+	private BotCoordinates getTopBetMiddleCoordinates() {
 		Integer betX = (int) (appDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetMiddleWidth()));
 
@@ -139,10 +139,10 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("topBetMiddleX: " + betX);
 		log.debug("topBetMiddleY: " + betY);
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getTopBetTopLeftCornerCoordinates() {
+	private BotCoordinates getTopBetTopLeftCornerCoordinates() {
 		Integer betX = (int) (appDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
@@ -151,10 +151,10 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("topBetLeftUpperCornerX: " + betX);
 		log.debug("topBetLeftUpperCornerY: " + betY);
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
-	private BetCoordinates getTopBetLowerLeftCornerCoordinates() {
+	private BotCoordinates getTopBetLowerLeftCornerCoordinates() {
 		Integer betX = (int) (appDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
 
@@ -163,7 +163,7 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("topBetLeftLowerCornerX: " + betX);
 		log.debug("topBetLeftLowerCornerY: " + betY);
 
-		return new BetCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY);
 	}
 
 }

@@ -25,11 +25,11 @@ public abstract class AbstractInputBot {
 		this.keyboardHandler.write(text);
 	}
 
-	protected class BetCoordinates {
+	protected class BotCoordinates {
 		public Integer x;
 		public Integer y;
 
-		public BetCoordinates(Integer x, Integer y) {
+		public BotCoordinates(Integer x, Integer y) {
 			this.x = x;
 			this.y = y;
 		}

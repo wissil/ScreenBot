@@ -21,12 +21,6 @@ public abstract class VBInputBot extends AbstractInputBot {
 
 	protected final Integer MAX_NUMBER_OF_HOPS = 10;
 
-	protected ScreenHandler screenHandler;
-
-	protected KeyboardHandler keyboardHandler;
-
-	protected MouseHandler mouseHandler;
-
 	protected AbstractVBConstants vbConstants;
 
 	protected VBInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,

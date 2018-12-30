@@ -10,9 +10,9 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float TOP_BET_MIDDLE_HEIGHT = 0.138f;
 
-	private static final Float TOP_BET_MIDDLE_WIDTH = 0.35f;
+	private static final Float TOP_BET_MIDDLE_WIDTH = 0.355f;
 
-	private static final Float BET_SCREENSHOT_WIDTH = 0.41f;
+	private static final Float BET_SCREENSHOT_WIDTH = 0.48f;
 
 	private static final Float BET_SCREENSHOT_HEIGHT = 0.024f;
 
