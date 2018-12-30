@@ -3,8 +3,8 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import com.util.ai.screenbot.input.logic.VBBrowserInputBot;
-import com.util.ai.screenbot.input.logic.VBMainInputBot;
+import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
+import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public class InputHandlerImpl implements InputHandler {

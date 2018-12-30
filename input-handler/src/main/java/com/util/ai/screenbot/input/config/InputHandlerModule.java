@@ -6,17 +6,21 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.util.ai.screenbot.input.constants.AbstractVBConstants;
-import com.util.ai.screenbot.input.constants.DefaultVBConstants;
 import com.util.ai.screenbot.input.constants.SupportedScreenResolution;
-import com.util.ai.screenbot.input.constants.VBConstants_1366x768;
+import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.constants.marathonbet.DefaultMarathonbetConstants;
+import com.util.ai.screenbot.input.constants.marathonbet.MarathonbetConstants_1366x768;
+import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
+import com.util.ai.screenbot.input.constants.value.betting.DefaultVBConstants;
+import com.util.ai.screenbot.input.constants.value.betting.VBConstants_1366x768;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.WinScreenHandler;
-import com.util.ai.screenbot.input.logic.VBBrowserInputBot;
-import com.util.ai.screenbot.input.logic.VBMainInputBot;
+import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
+import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
+import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.platform.PlatformResolver;
 
@@ -66,6 +70,23 @@ public class InputHandlerModule extends AbstractModule {
 
 	}
 
+	@Provides
+	@Singleton
+	AbstractMarathonbetConstants marathonbetConstants() {
+		if (PLATFORM.equals(Platform.MAC))
+			return new DefaultMarathonbetConstants();
+
+		final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
+
+		switch (resolution) {
+		case RESOLUTION_1366x768:
+			return new MarathonbetConstants_1366x768();
+		default:
+			throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
+		}
+
+	}
+
 	@Inject
 	@Provides
 	@Singleton
@@ -80,6 +101,14 @@ public class InputHandlerModule extends AbstractModule {
 	VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
 			MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
 		return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+	}
+
+	@Inject
+	@Provides
+	@Singleton
+	MarathonbetInputBot marathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
+			MouseHandler mouseHandler, AbstractMarathonbetConstants marathonbetConstants) {
+		return new MarathonbetInputBot(keyboardHandler, screenHandler, mouseHandler, marathonbetConstants);
 	}
 
 }

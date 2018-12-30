@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.constants;
+package com.util.ai.screenbot.input.constants.value.betting;
 
 public abstract class AbstractVBConstants {
 

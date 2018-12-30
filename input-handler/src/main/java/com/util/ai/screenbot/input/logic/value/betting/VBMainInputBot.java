@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.logic;
+package com.util.ai.screenbot.input.logic.value.betting;
 
 import java.awt.Color;
 import java.awt.MouseInfo;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
-import com.util.ai.screenbot.input.constants.AbstractVBConstants;
+import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
