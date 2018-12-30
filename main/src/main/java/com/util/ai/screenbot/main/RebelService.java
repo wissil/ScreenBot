@@ -83,15 +83,28 @@ public class RebelService {
 
 		Thread.sleep(3000);
 
-		Boolean isOk = marathonbetInputBot.checkBettingSlip();
+		marathonbetInputBot.navigateToRemoveAllButton();
 
-		if (isOk) {
+		Thread.sleep(3000);
 
-			marathonbetInputBot.navigateToRemoveAllButton();
+		marathonbetInputBot.navigateToBetButton();
+
+		Thread.sleep(3000);
+
+		Boolean isOK = marathonbetInputBot.checkBettingSlip();
+
+		if (isOK) {
+
+			marathonbetInputBot.navigateToOddsInputButton();
 
 			Thread.sleep(3000);
 
-			marathonbetInputBot.navigateToBetButton();
+			marathonbetInputBot.navigateToStakeInputButton();
+
+			Thread.sleep(3000);
+
+			BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
+			DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
 		}
 	}
 

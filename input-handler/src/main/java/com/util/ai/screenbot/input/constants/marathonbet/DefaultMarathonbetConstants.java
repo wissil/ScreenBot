@@ -27,4 +27,34 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 		return null;
 	}
 
+	@Override
+	public Float getBetInputStakeWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getBetInputOddsWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getBetInputStakeHeight() {
+		return null;
+	}
+
+	@Override
+	public Float getBetInputOddsHeight() {
+		return null;
+	}
+
+	@Override
+	public Float getStakeScreenshotWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getStakeScreenshotHeight() {
+		return null;
+	}
+
 }

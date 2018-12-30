@@ -2,6 +2,7 @@ package com.util.ai.screenbot.input.logic.marathonbet;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -49,15 +50,53 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		BotCoordinates bettingSlipButtonCoordinates = getBettingSlipCoordinates();
 
-		Color color = screenHandler.detectColor(bettingSlipButtonCoordinates.x, bettingSlipButtonCoordinates.y);
-		log.info(color.toString());
+		Color bettingSlipButtonColor = screenHandler.detectColor(bettingSlipButtonCoordinates.x,
+				bettingSlipButtonCoordinates.y);
+		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
+
+		if (bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetLightGreen())) {
+			clickBettingSlip();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// Do nothing
+			}
+			bettingSlipButtonColor = screenHandler.detectColor(bettingSlipButtonCoordinates.x,
+					bettingSlipButtonCoordinates.y);
+			log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
+		}
 
 		// Check if betting slip button is green
-		if (color.getRed() != 0 && color.getGreen() != 143 && color.getBlue() != 76) {
-			log.info("Bet not correct");
+		if (!bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
+			log.info("Slip not correct");
 			return false;
 		}
 
+		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
+		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
+
+		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+				removeAllButtonCoordinates.y);
+
+		log.info("RemoveAll button color:" + removeAllButtonColor.toString());
+
+		// Check if remove all button is red
+		if (!removeAllButtonColor.equals(marathonbetConstants.getMarathonbetRed())) {
+			log.info("Remove button not correct");
+			return false;
+		}
+
+		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x, betButtonCoordinates.y);
+
+		log.info("Bet button color: " + betButtonColor.toString());
+
+		// Check if betting button is green
+		if (!betButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
+			log.info("Bet button not correct");
+			return false;
+		}
+
+		log.info("Bet slip OK!");
 		return true;
 	}
 
@@ -68,11 +107,47 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 	}
 
+	public void clickRemoveAll() {
+		navigateToRemoveAllButton();
+
+		mouseHandler.leftClick();
+	}
+
 	public void navigateToBetButton() {
 
 		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
 
 		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
+	}
+
+	public void clickBet() {
+		navigateToBetButton();
+
+		mouseHandler.leftClick();
+	}
+
+	public void navigateToStakeInputButton() {
+
+		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
+
+		mouseHandler.moveMouse(stakeInputCoordinates.x, stakeInputCoordinates.y);
+	}
+
+	public void navigateToOddsInputButton() {
+
+		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
+
+		mouseHandler.moveMouse(oddsInputCoordinates.x, oddsInputCoordinates.y);
+	}
+
+	public BufferedImage takeBookmakerOddsScreenshot() {
+		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
+
+		BufferedImage image = screenHandler.takeScreenshot(oddsInputCoordinates.x, oddsInputCoordinates.y,
+				(int) Math.round(ScreenConfig.width * marathonbetConstants.getStakeScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * marathonbetConstants.getStakeScreenshotHeight()));
+
+		return image;
 	}
 
 	private BotCoordinates getBettingSlipCoordinates() {
@@ -105,4 +180,23 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		return new BotCoordinates(betX, betY);
 	}
 
+	private BotCoordinates getBetInputStakeCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math.round(
+				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetInputStakeWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputStakeHeight());
+
+		return new BotCoordinates(betX, betY);
+	}
+
+	private BotCoordinates getBetInputOddsCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math.round(
+				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetInputOddsWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputOddsHeight());
+
+		return new BotCoordinates(betX, betY);
+	}
 }

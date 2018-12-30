@@ -40,6 +40,11 @@ public class DiskUtils {
 		saveToDisk(image, "browsingStatus");
 	}
 
+	public static void saveBookmakerOddsToDisk(BufferedImage image) {
+
+		saveToDisk(image, "bookmakerOdds");
+	}
+
 	private static void saveToDisk(BufferedImage image, String dir) {
 
 		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
