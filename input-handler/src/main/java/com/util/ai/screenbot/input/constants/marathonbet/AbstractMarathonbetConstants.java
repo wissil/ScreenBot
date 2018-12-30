@@ -32,6 +32,10 @@ public abstract class AbstractMarathonbetConstants {
 
 	public abstract Float getStakeScreenshotHeight();
 
+	public abstract Float getNeutralClickWidth();
+
+	public abstract Float getNeutralClickHeight();
+
 	public Color getMarathonbetGreen() {
 		return MARATHON_GREEN;
 	}

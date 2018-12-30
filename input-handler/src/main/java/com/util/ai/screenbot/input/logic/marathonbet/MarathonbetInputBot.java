@@ -31,6 +31,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void initialize(Rectangle browserDimensions) {
 		this.browserDimensions = browserDimensions;
+		neutralClick();
 	}
 
 	public void navigateToBettingSlipButton() {
@@ -150,6 +151,19 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		return image;
 	}
 
+	public void navigateToNeutralClick() {
+
+		BotCoordinates neutralClickCoordinates = getNeutralClickCoordinates();
+
+		mouseHandler.moveMouse(neutralClickCoordinates.x, neutralClickCoordinates.y);
+	}
+
+	public void neutralClick() {
+		navigateToNeutralClick();
+
+		mouseHandler.leftClick();
+	}
+
 	private BotCoordinates getBettingSlipCoordinates() {
 		Integer betX = (int) (browserDimensions.x + Math
 				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBettingSlipWidth()));
@@ -196,6 +210,16 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputOddsHeight());
+
+		return new BotCoordinates(betX, betY);
+	}
+
+	private BotCoordinates getNeutralClickCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math.round(
+				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getNeutralClickWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getNeutralClickHeight());
 
 		return new BotCoordinates(betX, betY);
 	}

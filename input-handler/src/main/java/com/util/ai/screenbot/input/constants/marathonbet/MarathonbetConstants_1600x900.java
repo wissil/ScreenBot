@@ -68,4 +68,16 @@ public class MarathonbetConstants_1600x900 extends AbstractMarathonbetConstants 
 		return null;
 	}
 
+	@Override
+	public Float getNeutralClickWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getNeutralClickHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

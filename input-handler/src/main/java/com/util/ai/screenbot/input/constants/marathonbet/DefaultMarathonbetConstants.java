@@ -57,4 +57,14 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 		return null;
 	}
 
+	@Override
+	public Float getNeutralClickWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getNeutralClickHeight() {
+		return null;
+	}
+
 }

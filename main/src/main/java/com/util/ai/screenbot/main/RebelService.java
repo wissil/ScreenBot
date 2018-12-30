@@ -53,6 +53,7 @@ public class RebelService {
 		// vbBot.removeTopBet();
 
 		vbBrowser.initializeBettingBrowser();
+		marathonbetInputBot.initialize(vbBrowser.getBrowserDimensions());
 
 		Thread.sleep(1000);
 
@@ -78,7 +79,6 @@ public class RebelService {
 
 		Thread.sleep(3000);
 
-		marathonbetInputBot.initialize(vbBrowser.getBrowserDimensions());
 		marathonbetInputBot.clickBettingSlip();
 
 		Thread.sleep(3000);

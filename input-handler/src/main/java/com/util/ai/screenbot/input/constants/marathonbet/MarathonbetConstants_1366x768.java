@@ -24,6 +24,10 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float STAKE_SCREENSHOT_HEIGHT = 0.024f;
 
+	private static final Float NEUTRAL_CLICK_HEIGHT = 0.205f;
+
+	private static final Float NEUTRAL_CLICK_WIDTH = 0.5f;
+
 	@Override
 	public Float getBettingSlipHeight() {
 		return BETTING_SLIP_HEIGHT;
@@ -77,5 +81,15 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	@Override
 	public Float getStakeScreenshotHeight() {
 		return STAKE_SCREENSHOT_HEIGHT;
+	}
+
+	@Override
+	public Float getNeutralClickWidth() {
+		return NEUTRAL_CLICK_WIDTH;
+	}
+
+	@Override
+	public Float getNeutralClickHeight() {
+		return NEUTRAL_CLICK_HEIGHT;
 	}
 }
