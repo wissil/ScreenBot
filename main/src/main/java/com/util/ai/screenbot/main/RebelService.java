@@ -10,6 +10,7 @@ import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.input.utils.DiskUtils;
+import com.util.ai.screenbot.input.utils.SystemUtils;
 
 public class RebelService {
 
@@ -105,6 +106,12 @@ public class RebelService {
 
 			BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
 			DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
+
+			vbBrowser.clickConfirm();
+			Thread.sleep(500);
+			vbBrowser.clickConfirmOk();
+
+			DiskUtils.logBetToFile(SystemUtils.getClipboardContents());
 		}
 	}
 
