@@ -80,4 +80,52 @@ public class MarathonbetConstants_1600x900 extends AbstractMarathonbetConstants 
 		return null;
 	}
 
+	@Override
+	public Float getMinMaxStakeWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getMinMaxStakeHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBalanceWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBalanceHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBalanceScreenshotWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBalanceScreenshotHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getMinMaxStakeScreenshotWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getMinMaxStakeScreenshotHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

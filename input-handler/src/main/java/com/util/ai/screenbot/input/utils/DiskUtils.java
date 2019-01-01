@@ -49,6 +49,16 @@ public class DiskUtils {
 		saveToDisk(image, "bookmakerOdds");
 	}
 
+	public static void saveBalanceToDisk(BufferedImage image) {
+
+		saveToDisk(image, "balance");
+	}
+
+	public static void saveMinMaxStakeToDisk(BufferedImage image) {
+
+		saveToDisk(image, "minMaxStake");
+	}
+
 	public static void logBetToFile(String betLog) {
 
 		BufferedWriter bw = null;

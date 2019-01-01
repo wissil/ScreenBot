@@ -164,6 +164,40 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.leftClick();
 	}
 
+	public void navigateToMinMaxStake() {
+
+		BotCoordinates minMaxStakeCoordinates = getMinMaxStakeCoordinates();
+
+		mouseHandler.moveMouse(minMaxStakeCoordinates.x, minMaxStakeCoordinates.y);
+	}
+
+	public void navigateToBalance() {
+
+		BotCoordinates balanceCoordinates = getBalanceCoordinates();
+
+		mouseHandler.moveMouse(balanceCoordinates.x, balanceCoordinates.y);
+	}
+
+	public BufferedImage takeBalanceScreenshot() {
+		BotCoordinates balanceCoordinates = getBalanceCoordinates();
+
+		BufferedImage image = screenHandler.takeScreenshot(balanceCoordinates.x, balanceCoordinates.y,
+				(int) Math.round(ScreenConfig.width * marathonbetConstants.getBalanceScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * marathonbetConstants.getBalanceScreenshotHeight()));
+
+		return image;
+	}
+
+	public BufferedImage takeMinMaxStakeScreenshot() {
+		BotCoordinates minMaxStakeCoordinates = getMinMaxStakeCoordinates();
+
+		BufferedImage image = screenHandler.takeScreenshot(minMaxStakeCoordinates.x, minMaxStakeCoordinates.y,
+				(int) Math.round(ScreenConfig.width * marathonbetConstants.getMinMaxStakeScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * marathonbetConstants.getMinMaxStakeScreenshotHeight()));
+
+		return image;
+	}
+
 	private BotCoordinates getBettingSlipCoordinates() {
 		Integer betX = (int) (browserDimensions.x + Math
 				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBettingSlipWidth()));
@@ -220,6 +254,26 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getNeutralClickHeight());
+
+		return new BotCoordinates(betX, betY);
+	}
+
+	private BotCoordinates getMinMaxStakeCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math
+				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getMinMaxStakeWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getMinMaxStakeHeight());
+
+		return new BotCoordinates(betX, betY);
+	}
+
+	private BotCoordinates getBalanceCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math
+				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBalanceWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getBalanceHeight());
 
 		return new BotCoordinates(betX, betY);
 	}

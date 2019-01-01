@@ -28,6 +28,22 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float NEUTRAL_CLICK_WIDTH = 0.5f;
 
+	private static final Float MIN_MAX_STAKE_HEIGHT = 0.386f;
+
+	private static final Float MIN_MAX_STAKE_WIDTH = 0.763f;
+
+	private static final Float MIN_MAX_STAKE_SCREENSHOT_HEIGHT = 0.024f;
+
+	private static final Float MIN_MAX_STAKE_SCREENSHOT_WIDTH = 0.16f;
+
+	private static final Float BALANCE_HEIGHT = 0.097f;
+
+	private static final Float BALANCE_WIDTH = 0.776f;
+
+	private static final Float BALANCE_SCREENSHOT_HEIGHT = 0.024f;
+
+	private static final Float BALANCE_SCREENSHOT_WIDTH = 0.095f;
+
 	@Override
 	public Float getBettingSlipHeight() {
 		return BETTING_SLIP_HEIGHT;
@@ -91,5 +107,45 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	@Override
 	public Float getNeutralClickHeight() {
 		return NEUTRAL_CLICK_HEIGHT;
+	}
+
+	@Override
+	public Float getMinMaxStakeWidth() {
+		return MIN_MAX_STAKE_WIDTH;
+	}
+
+	@Override
+	public Float getMinMaxStakeHeight() {
+		return MIN_MAX_STAKE_HEIGHT;
+	}
+
+	@Override
+	public Float getBalanceWidth() {
+		return BALANCE_WIDTH;
+	}
+
+	@Override
+	public Float getBalanceHeight() {
+		return BALANCE_HEIGHT;
+	}
+
+	@Override
+	public Float getBalanceScreenshotWidth() {
+		return BALANCE_SCREENSHOT_WIDTH;
+	}
+
+	@Override
+	public Float getBalanceScreenshotHeight() {
+		return BALANCE_SCREENSHOT_HEIGHT;
+	}
+
+	@Override
+	public Float getMinMaxStakeScreenshotWidth() {
+		return MIN_MAX_STAKE_SCREENSHOT_WIDTH;
+	}
+
+	@Override
+	public Float getMinMaxStakeScreenshotHeight() {
+		return MIN_MAX_STAKE_SCREENSHOT_HEIGHT;
 	}
 }
