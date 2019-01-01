@@ -1,6 +1,8 @@
 package com.util.ai.screenbot.input.constants.marathonbet;
 
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractMarathonbetConstants {
 
@@ -8,7 +10,7 @@ public abstract class AbstractMarathonbetConstants {
 
 	private static final Color MARATHON_GREEN = new Color(0, 143, 76);
 
-	private static final Color MARATHON_RED = new Color(223, 33, 41);
+	private static final List<Color> MARATHON_RED = Arrays.asList(new Color(223, 33, 41), new Color(203, 33, 41));
 
 	public abstract Float getBettingSlipHeight();
 
@@ -52,6 +54,8 @@ public abstract class AbstractMarathonbetConstants {
 
 	public abstract Float getBalanceScreenshotHeight();
 
+	public abstract Integer getDeviation();
+
 	public Color getMarathonbetGreen() {
 		return MARATHON_GREEN;
 	}
@@ -60,7 +64,7 @@ public abstract class AbstractMarathonbetConstants {
 		return MARATHON_LIGHT_GREEN;
 	}
 
-	public Color getMarathonbetRed() {
+	public List<Color> getMarathonbetRed() {
 		return MARATHON_RED;
 	}
 }

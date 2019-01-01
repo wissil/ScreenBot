@@ -115,6 +115,7 @@ public class RebelService {
 			marathonbetInputBot.navigateToBalance();
 			BufferedImage balance = marathonbetInputBot.takeBalanceScreenshot();
 			DiskUtils.saveBalanceToDisk(balance);
+
 		}
 	}
 

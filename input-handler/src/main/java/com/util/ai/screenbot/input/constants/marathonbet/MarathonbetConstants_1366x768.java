@@ -6,7 +6,7 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float BETTING_SLIP_WIDTH = 0.8f;
 
-	private static final Float REMOVEALL_BUTTON_WIDTH = 0.794f;
+	private static final Float REMOVEALL_BUTTON_WIDTH = 0.795f;
 
 	private static final Float BET_BUTTON_WIDTH = 0.951f;
 
@@ -43,6 +43,8 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	private static final Float BALANCE_SCREENSHOT_HEIGHT = 0.024f;
 
 	private static final Float BALANCE_SCREENSHOT_WIDTH = 0.095f;
+
+	private static final Integer DEVIATION = 20;
 
 	@Override
 	public Float getBettingSlipHeight() {
@@ -147,5 +149,10 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	@Override
 	public Float getMinMaxStakeScreenshotHeight() {
 		return MIN_MAX_STAKE_SCREENSHOT_HEIGHT;
+	}
+
+	@Override
+	public Integer getDeviation() {
+		return DEVIATION;
 	}
 }

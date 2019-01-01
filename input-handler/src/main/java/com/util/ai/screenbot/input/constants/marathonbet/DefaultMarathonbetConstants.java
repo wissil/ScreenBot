@@ -107,4 +107,9 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 		return null;
 	}
 
+	@Override
+	public Integer getDeviation() {
+		return null;
+	}
+
 }
