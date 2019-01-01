@@ -9,7 +9,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
 import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
-import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
+import com.util.ai.screenbot.input.model.ActiveWindow;
 
 public class MacScreenHandler extends ScreenHandler {
 

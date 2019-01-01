@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.google.inject.Inject;
 import com.util.ai.screenbot.input.config.InputHandlerTestBase;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
-import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
+import com.util.ai.screenbot.input.model.ActiveWindow;
 import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.testing.platform.IgnoreOnPlatform;
 

@@ -7,7 +7,7 @@ import com.sun.jna.platform.win32.WinDef.HWND;
 import com.sun.jna.platform.win32.WinDef.RECT;
 import com.util.ai.screenbot.input.config.JNAConfig;
 import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
-import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
+import com.util.ai.screenbot.input.model.ActiveWindow;
 
 public class WinScreenHandler extends ScreenHandler {
 

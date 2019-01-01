@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.util.ai.screenbot.input.exceptions.DeviceHandlerException;
 import com.util.ai.screenbot.input.handlers.AbstractDeviceHandler;
-import com.util.ai.screenbot.input.handlers.util.ActiveWindow;
+import com.util.ai.screenbot.input.model.ActiveWindow;
 
 /**
  * @author mcop

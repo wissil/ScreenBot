@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.handlers.util;
+package com.util.ai.screenbot.input.model;
 
 import java.awt.Rectangle;
 
