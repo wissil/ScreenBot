@@ -72,12 +72,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());
 			
 			final Bookie bookie = Bookie.fromString(element.getBookie());
+			final double stake = Double.parseDouble(oddsInput.getStake().trim());
 						
 			if (oddsRight >= oddsLeft) {
 				// place bet logic
 				
 				// 1) kladionica.placeBet()
-				in.placeBet(bookie);
+				in.placeBet(bookie, stake);
 				
 				// 2) click OK on the betting browser
 				in.clickOKAtBettingBrowser();
@@ -125,6 +126,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 			in.openMainWindow();
 			in.removeTopBet();
 			idle();
+		} catch (Exception e) {
+			// any other exception
+			log.error("Unknown exception has occurred.", e);
+			email.send(LOG_FILE_PATH);
 		}
 	}
 

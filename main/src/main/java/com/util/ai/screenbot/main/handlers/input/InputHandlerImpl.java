@@ -44,8 +44,8 @@ public class InputHandlerImpl implements InputHandler {
     }
 
     @Override
-    public void placeBet(Bookie bookie) {
-        bookie.getHandler().placeBet();
+    public void placeBet(Bookie bookie, double stake) {
+        bookie.getHandler().placeBet(stake);
     }
 
     @Override

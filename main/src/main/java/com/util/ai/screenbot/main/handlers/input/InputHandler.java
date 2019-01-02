@@ -24,7 +24,7 @@ public interface InputHandler {
 	
 	void clickCancelAtBettingBrowser();
 	
-	void placeBet(Bookie bookie);
+	void placeBet(Bookie bookie, double stake);
 	
 	void removeBet(Bookie bookie);
 }

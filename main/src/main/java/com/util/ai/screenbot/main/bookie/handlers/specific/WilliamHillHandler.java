@@ -10,7 +10,7 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void placeBet() {
+	public void placeBet(double stake) {
 		// TODO Auto-generated method stub
 		
 	}
