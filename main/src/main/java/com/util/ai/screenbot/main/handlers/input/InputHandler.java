@@ -27,4 +27,8 @@ public interface InputHandler {
 	void placeBet(Bookie bookie, double stake);
 	
 	void removeBet(Bookie bookie);
+	
+	boolean isBettingBrowserLoaded();
+	
+	boolean isBetCorrect(Bookie bookie);
 }

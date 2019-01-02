@@ -21,4 +21,9 @@ public class Bet365Handler extends AbstractBookieHandler {
 		
 	}
 
+	@Override
+	public boolean isBetCorrect() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

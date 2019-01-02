@@ -75,4 +75,15 @@ public class InputHandlerImpl implements InputHandler {
         // TODO Auto-generated method stub
     }
 
+	@Override
+	public boolean isBettingBrowserLoaded() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isBetCorrect(Bookie bookie) {
+		return bookie.getHandler().isBetCorrect();
+	}
+
 }

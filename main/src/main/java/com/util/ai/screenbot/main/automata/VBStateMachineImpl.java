@@ -27,6 +27,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 	/** A period used for checking whether the new bet has occurred, in ms. */
 	private static final int BET_CHECK_PERIOD = 2_000;
 	
+	private static final int BET_BROWSER_LOAD_PERIOD = 1_000;
+	
+	private static final int BET_BROWSER_LOAD_TIMEOUT = 30;
+	
 	private final InputHandler in;
 	
 	private final OutputHandler out;
@@ -41,7 +45,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 	
 	@Override
 	public void run() throws InterruptedException {
-		idle();
+		init();
 	}
 
 	public void cleanBet() throws InterruptedException {
@@ -61,6 +65,25 @@ public class VBStateMachineImpl implements VBStateMachine {
 		// 1) go to betting browser
 		in.openBettingBrowserWindow();
 		
+		// 2) wait while betting browser loading is done
+		int waitingTime = 0;
+		while (true) {
+			if (in.isBettingBrowserLoaded()) {
+				log.debug("Betting browser successfully loaded!");
+				break;
+			}	
+			
+			if (waitingTime == BET_BROWSER_LOAD_TIMEOUT) {
+				log.warn(String.format("Betting browser didn't load in %d seconds.", BET_BROWSER_LOAD_TIMEOUT));
+				log.warn("Timeout!");
+			}
+			
+			Thread.sleep(BET_BROWSER_LOAD_PERIOD);
+			waitingTime += 1;
+		}
+		
+		// 3) process bet
+		log.debug("Processing betting browser screen ...");
 		try {
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getPlaceBetImage();
@@ -73,6 +96,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 			
 			final Bookie bookie = Bookie.fromString(element.getBookie());
 			final double stake = Double.parseDouble(oddsInput.getStake().trim());
+			
+			// check betting slip
+			if (!in.isBetCorrect(bookie)) {
+				in.clickCancelAtBettingBrowser();
+				in.openMainWindow();
+				cleanBet();
+			}
 						
 			if (oddsRight >= oddsLeft) {
 				// place bet logic
@@ -160,9 +190,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void init() {
+	public void init() throws InterruptedException {
 		// TODO: init
 		log.debug("Enter state: INIT ...");
+		idle();
 	}
 
 }

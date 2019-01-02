@@ -20,5 +20,11 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public boolean isBetCorrect() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
