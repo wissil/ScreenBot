@@ -130,4 +130,14 @@ public class DefaultVBConstants extends AbstractVBConstants {
 		return null;
 	}
 
+	@Override
+	public Float getBrowsingStatusScreenshotWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getBrowsingStatusScreenshotHeight() {
+		return null;
+	}
+
 }

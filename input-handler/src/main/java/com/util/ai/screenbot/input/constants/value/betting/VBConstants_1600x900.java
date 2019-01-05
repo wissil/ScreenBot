@@ -161,4 +161,16 @@ public class VBConstants_1600x900 extends AbstractVBConstants {
 		return null;
 	}
 
+	@Override
+	public Float getBrowsingStatusScreenshotWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBrowsingStatusScreenshotHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

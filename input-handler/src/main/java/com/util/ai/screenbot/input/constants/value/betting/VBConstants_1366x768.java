@@ -40,11 +40,15 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 
 	private static final Float BET_INFO_SCREENSHOT_WIDTH = 0.03f;
 
-	private static final Float BET_INFO_SCREENSHOT_HEIGHT = 0.024f;
+	private static final Float BET_INFO_SCREENSHOT_HEIGHT = 0.1f;
 
 	private static final Float BROWSING_STATUS_WIDTH = 0.269f;
 
 	private static final Float BROWSING_STATUS_HEIGHT = 0.899f;
+
+	private static final Float BROWSING_STATUS_SCREENSHOT_WIDTH = 0.03f;
+
+	private static final Float BROWSING_STATUS_SCREENSHOT_HEIGHT = 0.024f;
 
 	@Override
 	public Float getTopBetLowerCornerHeight() {
@@ -163,6 +167,16 @@ public class VBConstants_1366x768 extends AbstractVBConstants {
 	@Override
 	public Float getBrowsingStatusHeight() {
 		return BROWSING_STATUS_HEIGHT;
+	}
+
+	@Override
+	public Float getBrowsingStatusScreenshotWidth() {
+		return BROWSING_STATUS_SCREENSHOT_WIDTH;
+	}
+
+	@Override
+	public Float getBrowsingStatusScreenshotHeight() {
+		return BROWSING_STATUS_SCREENSHOT_HEIGHT;
 	}
 
 }

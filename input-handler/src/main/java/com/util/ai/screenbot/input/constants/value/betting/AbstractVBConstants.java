@@ -50,4 +50,8 @@ public abstract class AbstractVBConstants {
 
 	public abstract Float getBrowsingStatusHeight();
 
+	public abstract Float getBrowsingStatusScreenshotWidth();
+
+	public abstract Float getBrowsingStatusScreenshotHeight();
+
 }

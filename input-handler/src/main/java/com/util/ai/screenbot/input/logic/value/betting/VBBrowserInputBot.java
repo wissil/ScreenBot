@@ -37,7 +37,7 @@ public class VBBrowserInputBot extends VBInputBot {
 		mouseHandler.moveMouse(oddsCoordinates.x, oddsCoordinates.y);
 	}
 
-	public BufferedImage takeOddsScreenshot() {
+	public BufferedImage takeBetInfoScreenshot() {
 		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(oddsCoordinates.x, oddsCoordinates.y,
@@ -55,31 +55,11 @@ public class VBBrowserInputBot extends VBInputBot {
 		mouseHandler.moveMouse(stakeCoordinates.x, stakeCoordinates.y);
 	}
 
-	public BufferedImage takeStakeScreenshot() {
-		BotCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(stakeCoordinates.x, stakeCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
-
-		return image;
-	}
-
 	public void navigateToValueUpperLeftCorner() {
 
 		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
 
 		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
-	}
-
-	public BufferedImage takeValueScreenshot() {
-		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
-
-		return image;
 	}
 
 	public void navigateToCancelButton() {
@@ -132,8 +112,8 @@ public class VBBrowserInputBot extends VBInputBot {
 		BotCoordinates valueCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
+				(int) Math.round(ScreenConfig.width * vbConstants.getBrowsingStatusScreenshotWidth()),
+				(int) Math.round(ScreenConfig.height * vbConstants.getBrowsingStatusScreenshotHeight()));
 
 		return image;
 	}

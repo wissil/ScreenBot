@@ -48,12 +48,12 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 	}
 
 	@Override
-	public Float getStakeScreenshotWidth() {
+	public Float getOddsScreenshotWidth() {
 		return null;
 	}
 
 	@Override
-	public Float getStakeScreenshotHeight() {
+	public Float getOddsScreenshotHeight() {
 		return null;
 	}
 
@@ -68,7 +68,7 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 	}
 
 	@Override
-	public Float getMinMaxStakeWidth() {
+	public Float getMaxStakeWidth() {
 		return null;
 	}
 
@@ -109,6 +109,11 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 
 	@Override
 	public Integer getDeviation() {
+		return null;
+	}
+
+	@Override
+	public Float getMinStakeWidth() {
 		return null;
 	}
 

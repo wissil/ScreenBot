@@ -24,19 +24,9 @@ public class DiskUtils {
 		saveToDisk(image, "singleBets");
 	}
 
-	public static void saveOddsToDisk(BufferedImage image) {
+	public static void saveBetInfoToDisk(BufferedImage image) {
 
-		saveToDisk(image, "odds");
-	}
-
-	public static void saveStakeToDisk(BufferedImage image) {
-
-		saveToDisk(image, "stake");
-	}
-
-	public static void saveValueToDisk(BufferedImage image) {
-
-		saveToDisk(image, "value");
+		saveToDisk(image, "betInfo");
 	}
 
 	public static void saveBrowsingStatusToDisk(BufferedImage image) {
@@ -54,9 +44,14 @@ public class DiskUtils {
 		saveToDisk(image, "balance");
 	}
 
-	public static void saveMinMaxStakeToDisk(BufferedImage image) {
+	public static void saveMaxStakeToDisk(BufferedImage image) {
 
-		saveToDisk(image, "minMaxStake");
+		saveToDisk(image, "maxStake");
+	}
+
+	public static void saveMinStakeToDisk(BufferedImage image) {
+
+		saveToDisk(image, "minStake");
 	}
 
 	public static void logBetToFile(String betLog) {

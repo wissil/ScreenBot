@@ -30,15 +30,17 @@ public abstract class AbstractMarathonbetConstants {
 
 	public abstract Float getBetInputOddsHeight();
 
-	public abstract Float getStakeScreenshotWidth();
+	public abstract Float getOddsScreenshotWidth();
 
-	public abstract Float getStakeScreenshotHeight();
+	public abstract Float getOddsScreenshotHeight();
 
 	public abstract Float getNeutralClickWidth();
 
 	public abstract Float getNeutralClickHeight();
 
-	public abstract Float getMinMaxStakeWidth();
+	public abstract Float getMaxStakeWidth();
+
+	public abstract Float getMinStakeWidth();
 
 	public abstract Float getMinMaxStakeHeight();
 

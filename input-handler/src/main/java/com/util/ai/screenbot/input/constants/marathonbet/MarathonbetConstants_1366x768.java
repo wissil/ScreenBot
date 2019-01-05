@@ -14,15 +14,15 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float BET_INPUT_STAKE_WIDTH = 0.9f;
 
-	private static final Float BET_INPUT_ODDS_WIDTH = 0.805f;
+	private static final Float BET_INPUT_ODDS_WIDTH = 0.83f;
 
 	private static final Float BET_INPUT_STAKE_HEIGHT = 0.347f;
 
 	private static final Float BET_INPUT_ODDS_HEIGHT = 0.34f;
 
-	private static final Float STAKE_SCREENSHOT_WIDTH = 0.06f;
+	private static final Float ODDS_SCREENSHOT_WIDTH = 0.03f;
 
-	private static final Float STAKE_SCREENSHOT_HEIGHT = 0.024f;
+	private static final Float ODDS_SCREENSHOT_HEIGHT = 0.024f;
 
 	private static final Float NEUTRAL_CLICK_HEIGHT = 0.205f;
 
@@ -30,19 +30,21 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float MIN_MAX_STAKE_HEIGHT = 0.386f;
 
-	private static final Float MIN_MAX_STAKE_WIDTH = 0.763f;
+	private static final Float MAX_STAKE_WIDTH = 0.805f;
+
+	private static final Float MIN_STAKE_WIDTH = 0.88f;
 
 	private static final Float MIN_MAX_STAKE_SCREENSHOT_HEIGHT = 0.024f;
 
-	private static final Float MIN_MAX_STAKE_SCREENSHOT_WIDTH = 0.16f;
+	private static final Float MIN_MAX_STAKE_SCREENSHOT_WIDTH = 0.03f;
 
 	private static final Float BALANCE_HEIGHT = 0.097f;
 
-	private static final Float BALANCE_WIDTH = 0.776f;
+	private static final Float BALANCE_WIDTH = 0.84f;
 
 	private static final Float BALANCE_SCREENSHOT_HEIGHT = 0.024f;
 
-	private static final Float BALANCE_SCREENSHOT_WIDTH = 0.095f;
+	private static final Float BALANCE_SCREENSHOT_WIDTH = 0.04f;
 
 	private static final Integer DEVIATION = 20;
 
@@ -92,13 +94,13 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	}
 
 	@Override
-	public Float getStakeScreenshotWidth() {
-		return STAKE_SCREENSHOT_WIDTH;
+	public Float getOddsScreenshotWidth() {
+		return ODDS_SCREENSHOT_WIDTH;
 	}
 
 	@Override
-	public Float getStakeScreenshotHeight() {
-		return STAKE_SCREENSHOT_HEIGHT;
+	public Float getOddsScreenshotHeight() {
+		return ODDS_SCREENSHOT_HEIGHT;
 	}
 
 	@Override
@@ -112,8 +114,13 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 	}
 
 	@Override
-	public Float getMinMaxStakeWidth() {
-		return MIN_MAX_STAKE_WIDTH;
+	public Float getMaxStakeWidth() {
+		return MAX_STAKE_WIDTH;
+	}
+
+	@Override
+	public Float getMinStakeWidth() {
+		return MIN_STAKE_WIDTH;
 	}
 
 	@Override

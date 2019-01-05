@@ -55,23 +55,13 @@ public class RebelService {
 		vbBrowser.initializeBettingBrowser();
 		marathonbetInputBot.initialize(vbBrowser.getBrowserDimensions());
 
-		Thread.sleep(1000);
+		Thread.sleep(5000);
 
 		vbBrowser.navigateToOddsUpperLeftCorner();
-		BufferedImage odds = vbBrowser.takeOddsScreenshot();
-		DiskUtils.saveOddsToDisk(odds);
+		BufferedImage odds = vbBrowser.takeBetInfoScreenshot();
+		DiskUtils.saveBetInfoToDisk(odds);
 
 		Thread.sleep(3000);
-
-		vbBrowser.navigateToStakeUpperLeftCorner();
-		BufferedImage stake = vbBrowser.takeStakeScreenshot();
-		DiskUtils.saveStakeToDisk(stake);
-
-		Thread.sleep(3000);
-
-		vbBrowser.navigateToValueUpperLeftCorner();
-		BufferedImage value = vbBrowser.takeValueScreenshot();
-		DiskUtils.saveValueToDisk(value);
 
 		vbBrowser.navigateToBrowsingStatus();
 		BufferedImage browsingStatus = vbBrowser.takeBrowsingStatusScreenshot();
@@ -106,9 +96,15 @@ public class RebelService {
 			BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
 			DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
 
-			marathonbetInputBot.navigateToMinMaxStake();
-			BufferedImage minMaxStake = marathonbetInputBot.takeMinMaxStakeScreenshot();
-			DiskUtils.saveMinMaxStakeToDisk(minMaxStake);
+			marathonbetInputBot.navigateToMaxStake();
+			BufferedImage maxStake = marathonbetInputBot.takeMaxStakeScreenshot();
+			DiskUtils.saveMaxStakeToDisk(maxStake);
+
+			Thread.sleep(3000);
+
+			marathonbetInputBot.navigateToMinStake();
+			BufferedImage minStake = marathonbetInputBot.takeMinStakeScreenshot();
+			DiskUtils.saveMinStakeToDisk(minStake);
 
 			Thread.sleep(3000);
 
