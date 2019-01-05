@@ -12,17 +12,17 @@ public class Bet365Handler extends AbstractBookieHandler {
 	@Override
 	public void placeBet(double stake) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removeBet() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public boolean isBetCorrect() {
+	public boolean isBetCorrect(double stake) {
 		// TODO Auto-generated method stub
 		return false;
 	}

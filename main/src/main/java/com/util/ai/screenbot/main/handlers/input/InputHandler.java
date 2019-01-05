@@ -7,28 +7,30 @@ import com.util.ai.screenbot.main.bookie.Bookie;
 public interface InputHandler {
 
 	boolean isNewBetPresent();
-	
+
 	void openBettingBrowserWindow();
-	
+
 	void openMainWindow();
-	
+
 	BufferedImage getSingleBetImage();
-	
+
 	BufferedImage getPlaceBetImage();
-	
+
 	BufferedImage getOddsInputImage();
-	
+
 	void removeTopBet();
-	
+
 	void clickOKAtBettingBrowser();
-	
+
 	void clickCancelAtBettingBrowser();
-	
+
 	void placeBet(Bookie bookie, double stake);
-	
+
 	void removeBet(Bookie bookie);
-	
+
 	boolean isBettingBrowserLoaded();
-	
-	boolean isBetCorrect(Bookie bookie);
+
+	boolean isBetPlaceable(Bookie bookie, double stake);
+
+	void clickNeutralArea();
 }
