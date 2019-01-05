@@ -21,15 +21,20 @@ import static com.util.ai.screenbot.support.strings.StringComparator.consideredE
 public class VBStateMachineImpl implements VBStateMachine {
 	
     private static final Logger log = LoggerFactory.getLogger(VBStateMachineImpl.class);
+    
+    private static final String LOG_FILE_PATH = "../logs/main/daily/main.log";
 	
 	/** A period used for checking whether the new bet has occurred, in ms. */
 	private static final int BET_CHECK_PERIOD = 2_000;
+	
+	private static final int BET_BROWSER_LOAD_PERIOD = 1_000;
+	
+	private static final int BET_BROWSER_LOAD_TIMEOUT = 30;
 	
 	private final InputHandler in;
 	
 	private final OutputHandler out;
 	
-	@SuppressWarnings("unused")
 	private final EmailSender email;
 	
 	public VBStateMachineImpl(InputHandler in, OutputHandler out, EmailSender email) {
@@ -40,7 +45,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 	
 	@Override
 	public void run() throws InterruptedException {
-		idle();
+		init();
 	}
 
 	public void cleanBet() throws InterruptedException {
@@ -60,6 +65,25 @@ public class VBStateMachineImpl implements VBStateMachine {
 		// 1) go to betting browser
 		in.openBettingBrowserWindow();
 		
+		// 2) wait while betting browser loading is done
+		int waitingTime = 0;
+		while (true) {
+			if (in.isBettingBrowserLoaded()) {
+				log.debug("Betting browser successfully loaded!");
+				break;
+			}	
+			
+			if (waitingTime == BET_BROWSER_LOAD_TIMEOUT) {
+				log.warn(String.format("Betting browser didn't load in %d seconds.", BET_BROWSER_LOAD_TIMEOUT));
+				log.warn("Timeout!");
+			}
+			
+			Thread.sleep(BET_BROWSER_LOAD_PERIOD);
+			waitingTime += 1;
+		}
+		
+		// 3) process bet
+		log.debug("Processing betting browser screen ...");
 		try {
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getPlaceBetImage();
@@ -71,12 +95,20 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());
 			
 			final Bookie bookie = Bookie.fromString(element.getBookie());
+			final double stake = Double.parseDouble(oddsInput.getStake().trim());
+			
+			// check betting slip
+			if (!in.isBetCorrect(bookie)) {
+				in.clickCancelAtBettingBrowser();
+				in.openMainWindow();
+				cleanBet();
+			}
 						
 			if (oddsRight >= oddsLeft) {
 				// place bet logic
 				
 				// 1) kladionica.placeBet()
-				in.placeBet(bookie);
+				in.placeBet(bookie, stake);
 				
 				// 2) click OK on the betting browser
 				in.clickOKAtBettingBrowser();
@@ -112,8 +144,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 				idle();
 			}
 		} catch (VBElementInterpretationException e) {
-			// TODO: handle exception
-			// TODO: send email
+			log.error("Interpretation failed.", e);
+			email.send(LOG_FILE_PATH);
 			
 			// remove top bet --> idle()
 			in.openMainWindow();
@@ -124,6 +156,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 			in.openMainWindow();
 			in.removeTopBet();
 			idle();
+		} catch (Exception e) {
+			// any other exception
+			log.error("Unknown exception has occurred.", e);
+			email.send(LOG_FILE_PATH);
 		}
 	}
 
@@ -135,9 +171,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final VBSingleBetElement element = out.readSingleBet(image);
 			placeBet(element);
 		} catch (VBElementInterpretationException e) {
-			// TODO: handle exception
 			log.error("Problem occurred while parsing bet.", e);
-			// TODO: send email
+			email.send(LOG_FILE_PATH);
 			
 			// remove top bet --> idle()
 			in.removeTopBet();
@@ -155,9 +190,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void init() {
+	public void init() throws InterruptedException {
 		// TODO: init
 		log.debug("Enter state: INIT ...");
+		idle();
 	}
 
 }

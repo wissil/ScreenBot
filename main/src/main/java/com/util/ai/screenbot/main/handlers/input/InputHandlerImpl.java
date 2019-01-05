@@ -44,8 +44,8 @@ public class InputHandlerImpl implements InputHandler {
     }
 
     @Override
-    public void placeBet(Bookie bookie) {
-        bookie.getHandler().placeBet();
+    public void placeBet(Bookie bookie, double stake) {
+        bookie.getHandler().placeBet(stake);
     }
 
     @Override
@@ -74,5 +74,16 @@ public class InputHandlerImpl implements InputHandler {
     public void clickCancelAtBettingBrowser() {
         // TODO Auto-generated method stub
     }
+
+	@Override
+	public boolean isBettingBrowserLoaded() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isBetCorrect(Bookie bookie) {
+		return bookie.getHandler().isBetCorrect();
+	}
 
 }

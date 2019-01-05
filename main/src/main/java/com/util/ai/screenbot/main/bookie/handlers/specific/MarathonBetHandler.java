@@ -10,7 +10,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void placeBet() {
+	public void placeBet(double stake) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -19,6 +19,12 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	public void removeBet() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean isBetCorrect() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
