@@ -2,16 +2,16 @@ package com.util.ai.screenbot.output.parsing;
 
 import java.util.Arrays;
 
-import com.util.ai.screenbot.output.elements.VBOddsInputElement;
+import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 
-public class VBOddsInputElementParser 
-	implements VBScreenElementParser<VBOddsInputElement> {
+public class VBBetInfoElementParser 
+	implements VBScreenElementParser<VBBetInfoElement> {
 	
 	private static final int NUM_ELEMENTS = 3;
 
 	@Override
-	public VBOddsInputElement parse(String input) throws ScreenElementParseException {
+	public VBBetInfoElement parse(String input) throws ScreenElementParseException {
 		final String[] elements = input.split(System.lineSeparator());
 		
 		if (elements.length != NUM_ELEMENTS) {
@@ -32,7 +32,7 @@ public class VBOddsInputElementParser
 		// remove the % symbol
 		value = value.substring(0, value.length()-1);
 		
-		return new VBOddsInputElement(odds, stake, value);
+		return new VBBetInfoElement(odds, stake, value);
 	}
 
 }

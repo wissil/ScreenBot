@@ -1,6 +1,6 @@
 package com.util.ai.screenbot.output.elements;
 
-public class VBOddsInputElement implements VBScreenElement {
+public class VBBetInfoElement implements VBScreenElement {
 	
 	private final String odds;
 	
@@ -8,7 +8,7 @@ public class VBOddsInputElement implements VBScreenElement {
 	
 	private final String value;
 
-	public VBOddsInputElement(String odds, String stake, String value) {
+	public VBBetInfoElement(String odds, String stake, String value) {
 		this.odds = odds;
 		this.stake = stake;
 		this.value = value;
@@ -28,6 +28,6 @@ public class VBOddsInputElement implements VBScreenElement {
 
 	@Override
 	public String toString() {
-		return "VBOddsInputElement [odds=" + odds + ", stake=" + stake + ", value=" + value + "]";
+		return "VBBetInfoElement [odds=" + odds + ", stake=" + stake + ", value=" + value + "]";
 	}
 }

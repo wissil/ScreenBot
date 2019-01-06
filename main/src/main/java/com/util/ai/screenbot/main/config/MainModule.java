@@ -18,9 +18,6 @@ import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandlerImpl;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandlerImpl;
-import com.util.ai.screenbot.output.interpreters.VBOddsInputInterpreter;
-import com.util.ai.screenbot.output.interpreters.VBPlaceBetInterpreter;
-import com.util.ai.screenbot.output.interpreters.VBSingleBetInterpreter;
 import com.util.ai.screenbot.output.ocr.TesseractAPI;
 
 public class MainModule extends AbstractModule {
@@ -78,9 +75,7 @@ public class MainModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    OutputHandler outputHandler(VBSingleBetInterpreter singleBetInterpreter, VBOddsInputInterpreter oddsInputInterpreter,
-            VBPlaceBetInterpreter placeBetInterpreter, TessBaseAPI tesseract) {
-
-        return new OutputHandlerImpl(singleBetInterpreter, oddsInputInterpreter, placeBetInterpreter, tesseract);
+    OutputHandler outputHandler(TessBaseAPI tesseract) {
+        return new OutputHandlerImpl(tesseract);
     }
 }

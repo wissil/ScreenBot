@@ -12,8 +12,8 @@ import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
-import com.util.ai.screenbot.output.elements.VBOddsInputElement;
-import com.util.ai.screenbot.output.elements.VBPlaceBetElement;
+import com.util.ai.screenbot.output.elements.VBBetInfoElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.email.EmailSender;
@@ -99,8 +99,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getPlaceBetImage(/* bookie */);
 
-			final VBOddsInputElement oddsInput = out.readOddsInput(oddsInputImage);
-			final VBPlaceBetElement placeBet = out.readPlaceBet(placeBetImage);
+			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
+			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage);
 
 			final double oddsLeft = Double.parseDouble(oddsInput.getOdds().trim());
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());

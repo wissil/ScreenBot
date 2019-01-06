@@ -1,10 +1,10 @@
 package com.util.ai.screenbot.output.elements;
 
-public class VBPlaceBetElement implements VBScreenElement {
+public class VBBookmakerOddsElement implements VBScreenElement {
 
 	private final String odds;
 	
-	public VBPlaceBetElement(String odds) {
+	public VBBookmakerOddsElement(String odds) {
 		this.odds = odds;
 	}
 	
@@ -14,6 +14,6 @@ public class VBPlaceBetElement implements VBScreenElement {
 
 	@Override
 	public String toString() {
-		return "VBPlaceBetScreenElement [odds=" + odds + "]";
+		return "VBBookmakerOddsElement [odds=" + odds + "]";
 	}
 }
