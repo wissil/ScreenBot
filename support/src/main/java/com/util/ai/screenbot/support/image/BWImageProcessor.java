@@ -11,10 +11,8 @@ public class BWImageProcessor implements ImageProcessor {
 	private static final int SCALE = 5;
 	
 	private static final int WHITE_TRESHOLD_NEG = 120;
-	private static final int BLACK_TRESHOLD_NEG = 60;
 	
 	private static final int WHITE_TRESHOLD_POS = 210;
-	private static final int BLACK_TRESHOLD_POS = 60;
 	
 	private static final Color WHITE = new Color(255, 255, 255);
 	private static final Color BLACK = new Color(0, 0, 0);

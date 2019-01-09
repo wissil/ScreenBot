@@ -3,19 +3,19 @@ package com.util.ai.screenbot.output.elements;
 
 public class VBSingleBetElement implements VBScreenElement {
 
-	private final String value;
+	private final double value;
 	
-	private final String stake;
+	private final double stake;
 	
 	private final String participants;
 	
 	private final String outcome;
 	
-	private final String odds;
+	private final double odds;
 	
 	private final String bookie;
 
-	public VBSingleBetElement(String value, String stake, String participants, String outcome, String odds, String bookie) {
+	public VBSingleBetElement(double value, double stake, String participants, String outcome, double odds, String bookie) {
 		this.value = value;
 		this.stake = stake;
 		this.participants = participants;
@@ -24,11 +24,11 @@ public class VBSingleBetElement implements VBScreenElement {
 		this.bookie = bookie;
 	}
 
-	public String getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public String getStake() {
+	public double getStake() {
 		return stake;
 	}
 
@@ -40,7 +40,7 @@ public class VBSingleBetElement implements VBScreenElement {
 		return outcome;
 	}
 
-	public String getOdds() {
+	public double getOdds() {
 		return odds;
 	}
 
