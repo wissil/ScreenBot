@@ -8,9 +8,17 @@ import com.google.inject.Singleton;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMaxStakeGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMinStakeGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerOddsGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBBetInfoGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBBrowsingStatusGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBSingleBetGui;
 import com.util.ai.screenbot.output.interpreters.VBElementInterpreter;
 import com.util.ai.screenbot.output.interpreters.VBElementInterpreterImpl;
 import com.util.ai.screenbot.output.interpreters.VBElementInterpreterProvider;
@@ -18,109 +26,148 @@ import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.parsing.VBSingleBetElementParser;
 import com.util.ai.screenbot.support.image.BWImageProcessor;
 import com.util.ai.screenbot.support.image.ImageProcessor;
+
+import net.sourceforge.tess4j.TessAPI;
+import net.sourceforge.tess4j.Tesseract;
+
 import com.util.ai.screenbot.output.parsing.VBBalanceElementParser;
 import com.util.ai.screenbot.output.parsing.VBBetInfoElementParser;
+import com.util.ai.screenbot.output.parsing.VBBetInfoValueElementParser;
+import com.util.ai.screenbot.output.parsing.VBBookmakerMaxStakeElementParser;
 import com.util.ai.screenbot.output.parsing.VBBookmakerOddsElementParser;
-import com.util.ai.screenbot.output.parsing.VBBookmakerStakeElementParser;
+import com.util.ai.screenbot.output.parsing.VBBookmakerMinStakeElementParser;
 import com.util.ai.screenbot.output.parsing.VBBrowsingStatusElementParser;
 
 public class OutputHandlerModule extends AbstractModule {
 	
-    @Override
-    protected void configure() {
-        requestStaticInjection(VBElementInterpreterProvider.class);
-    }
-	
+	private static final String TESSDATA_PATH = "./tessdata";
+
+	private static final String LANGUAGE = "eng";
+
+	@Override
+	protected void configure() {
+		requestStaticInjection(VBElementInterpreterProvider.class);
+	}
+
 	@Provides
 	@Singleton
-	OCR ocr() {
-		return new OCR();
+	Tesseract tesseract() {
+		final Tesseract tesseract = new Tesseract();
+		tesseract.setDatapath(TESSDATA_PATH);
+		tesseract.setLanguage(LANGUAGE);
+		tesseract.setOcrEngineMode(TessAPI.TessOcrEngineMode.OEM_DEFAULT);
+		
+		return tesseract;
 	}
-	
+
+	@Inject
+	@Provides
+	@Singleton
+	OCR ocr(Tesseract tesseract) {
+		return new OCR(tesseract);
+	}
+
 	@Provides
 	@Singleton
 	VBSingleBetElementParser singleBetParser() {
 		return new VBSingleBetElementParser();
 	}
-	
+
 	@Provides
 	@Singleton
 	VBBetInfoElementParser oddsInputParser() {
 		return new VBBetInfoElementParser();
 	}
-	
+
 	@Provides
 	@Singleton
 	VBBookmakerOddsElementParser placeBetParser() {
 		return new VBBookmakerOddsElementParser();
 	}
-	
+
+	@Provides
+	@Singleton
+	VBBetInfoValueElementParser betInfoValueParser() {
+		return new VBBetInfoValueElementParser();
+	}
+
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBetInfoElement> betInfoInterpreter(
+	VBElementInterpreter<VBBetInfoElement, VBBetInfoGui> betInfoInterpreter(
 			OCR ocr, 
 			VBBetInfoElementParser parser, 
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBetInfoElement, VBBetInfoElementParser>
-		(ocr, parser, imageProcessor, Boolean.FALSE);
+		return new VBElementInterpreterImpl<VBBetInfoElement, VBBetInfoGui, VBBetInfoElementParser>
+		(ocr, parser, imageProcessor);
 	}
-	
+
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBSingleBetElement> singleBetInterpreter(
+	VBElementInterpreter<VBSingleBetElement, VBSingleBetGui> singleBetInterpreter(
 			OCR ocr, 
 			VBSingleBetElementParser parser, 
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBSingleBetElement, VBSingleBetElementParser>
-		(ocr, parser, imageProcessor, Boolean.TRUE);
+		return new VBElementInterpreterImpl<VBSingleBetElement, VBSingleBetGui, VBSingleBetElementParser>
+		(ocr, parser, imageProcessor);
 	}
-	
+
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBrowsingStatusElement> browsingStatusInterpreter(
+	VBElementInterpreter<VBBrowsingStatusElement, VBBrowsingStatusGui> browsingStatusInterpreter(
 			OCR ocr, 
 			VBBrowsingStatusElementParser parser,
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBrowsingStatusElement, VBBrowsingStatusElementParser>
-		(ocr, parser, imageProcessor, Boolean.FALSE);
+		return new VBElementInterpreterImpl<VBBrowsingStatusElement, VBBrowsingStatusGui, VBBrowsingStatusElementParser>
+		(ocr, parser, imageProcessor);
 	}
-	
+
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBookmakerOddsElement> bookmakerOddsInterpreter(
+	VBElementInterpreter<VBBookmakerOddsElement, ? super VBBookmakerOddsGui> bookmakerOddsInterpreter(
 			OCR ocr, 
 			VBBookmakerOddsElementParser parser,
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBookmakerOddsElement, VBBookmakerOddsElementParser>
-		(ocr, parser, imageProcessor, Boolean.FALSE);
+		return new VBElementInterpreterImpl<VBBookmakerOddsElement, VBBookmakerOddsGui, VBBookmakerOddsElementParser>
+		(ocr, parser, imageProcessor);
 	}
-	
+
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBalanceElement> balanceInterpreter(
+	VBElementInterpreter<VBBalanceElement, ? super VBBalanceGui> balanceInterpreter(
 			OCR ocr, 
 			VBBalanceElementParser parser,
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBalanceElement, VBBalanceElementParser>
-		(ocr, parser, imageProcessor, Boolean.TRUE);
+		return new VBElementInterpreterImpl<VBBalanceElement, VBBalanceGui, VBBalanceElementParser>
+		(ocr, parser, imageProcessor);
+	}
+
+	@Inject
+	@Provides
+	@Singleton
+	VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter(
+			OCR ocr, 
+			VBBookmakerMinStakeElementParser parser,
+			BWImageProcessor imageProcessor) {
+		return new VBElementInterpreterImpl<VBBookmakerStakeMinElement, VBBookmakerMinStakeGui, VBBookmakerMinStakeElementParser>
+		(ocr, parser, imageProcessor);
 	}
 	
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBookmakerStakeElement> bookmakerStakeInterpreter(
+	VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter(
 			OCR ocr, 
-			VBBookmakerStakeElementParser parser,
+			VBBookmakerMaxStakeElementParser parser,
 			BWImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBookmakerStakeElement, VBBookmakerStakeElementParser>
-		(ocr, parser, imageProcessor, Boolean.TRUE);
+		return new VBElementInterpreterImpl<VBBookmakerStakeMaxElement, VBBookmakerMaxStakeGui, VBBookmakerMaxStakeElementParser>
+		(ocr, parser, imageProcessor);
 	}
-	
+
 	@Provides
 	@Singleton
 	ImageProcessor imageProcessor() {

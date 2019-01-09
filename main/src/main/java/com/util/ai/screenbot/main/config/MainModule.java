@@ -1,6 +1,5 @@
 package com.util.ai.screenbot.main.config;
 
-import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -18,13 +17,8 @@ import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandlerImpl;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandlerImpl;
-import com.util.ai.screenbot.output.ocr.TesseractAPI;
 
 public class MainModule extends AbstractModule {
-
-    private static final String TESSDATA_PATH = "../output-handler/tessdata";
-
-    private static final String LANGUAGE = "eng";
 
     @Override
     protected void configure() {
@@ -59,12 +53,6 @@ public class MainModule extends AbstractModule {
         return new VBStateMachineMock(in, out);
     }
 
-    @Provides
-    @Singleton
-    TessBaseAPI tesseract() {
-        return TesseractAPI.getTesseract(TESSDATA_PATH, LANGUAGE);
-    }
-
     @Inject
     @Provides
     @Singleton
@@ -72,10 +60,9 @@ public class MainModule extends AbstractModule {
         return new InputHandlerImpl(mainBot, browserBot);
     }
 
-    @Inject
     @Provides
     @Singleton
-    OutputHandler outputHandler(TessBaseAPI tesseract) {
-        return new OutputHandlerImpl(tesseract);
+    OutputHandler outputHandler() {
+        return new OutputHandlerImpl();
     }
 }

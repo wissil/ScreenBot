@@ -8,7 +8,6 @@ import com.google.inject.Injector;
 import com.util.ai.screenbot.input.config.InputHandlerModule;
 import com.util.ai.screenbot.main.config.MainModule;
 import com.util.ai.screenbot.output.config.OutputHandlerModule;
-import com.util.ai.screenbot.output.ocr.TesseractAPI;
 import com.util.ai.screenbot.support.config.SupportModule;
 
 public class App {
@@ -22,19 +21,6 @@ public class App {
         		new SupportModule(), 
         		new InputHandlerModule(), 
         		new OutputHandlerModule());
-
-        // register shutdown hook to destroy tesseract
-        log.info("Adding shutdown hook ...");
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                log.info("Destroying tesseract ...");
-                TesseractAPI.destroyTesseract();
-
-                log.info("Service stopped!");
-            }
-        }));
 
         final RebelService rebel = injector.getInstance(RebelService.class);
 

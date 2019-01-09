@@ -12,16 +12,23 @@
 	<name>output-handler</name>
 
 	<properties>
-		<tesseract.version>4.0.0-rc2-1.4.3</tesseract.version>
+		<tess.version>4.0.0-rc2-1.4.3</tess.version>
 	</properties>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/tesseract -->
+
 		<dependency>
+			<groupId>net.sourceforge.tess4j</groupId>
+			<artifactId>tess4j</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/tesseract -->
+<!-- 		<dependency>
 			<groupId>org.bytedeco.javacpp-presets</groupId>
 			<artifactId>tesseract-platform</artifactId>
-			<version>${tesseract.version}</version>
-		</dependency>
+			<version>${tess.version}</version>
+		</dependency> -->
+
 
 		<dependency>
 			<groupId>com.util.ai.screenbot</groupId>

@@ -6,17 +6,22 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.bytedeco.javacpp.tesseract.TessBaseAPI;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
-import com.util.ai.screenbot.output.ocr.TesseractAPI;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMaxStakeGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMinStakeGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerOddsGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBBetInfoGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBBrowsingStatusGui;
+import com.util.ai.screenbot.output.elements.gui.general.VBSingleBetGui;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 
@@ -25,26 +30,14 @@ import static com.util.ai.screenbot.output.interpreters.VBElementInterpreterProv
 
 public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
-	private static final String TESSDATA_PATH = "./tessdata";
-	
-	private static final String LANGUAGE = "eng";
-	
-	private static TessBaseAPI tesseract;
-	
-	
-	@BeforeClass
-	public static void setup() throws IOException {
-		// init API
-		tesseract = TesseractAPI.getTesseract(TESSDATA_PATH, LANGUAGE);
-	}
-	
 	@Test
 	public void singleBetElementTest() throws VBElementInterpretationException, IOException {
 		final File root = new File("./external/primjeri/singleBets/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBSingleBetElement element = singleBetInterpreter().interpret(tesseract, image);
+			final VBSingleBetGui gui = new VBSingleBetGui(image);
+			final VBSingleBetElement element = singleBetInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -55,7 +48,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerOddsElement element = bookmakerOddsInterpreter().interpret(tesseract, image);
+			final VBBookmakerOddsGui gui = new VBBookmakerOddsGui(image);
+			final VBBookmakerOddsElement element = bookmakerOddsInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -66,7 +60,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBetInfoElement element = betInfoInterpreter().interpret(tesseract, image);
+			final VBBetInfoGui gui = new VBBetInfoGui(image);
+			final VBBetInfoElement element = betInfoInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -77,7 +72,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBrowsingStatusElement element = browsingStatusInterpreter().interpret(tesseract, image);
+			final VBBrowsingStatusGui gui = new VBBrowsingStatusGui(image);
+			final VBBrowsingStatusElement element = browsingStatusInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -88,7 +84,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBalanceElement element = balanceInterpreter().interpret(tesseract, image);
+			final VBBalanceGui gui = new VBBalanceGui(image);
+			final VBBalanceElement element = balanceInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -99,7 +96,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerStakeElement element = bookmakerStakeInterpreter().interpret(tesseract, image);
+			final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image);
+			final VBBookmakerStakeMaxElement element = bookmakerMaxStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -110,7 +108,8 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerStakeElement element = bookmakerStakeInterpreter().interpret(tesseract, image);
+			final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image);
+			final VBBookmakerStakeMinElement element = bookmakerMinStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}

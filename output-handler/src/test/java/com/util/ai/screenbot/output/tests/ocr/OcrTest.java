@@ -6,23 +6,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
 import com.util.ai.screenbot.output.ocr.OCR;
-import com.util.ai.screenbot.output.ocr.TesseractAPI;
+import com.util.ai.screenbot.output.ocr.OcrReadMode;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 import com.util.ai.screenbot.support.image.BWImageProcessor;
 import com.util.ai.screenbot.support.testing.time.TimedExecution;
 
 public class OcrTest extends OutputHandlerTestBase {
-
-	private static final String TESSDATA_PATH = "./tessdata";
-
-	private static final String LANGUAGE = "eng";
 
 	@Inject
 	private OCR ocr;
@@ -30,14 +25,10 @@ public class OcrTest extends OutputHandlerTestBase {
 	@Inject
 	private BWImageProcessor imageProcessor;
 
-	private static TessBaseAPI api;
-
 	private static BufferedImage bImage;
 
 	@BeforeClass
 	public static void setup() throws IOException {
-		// init API
-		api = TesseractAPI.getTesseract(TESSDATA_PATH, LANGUAGE);
 		bImage = ImageIO.read(new File("./external/res/zelenilo.jpg"));
 	}
 
@@ -45,19 +36,23 @@ public class OcrTest extends OutputHandlerTestBase {
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final BufferedImage inputFile = 
-				ImageIO.read(new File("./external/res/bilo1.png"));
-		final String textual = ocr.doOcr(api, inputFile);
+				ImageIO.read(new File("./external/primjeri/value/t1.png"));
+		
+		final String textual = ocr.doOcr(inputFile, OcrReadMode.DIGITS);
 		System.out.println(textual);
 		
-		BufferedImage inputAfter = imageProcessor.process(inputFile, Boolean.TRUE);
-		final String textualAfter = ocr.doOcr(api, inputAfter);
+		BufferedImage inputAfter = imageProcessor.process(inputFile, Boolean.FALSE);
+		ImageIO.write(inputAfter, "png", new File("./external/primjeri_out/value/t1.png"));
+
+		final String textualAfter = ocr.doOcr(inputAfter, OcrReadMode.DIGITS);
 		System.out.println(textualAfter);
 	}
 
 	@Test
+	@Ignore
 	@TimedExecution
 	public void ocrFromBufferedImage_SingleFile_Test() throws IOException {
-		final String textual = ocr.doOcr(api, bImage);
+		final String textual = ocr.doOcr(bImage, OcrReadMode.DIGITS);
 		System.out.println(textual);
 	}
 
@@ -65,11 +60,11 @@ public class OcrTest extends OutputHandlerTestBase {
 	@Ignore
 	public void interpretMultipleImagesTest() throws IOException {
 		String imagePath = "./external/res/t1.png";
-		String textual = ocr.doOcr(api, imagePath);
+		String textual = ocr.doOcr(imagePath, OcrReadMode.DIGITS);
 		System.out.println(textual);
 
 		imagePath = "./external/res/test2.jpg";
-		textual = ocr.doOcr(api, imagePath);
+		textual = ocr.doOcr(imagePath, OcrReadMode.DIGITS);
 		System.out.println(textual);
 	}
 }

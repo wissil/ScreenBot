@@ -16,14 +16,12 @@ public class BWImageProcessorTest extends SupportTestBase {
 
 	@Inject
 	private BWImageProcessor processor;
-	
-	@Test
-	public void negativeTest() throws IOException {
-		BufferedImage image = 
-				ImageIO.read(new File("./external/res/bilo1.png"));
-		
-		image = processor.process(image, Boolean.TRUE);
 
-		ImageIO.write(image, "png", new File("./external/output/bilo_o1.png"));
+	@Test
+	public void betInfoImageTest() throws IOException {
+		final File f = new File("./external/primjeri_in/singleBets/r1.png");
+		final BufferedImage in = ImageIO.read(f);
+		final BufferedImage out = processor.process(in, Boolean.TRUE);
+		ImageIO.write(out, "png", new File("./external/primjeri_out/singleBets/" + f.getName()));
 	}
 }
