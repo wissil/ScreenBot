@@ -32,11 +32,11 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Float MAX_STAKE_WIDTH = 0.805f;
 
-	private static final Float MIN_STAKE_WIDTH = 0.88f;
+	private static final Float MIN_STAKE_WIDTH = 0.881f;
 
 	private static final Float MIN_MAX_STAKE_SCREENSHOT_HEIGHT = 0.024f;
 
-	private static final Float MIN_MAX_STAKE_SCREENSHOT_WIDTH = 0.03f;
+	private static final Float MIN_MAX_STAKE_SCREENSHOT_WIDTH = 0.035f;
 
 	private static final Float BALANCE_HEIGHT = 0.097f;
 

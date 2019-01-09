@@ -127,7 +127,35 @@ public class VBMainInputBot extends VBInputBot {
 
 		mouseHandler.moveMouse(newX, newY);
 
-		// mouseHandler.leftClick(); FIXME - test purposes
+		mouseHandler.leftClick();
+	}
+
+	public void removeAllBetsFromTopBetEvent() {
+
+		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
+
+		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+		mouseHandler.leftClick();
+
+		mouseHandler.rightClick();
+		Point p = MouseInfo.getPointerInfo().getLocation();
+
+		int newY = p.y + (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
+
+		mouseHandler.moveMouse(p.x, newY);
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+
+		int newX = p.x + (int) Math.round(ScreenConfig.width * vbConstants.getRemoveBetMouseMovementWidth());
+		newY += (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
+
+		mouseHandler.moveMouse(newX, newY);
+
+		mouseHandler.leftClick();
 	}
 
 	private BotCoordinates getTopBetMiddleCoordinates() {

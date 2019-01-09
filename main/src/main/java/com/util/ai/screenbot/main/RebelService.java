@@ -87,7 +87,7 @@ public class RebelService {
 
 			vbBot.initializeValueBetting();
 
-			vbBot.removeTopBet();
+			vbBot.removeAllBetsFromTopBetEvent();
 
 		}
 	}
