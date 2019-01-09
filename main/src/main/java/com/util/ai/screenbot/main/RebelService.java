@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
@@ -29,25 +30,13 @@ public class RebelService {
 
 		vbBot.initializeValueBetting();
 
-		log.info("upper");
-		vbBot.navigateToTopBetUpperLeft();
-
-		Thread.sleep(3000);
-
-		log.info("lower");
-		vbBot.navigateToTopBetLowerLeft();
-
-		Thread.sleep(3000);
-
 		vbBot.navigateToTopBetMiddle();
 		vbBot.checkTopBet();
 
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 
 		BufferedImage topBetScreenShot = vbBot.takeTopBetScreenshot();
 		DiskUtils.saveBetToDisk(topBetScreenShot); // For debug purposes
-
-		Thread.sleep(3000);
 
 		vbBot.betOnTopBet();
 		// vbBot.removeTopBet();
@@ -55,64 +44,54 @@ public class RebelService {
 		vbBrowser.initializeBettingBrowser();
 		marathonbetInputBot.initialize(vbBrowser.getBrowserDimensions());
 
-		Thread.sleep(5000);
-
-		vbBrowser.navigateToOddsUpperLeftCorner();
-		BufferedImage odds = vbBrowser.takeBetInfoScreenshot();
-		DiskUtils.saveBetInfoToDisk(odds);
-
-		Thread.sleep(3000);
-
-		vbBrowser.navigateToBrowsingStatus();
-		BufferedImage browsingStatus = vbBrowser.takeBrowsingStatusScreenshot();
-		DiskUtils.saveBrowsingStatusToDisk(browsingStatus);
-
-		Thread.sleep(3000);
-
-		marathonbetInputBot.clickBettingSlip();
-
-		Thread.sleep(3000);
-
-		marathonbetInputBot.navigateToRemoveAllButton();
-
-		Thread.sleep(3000);
-
-		marathonbetInputBot.navigateToBetButton();
-
-		Thread.sleep(3000);
+		Thread.sleep(10000);
 
 		Boolean isOK = marathonbetInputBot.checkBettingSlip();
 
-		if (isOK) {
+		if (!isOK)
+			return;
 
-			marathonbetInputBot.navigateToOddsInputButton();
+		Thread.sleep(1000);
+		marathonbetInputBot.neutralClick();
 
-			Thread.sleep(3000);
+		Thread.sleep(500);
 
-			marathonbetInputBot.navigateToStakeInputButton();
+		BufferedImage odds = vbBrowser.takeBetInfoScreenshot();
+		DiskUtils.saveBetInfoToDisk(odds);
 
-			Thread.sleep(3000);
+		BufferedImage browsingStatus = vbBrowser.takeBrowsingStatusScreenshot();
+		DiskUtils.saveBrowsingStatusToDisk(browsingStatus);
 
-			BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
-			DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
+		BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
+		DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
 
-			marathonbetInputBot.navigateToMaxStake();
-			BufferedImage maxStake = marathonbetInputBot.takeMaxStakeScreenshot();
-			DiskUtils.saveMaxStakeToDisk(maxStake);
+		marathonbetInputBot.navigateToMaxStake();
+		BufferedImage maxStake = marathonbetInputBot.takeMaxStakeScreenshot();
+		DiskUtils.saveMaxStakeToDisk(maxStake);
 
-			Thread.sleep(3000);
+		Thread.sleep(3000);
 
-			marathonbetInputBot.navigateToMinStake();
-			BufferedImage minStake = marathonbetInputBot.takeMinStakeScreenshot();
-			DiskUtils.saveMinStakeToDisk(minStake);
+		marathonbetInputBot.navigateToMinStake();
+		BufferedImage minStake = marathonbetInputBot.takeMinStakeScreenshot();
+		DiskUtils.saveMinStakeToDisk(minStake);
 
-			Thread.sleep(3000);
+		Thread.sleep(3000);
 
-			marathonbetInputBot.navigateToBalance();
-			BufferedImage balance = marathonbetInputBot.takeBalanceScreenshot();
-			DiskUtils.saveBalanceToDisk(balance);
+		BufferedImage balance = marathonbetInputBot.takeBalanceScreenshot();
+		DiskUtils.saveBalanceToDisk(balance);
 
+		Thread.sleep(1000);
+
+		try {
+			marathonbetInputBot.clickRemoveAll();
+		} catch (FatalValueBettingException e) {
+			System.exit(-99);
 		}
+
+		Thread.sleep(1000);
+
+		vbBrowser.clickCancel();
+
 	}
 
 }

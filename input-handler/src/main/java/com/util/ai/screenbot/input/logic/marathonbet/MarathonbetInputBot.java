@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -34,7 +35,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	public void initialize(Rectangle browserDimensions) {
 		this.browserDimensions = browserDimensions;
 		deviation = 0;
-		neutralClick();
 	}
 
 	public void navigateToBettingSlipButton() {
@@ -130,20 +130,51 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
 
-		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y + this.deviation);
+		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 	}
 
-	public void clickRemoveAll() {
-		navigateToRemoveAllButton();
+	public void clickRemoveAll() throws FatalValueBettingException {
 
-		mouseHandler.leftClick();
+		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
+
+		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+				removeAllButtonCoordinates.y);
+
+		// Check if remove all button is red
+		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+			mouseHandler.leftClick();
+		} else {
+
+			removeAllButtonCoordinates.y -= marathonbetConstants.getDeviation();
+			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+					removeAllButtonCoordinates.y);
+
+			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+
+				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+				mouseHandler.leftClick();
+			} else {
+				removeAllButtonCoordinates.y += marathonbetConstants.getDeviation();
+			}
+			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+					removeAllButtonCoordinates.y);
+
+			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+				mouseHandler.leftClick();
+			} else {
+				throw new FatalValueBettingException("Not able to removeAll");
+			}
+		}
+
 	}
 
 	public void navigateToBetButton() {
 
 		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
 
-		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y + this.deviation);
+		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
 	}
 
 	public void clickBet() {
@@ -187,20 +218,24 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		navigateToNeutralClick();
 
 		mouseHandler.leftClick();
+
+		navigateToStakeInputButton();
+
+		mouseHandler.leftClick();
 	}
 
 	public void navigateToMinStake() {
 
 		BotCoordinates minStakeCoordinates = getMinStakeCoordinates();
 
-		mouseHandler.moveMouse(minStakeCoordinates.x, minStakeCoordinates.y + this.deviation);
+		mouseHandler.moveMouse(minStakeCoordinates.x, minStakeCoordinates.y);
 	}
 
 	public void navigateToMaxStake() {
 
 		BotCoordinates maxStakeCoordinates = getMaxStakeCoordinates();
 
-		mouseHandler.moveMouse(maxStakeCoordinates.x, maxStakeCoordinates.y + this.deviation);
+		mouseHandler.moveMouse(maxStakeCoordinates.x, maxStakeCoordinates.y);
 	}
 
 	public void navigateToBalance() {
@@ -257,7 +292,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
 
-		return new BotCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY + this.deviation);
 	}
 
 	private BotCoordinates getBetButtonCoordinates() {
@@ -267,7 +302,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
 
-		return new BotCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY + this.deviation);
 	}
 
 	private BotCoordinates getBetInputStakeCoordinates() {
@@ -307,7 +342,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getMinMaxStakeHeight());
 
-		return new BotCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY + this.deviation);
 	}
 
 	private BotCoordinates getMinStakeCoordinates() {
@@ -317,7 +352,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getMinMaxStakeHeight());
 
-		return new BotCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY + this.deviation);
 	}
 
 	private BotCoordinates getBalanceCoordinates() {
