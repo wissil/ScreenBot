@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
@@ -47,6 +48,10 @@ public class RebelService {
 
 		Boolean isOK = marathonbetInputBot.checkBettingSlip();
 
+		if (!isOK)
+			return;
+
+		Thread.sleep(1000);
 		marathonbetInputBot.neutralClick();
 
 		Thread.sleep(500);
@@ -57,39 +62,36 @@ public class RebelService {
 		BufferedImage browsingStatus = vbBrowser.takeBrowsingStatusScreenshot();
 		DiskUtils.saveBrowsingStatusToDisk(browsingStatus);
 
-		if (isOK) {
+		BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
+		DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
 
-			BufferedImage marathonOdds = marathonbetInputBot.takeBookmakerOddsScreenshot();
-			DiskUtils.saveBookmakerOddsToDisk(marathonOdds);
+		marathonbetInputBot.navigateToMaxStake();
+		BufferedImage maxStake = marathonbetInputBot.takeMaxStakeScreenshot();
+		DiskUtils.saveMaxStakeToDisk(maxStake);
 
-			marathonbetInputBot.navigateToMaxStake();
-			BufferedImage maxStake = marathonbetInputBot.takeMaxStakeScreenshot();
-			DiskUtils.saveMaxStakeToDisk(maxStake);
+		Thread.sleep(3000);
 
-			Thread.sleep(3000);
+		marathonbetInputBot.navigateToMinStake();
+		BufferedImage minStake = marathonbetInputBot.takeMinStakeScreenshot();
+		DiskUtils.saveMinStakeToDisk(minStake);
 
-			marathonbetInputBot.navigateToMinStake();
-			BufferedImage minStake = marathonbetInputBot.takeMinStakeScreenshot();
-			DiskUtils.saveMinStakeToDisk(minStake);
+		Thread.sleep(3000);
 
-			Thread.sleep(3000);
+		BufferedImage balance = marathonbetInputBot.takeBalanceScreenshot();
+		DiskUtils.saveBalanceToDisk(balance);
 
-			BufferedImage balance = marathonbetInputBot.takeBalanceScreenshot();
-			DiskUtils.saveBalanceToDisk(balance);
+		Thread.sleep(1000);
 
-			Thread.sleep(1000);
-
+		try {
 			marathonbetInputBot.clickRemoveAll();
-
-			Thread.sleep(1000);
-
-			vbBrowser.clickCancel();
-
-			vbBot.initializeValueBetting();
-
-			vbBot.removeAllBetsFromTopBetEvent();
-
+		} catch (FatalValueBettingException e) {
+			System.exit(-99);
 		}
+
+		Thread.sleep(1000);
+
+		vbBrowser.clickCancel();
+
 	}
 
 }

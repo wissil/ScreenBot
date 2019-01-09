@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -132,10 +133,41 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 	}
 
-	public void clickRemoveAll() {
-		navigateToRemoveAllButton();
+	public void clickRemoveAll() throws FatalValueBettingException {
 
-		mouseHandler.leftClick();
+		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
+
+		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+				removeAllButtonCoordinates.y);
+
+		// Check if remove all button is red
+		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+			mouseHandler.leftClick();
+		} else {
+
+			removeAllButtonCoordinates.y -= marathonbetConstants.getDeviation();
+			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+					removeAllButtonCoordinates.y);
+
+			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+
+				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+				mouseHandler.leftClick();
+			} else {
+				removeAllButtonCoordinates.y += marathonbetConstants.getDeviation();
+			}
+			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+					removeAllButtonCoordinates.y);
+
+			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+				mouseHandler.leftClick();
+			} else {
+				throw new FatalValueBettingException("Not able to removeAll");
+			}
+		}
+
 	}
 
 	public void navigateToBetButton() {
