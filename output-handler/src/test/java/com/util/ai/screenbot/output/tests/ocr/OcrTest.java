@@ -33,6 +33,7 @@ public class OcrTest extends OutputHandlerTestBase {
 	}
 
 	@Test
+	@Ignore
 	@TimedExecution
 	public void ocrFromImagePath_SingleFile_Test() throws IOException {
 		final BufferedImage inputFile = 
@@ -42,7 +43,6 @@ public class OcrTest extends OutputHandlerTestBase {
 		System.out.println(textual);
 		
 		BufferedImage inputAfter = imageProcessor.process(inputFile, Boolean.FALSE);
-		ImageIO.write(inputAfter, "png", new File("./external/primjeri_out/value/t1.png"));
 
 		final String textualAfter = ocr.doOcr(inputAfter, OcrReadMode.DIGITS);
 		System.out.println(textualAfter);

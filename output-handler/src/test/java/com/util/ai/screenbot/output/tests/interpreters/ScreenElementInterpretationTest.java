@@ -32,7 +32,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void singleBetElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/singleBets/");
+		final File root = new File("./external/singleBets/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -44,7 +44,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void bookmakerOddsElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/bookmakerOdds/");
+		final File root = new File("./external/bookmakerOdds/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -56,7 +56,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void betInfoElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/betInfo/");
+		final File root = new File("./external/betInfo/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -68,7 +68,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void browsingStatusElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/browsingStatus/");
+		final File root = new File("./external/browsingStatus/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -80,7 +80,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void balanceElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/balance/");
+		final File root = new File("./external/balance/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -92,7 +92,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void maxStakeElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/maxStake/");
+		final File root = new File("./external/maxStake/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
@@ -104,7 +104,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void minStakeElementTest() throws VBElementInterpretationException, IOException {
-		final File root = new File("./external/primjeri/minStake/");
+		final File root = new File("./external/minStake/");
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);

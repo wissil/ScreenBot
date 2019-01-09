@@ -50,15 +50,13 @@ public class VBBetInfoElementParserTest extends OutputHandlerTestBase {
 	}
 	
 	@Test
+	@Ignore
 	public void testStakeElementParsing() throws Exception  {
 		final BufferedImage inputFile = 
 				ImageIO.read(new File("./external/stake/t1.png"));
 				
 		final BufferedImage inputAfter = 
 				imageProcessor.process(inputFile, Boolean.FALSE);
-		
-		ImageIO.write(inputAfter, "png", new File("./external/stake/out/o.png"));
-
 		
 		final String textual = ocr.doOcr(inputAfter, OcrReadMode.DIGITS);
 		System.out.println(textual);

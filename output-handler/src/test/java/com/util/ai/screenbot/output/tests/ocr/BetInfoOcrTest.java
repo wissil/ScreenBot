@@ -29,8 +29,6 @@ public class BetInfoOcrTest extends OutputHandlerTestBase {
 			BufferedImage image = ImageIO.read(f);
 			image = imageProcessor.process(image, Boolean.FALSE);
 
-			ImageIO.write(image, "png", new File("./external/out/betInfo/" + f.getName()));
-
 			String result = ocr.doOcr(image, OcrReadMode.DIGITS);
 			System.out.println(result);
 		}
