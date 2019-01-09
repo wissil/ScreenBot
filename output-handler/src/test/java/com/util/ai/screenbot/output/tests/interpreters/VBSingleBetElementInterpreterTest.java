@@ -19,7 +19,7 @@ import static com.util.ai.screenbot.output.interpreters.VBElementInterpreterProv
 public class VBSingleBetElementInterpreterTest extends OutputHandlerTestBase {
 	
 	@Test
-	public void betInfoValueTest() throws IOException, VBElementInterpretationException {
+	public void singleBetTest() throws IOException, VBElementInterpretationException {
 		final File root = new File("./external/singleBets/");
 		
 		for (File f : root.listFiles()) {

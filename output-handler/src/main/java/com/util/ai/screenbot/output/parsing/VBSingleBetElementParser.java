@@ -13,7 +13,7 @@ public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleB
 			+ "[ \\t]*"
 			+ "([0-9]+)"
 			+ "[ \\t]+"
-			+ "(.+[ \\t]*(?:hour|hours|min)[ \\t]*(?:[0-9]+[ \\t]*min)?)"
+			+ "(.+[ \\t]*(?:hour|hours|min|sec)[ \\t]*(?:[0-9]+[ \\t]*min)?)"
 			+ "[ \\t]+"
 			+ "([a-zA-Z].*)"
 			+ "[ \\t]+"

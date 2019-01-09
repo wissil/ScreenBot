@@ -33,8 +33,9 @@ public class VBElementInterpreterImpl<E extends VBScreenElement, G extends VBGui
 			final String textual = ocr.doOcr(processedImage, gui.getOcrReadMode()).trim();
 			return parser.parse(textual);
 		} catch (Exception e) {
+			System.out.println(e);
 			throw new VBElementInterpretationException(
-					String.format("Couldn't interpret the given image as element.", e));
+					String.format("Couldn't interpret the given image [%s] as element.", gui), e);
 		}
 	}
 }
