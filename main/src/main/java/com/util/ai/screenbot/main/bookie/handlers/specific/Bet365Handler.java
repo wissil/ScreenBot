@@ -1,5 +1,7 @@
 package com.util.ai.screenbot.main.bookie.handlers.specific;
 
+import java.awt.image.BufferedImage;
+
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 
@@ -25,5 +27,11 @@ public class Bet365Handler extends AbstractBookieHandler {
 	public boolean isBetCorrect(double stake) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public BufferedImage getPlaceBetImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

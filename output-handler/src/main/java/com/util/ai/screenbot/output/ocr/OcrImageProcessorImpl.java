@@ -1,33 +1,28 @@
-package com.util.ai.screenbot.support.image;
+package com.util.ai.screenbot.output.ocr;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import net.sourceforge.tess4j.util.ImageHelper;
 
-
-public class BWImageProcessor implements ImageProcessor {
-	
-	private static final int SCALE = 5;
-	
-	private static final int WHITE_TRESHOLD_NEG = 120;
-	
-	private static final int WHITE_TRESHOLD_POS = 210;
+public class OcrImageProcessorImpl implements OcrImageProcessor {
 	
 	private static final Color WHITE = new Color(255, 255, 255);
 	private static final Color BLACK = new Color(0, 0, 0);
-	
+
 	@Override
-	public BufferedImage process(BufferedImage image, boolean negative) {
+	public BufferedImage process(BufferedImage image, OcrImageProcessingConf conf) {
+		final int SCALE = conf.SCALE();
+		final int WHITE_TRESH = conf.WHITE_TRESHOLD();
+		final boolean negative = conf.isNegative();
+		
 		final int _width = image.getWidth() * SCALE;
 		final int _height = image.getHeight() * SCALE;
 		
 		image = ImageHelper.convertImageToGrayscale(image);
 		if (negative) image = ImageHelper.invertImageColor(image);
 
-		image = negative ? 
-				enhancePixels(image, WHITE_TRESHOLD_NEG) : 
-				enhancePixels(image, WHITE_TRESHOLD_POS);
+		image =	enhancePixels(image, WHITE_TRESH);
 				
 		image = ImageHelper.getScaledInstance(image, _width, _height);
 
@@ -45,15 +40,6 @@ public class BWImageProcessor implements ImageProcessor {
 		
 		return image;
 	}
-
-	@SuppressWarnings("unused")
-	private static void processPixelOnNegative(BufferedImage image, int x, int y, Color pixelColor, int whiteTreshold) {
-		if (isWhite(pixelColor, whiteTreshold)) {
-			image.setRGB(x, y, BLACK.getRGB());
-		} else {
-			image.setRGB(x, y, WHITE.getRGB());
-		}
-	}
 	
 	private static void processPixelOnPositive(BufferedImage image, int x, int y, Color pixelColor, int whiteTreshold) {
 		if (isWhite(pixelColor, whiteTreshold)) {
@@ -68,13 +54,5 @@ public class BWImageProcessor implements ImageProcessor {
 				color.getGreen() >= whiteTreshold || 
 				color.getBlue() >= whiteTreshold || 
 				color.getRed() >= whiteTreshold;
-	}
-	
-	@SuppressWarnings("unused")
-	private static boolean isBlack(Color color, int blackTreshold) {
-		return 
-				color.getGreen() <= blackTreshold && 
-				color.getBlue() <= blackTreshold && 
-				color.getRed() <= blackTreshold;
 	}
 }

@@ -59,7 +59,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		idle();
 	}
 
-	public void placeBet(VBSingleBetElement element) throws InterruptedException {
+	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException {
 		log.debug("Enter state: PLACE_BET ...");
 
 		// 1) go to betting browser
@@ -67,12 +67,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 
 		// 2) wait while betting browser loading is done
 		int waitingTime = 0;
-		while (true) {
+		while (true) {			
 			// take photo of Done area
 			// OCR photo
 			// parse photo
 			// if Done
-			if (in.isBettingBrowserLoaded()) {
+			final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();
+			if (out.readBrowsingStatus(browsingStatusImage).isDone()) {
 				log.debug("Betting browser successfully loaded!");
 				break;
 			}
@@ -97,10 +98,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 			bookie = Bookie.fromString(element.getBookie());
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
-			final BufferedImage placeBetImage = in.getPlaceBetImage(/* bookie */);
+			final BufferedImage placeBetImage = in.getPlaceBetImage(bookie);
 
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
-			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage);
+			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage, bookie);
 
 			final double oddsLeft = Double.parseDouble(oddsInput.getOdds().trim());
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());

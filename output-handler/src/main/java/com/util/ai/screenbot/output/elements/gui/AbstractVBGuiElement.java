@@ -15,6 +15,4 @@ public abstract class AbstractVBGuiElement implements VBGuiElement {
 	public BufferedImage getImage() {
 		return image;
 	}
-	
-	// possible: normalize photo here
 }

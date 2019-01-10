@@ -2,13 +2,11 @@ package com.util.ai.screenbot.output.elements.gui;
 
 import java.awt.image.BufferedImage;
 
-import com.util.ai.screenbot.output.ocr.OcrReadMode;
+import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 
 public interface VBGuiElement {
 
 	BufferedImage getImage();
 	
-	OcrReadMode getOcrReadMode();
-	
-	boolean isNegative();
+	OcrImageProcessingConf getConf();
 }

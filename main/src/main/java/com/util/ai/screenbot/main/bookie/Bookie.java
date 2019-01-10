@@ -6,24 +6,31 @@ import static com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider.w
 import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
+import com.util.ai.screenbot.output.elements.ocr.conf.bookie.BookmakerOcrConfiguration;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonOcrConfiguration;
+
 
 public enum Bookie {
 
-	MARATHON_BET("Marathonbet", marathonBetHandler()),
+	MARATHON_BET("Marathonbet", marathonBetHandler(), new MarathonOcrConfiguration()),
 
-	WILLIAM_HILL("WilliamHill", williamHillHandler()),
+	WILLIAM_HILL("WilliamHill", williamHillHandler(), null),
 
-	BET_365("Bet365", bet365Handler());
+	BET_365("Bet365", bet365Handler(), null);
 
 	final String bookieName;
 
 	final BookieHandler handler;
+	
+	final BookmakerOcrConfiguration ocrConfig;
 
-	Bookie(String bookieName, BookieHandler handler) {
-		this.bookieName = bookieName;
-		this.handler = handler;
+	Bookie(String bookieName, BookieHandler handler, BookmakerOcrConfiguration ocrConfig) {
+		this.bookieName = Objects.requireNonNull(bookieName);
+		this.handler = Objects.requireNonNull(handler);
+		this.ocrConfig = Objects.requireNonNull(ocrConfig);
 	}
 
 	public String getBookieName() {
@@ -32,6 +39,10 @@ public enum Bookie {
 
 	public BookieHandler getHandler() {
 		return handler;
+	}
+	
+	public BookmakerOcrConfiguration getOcrConfig() {
+		return ocrConfig;
 	}
 
 	public static Bookie fromString(String s) throws UnknownBookieException {

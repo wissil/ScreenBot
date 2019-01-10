@@ -2,23 +2,12 @@ package com.util.ai.screenbot.output.elements.gui.bookie;
 
 import java.awt.image.BufferedImage;
 
-import com.util.ai.screenbot.output.elements.gui.AbstractVBGuiElement;
-import com.util.ai.screenbot.output.ocr.OcrReadMode;
+import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 
-public class VBBalanceGui extends AbstractVBGuiElement {
+public class VBBalanceGui extends VBBookieGuiElement {
 
-	public VBBalanceGui(BufferedImage image) {
-		super(image);
-	}
-
-	@Override
-	public OcrReadMode getOcrReadMode() {
-		return OcrReadMode.DIGITS;
-	}
-
-	@Override
-	public boolean isNegative() {
-		return true;
+	public VBBalanceGui(BufferedImage image, OcrImageProcessingConf conf) {
+		super(image, conf);
 	}
 
 }

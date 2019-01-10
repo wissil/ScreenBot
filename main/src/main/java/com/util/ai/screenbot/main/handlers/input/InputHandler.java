@@ -14,9 +14,11 @@ public interface InputHandler {
 
 	BufferedImage getSingleBetImage();
 
-	BufferedImage getPlaceBetImage();
+	BufferedImage getPlaceBetImage(Bookie bookie);
 
 	BufferedImage getOddsInputImage();
+	
+	BufferedImage getBrowsingStatusImage();
 
 	void removeTopBet();
 

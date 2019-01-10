@@ -3,7 +3,8 @@ package com.util.ai.screenbot.output.elements.gui.general;
 import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.output.elements.gui.AbstractVBGuiElement;
-import com.util.ai.screenbot.output.ocr.OcrReadMode;
+import com.util.ai.screenbot.output.elements.ocr.conf.general.VBBrowsingStatusOcrConf;
+import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 
 public class VBBrowsingStatusGui extends AbstractVBGuiElement {
 
@@ -12,13 +13,7 @@ public class VBBrowsingStatusGui extends AbstractVBGuiElement {
 	}
 
 	@Override
-	public OcrReadMode getOcrReadMode() {
-		return OcrReadMode.ENGLISH;
+	public OcrImageProcessingConf getConf() {
+		return new VBBrowsingStatusOcrConf();
 	}
-
-	@Override
-	public boolean isNegative() {
-		return false;
-	}
-
 }

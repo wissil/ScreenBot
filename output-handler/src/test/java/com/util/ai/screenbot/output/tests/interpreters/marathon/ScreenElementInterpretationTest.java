@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.output.tests.interpreters;
+package com.util.ai.screenbot.output.tests.interpreters.marathon;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +22,10 @@ import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerOddsGui;
 import com.util.ai.screenbot.output.elements.gui.general.VBBetInfoGui;
 import com.util.ai.screenbot.output.elements.gui.general.VBBrowsingStatusGui;
 import com.util.ai.screenbot.output.elements.gui.general.VBSingleBetGui;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonBalanceOcrConf;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonMaxStakeOcrConf;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonMinStakeOcrConf;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonOddsOcrConf;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 
@@ -48,7 +52,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerOddsGui gui = new VBBookmakerOddsGui(image);
+			final VBBookmakerOddsGui gui = new VBBookmakerOddsGui(image, new VBMarathonOddsOcrConf());
 			final VBBookmakerOddsElement element = bookmakerOddsInterpreter().interpret(gui);
 			System.out.println(element);
 		}
@@ -84,7 +88,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBalanceGui gui = new VBBalanceGui(image);
+			final VBBalanceGui gui = new VBBalanceGui(image, new VBMarathonBalanceOcrConf());
 			final VBBalanceElement element = balanceInterpreter().interpret(gui);
 			System.out.println(element);
 		}
@@ -96,7 +100,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image);
+			final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image, new VBMarathonMaxStakeOcrConf());
 			final VBBookmakerStakeMaxElement element = bookmakerMaxStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}
@@ -108,7 +112,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
-			final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image);
+			final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image, new VBMarathonMinStakeOcrConf());
 			final VBBookmakerStakeMinElement element = bookmakerMinStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}

@@ -16,7 +16,7 @@ import com.util.ai.screenbot.output.tests.config.OutputHandlerTestBase;
 import static com.util.ai.screenbot.output.interpreters.VBElementInterpreterProvider.betInfoInterpreter;
 
 
-public class VBSBetInfoElementInterpreterTest extends OutputHandlerTestBase {
+public class VBBetInfoElementInterpreterTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void betInfoTest() throws IOException, VBElementInterpretationException {

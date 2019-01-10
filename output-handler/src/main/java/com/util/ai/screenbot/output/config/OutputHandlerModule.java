@@ -23,9 +23,9 @@ import com.util.ai.screenbot.output.interpreters.VBElementInterpreter;
 import com.util.ai.screenbot.output.interpreters.VBElementInterpreterImpl;
 import com.util.ai.screenbot.output.interpreters.VBElementInterpreterProvider;
 import com.util.ai.screenbot.output.ocr.OCR;
+import com.util.ai.screenbot.output.ocr.OcrImageProcessor;
+import com.util.ai.screenbot.output.ocr.OcrImageProcessorImpl;
 import com.util.ai.screenbot.output.parsing.VBSingleBetElementParser;
-import com.util.ai.screenbot.support.image.BWImageProcessor;
-import com.util.ai.screenbot.support.image.ImageProcessor;
 
 import net.sourceforge.tess4j.TessAPI;
 import net.sourceforge.tess4j.Tesseract;
@@ -42,8 +42,6 @@ public class OutputHandlerModule extends AbstractModule {
 	
 	private static final String TESSDATA_PATH = "./tessdata";
 
-	private static final String LANGUAGE = "eng";
-
 	@Override
 	protected void configure() {
 		requestStaticInjection(VBElementInterpreterProvider.class);
@@ -54,7 +52,6 @@ public class OutputHandlerModule extends AbstractModule {
 	Tesseract tesseract() {
 		final Tesseract tesseract = new Tesseract();
 		tesseract.setDatapath(TESSDATA_PATH);
-		tesseract.setLanguage(LANGUAGE);
 		tesseract.setOcrEngineMode(TessAPI.TessOcrEngineMode.OEM_DEFAULT);
 		
 		return tesseract;
@@ -97,7 +94,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBetInfoElement, VBBetInfoGui> betInfoInterpreter(
 			OCR ocr, 
 			VBBetInfoElementParser parser, 
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBetInfoElement, VBBetInfoGui, VBBetInfoElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -108,7 +105,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBSingleBetElement, VBSingleBetGui> singleBetInterpreter(
 			OCR ocr, 
 			VBSingleBetElementParser parser, 
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBSingleBetElement, VBSingleBetGui, VBSingleBetElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -119,7 +116,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBrowsingStatusElement, VBBrowsingStatusGui> browsingStatusInterpreter(
 			OCR ocr, 
 			VBBrowsingStatusElementParser parser,
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBrowsingStatusElement, VBBrowsingStatusGui, VBBrowsingStatusElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -130,7 +127,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBookmakerOddsElement, ? super VBBookmakerOddsGui> bookmakerOddsInterpreter(
 			OCR ocr, 
 			VBBookmakerOddsElementParser parser,
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBookmakerOddsElement, VBBookmakerOddsGui, VBBookmakerOddsElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -141,7 +138,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBalanceElement, ? super VBBalanceGui> balanceInterpreter(
 			OCR ocr, 
 			VBBalanceElementParser parser,
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBalanceElement, VBBalanceGui, VBBalanceElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -152,7 +149,7 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter(
 			OCR ocr, 
 			VBBookmakerMinStakeElementParser parser,
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBookmakerStakeMinElement, VBBookmakerMinStakeGui, VBBookmakerMinStakeElementParser>
 		(ocr, parser, imageProcessor);
 	}
@@ -163,14 +160,14 @@ public class OutputHandlerModule extends AbstractModule {
 	VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter(
 			OCR ocr, 
 			VBBookmakerMaxStakeElementParser parser,
-			BWImageProcessor imageProcessor) {
+			OcrImageProcessor imageProcessor) {
 		return new VBElementInterpreterImpl<VBBookmakerStakeMaxElement, VBBookmakerMaxStakeGui, VBBookmakerMaxStakeElementParser>
 		(ocr, parser, imageProcessor);
 	}
-
+	
 	@Provides
 	@Singleton
-	ImageProcessor imageProcessor() {
-		return new BWImageProcessor();
+	OcrImageProcessor imageProcessor() {
+		return new OcrImageProcessorImpl();
 	}
 }

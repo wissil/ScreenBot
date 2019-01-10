@@ -54,7 +54,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getPlaceBetImage() {
+	public BufferedImage getPlaceBetImage(Bookie bookie) {
 		// bookie specific
 		//
 		// TODO Auto-generated method stub
@@ -63,6 +63,12 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public BufferedImage getOddsInputImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public BufferedImage getBrowsingStatusImage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
