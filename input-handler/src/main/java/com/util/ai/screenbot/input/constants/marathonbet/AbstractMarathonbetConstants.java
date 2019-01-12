@@ -10,6 +10,8 @@ public abstract class AbstractMarathonbetConstants {
 
 	private static final Color MARATHON_GREEN = new Color(0, 143, 76);
 
+	private static final Color MARATHON_WHITE = new Color(255, 255, 255);
+
 	private static final List<Color> MARATHON_RED = Arrays.asList(new Color(223, 33, 41), new Color(203, 33, 41));
 
 	public abstract Float getBettingSlipHeight();
@@ -64,6 +66,10 @@ public abstract class AbstractMarathonbetConstants {
 
 	public Color getMarathonbetLightGreen() {
 		return MARATHON_LIGHT_GREEN;
+	}
+
+	public Color getMarathonbetWhite() {
+		return MARATHON_WHITE;
 	}
 
 	public List<Color> getMarathonbetRed() {
