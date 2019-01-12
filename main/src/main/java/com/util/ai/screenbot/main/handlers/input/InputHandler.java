@@ -2,6 +2,7 @@ package com.util.ai.screenbot.main.handlers.input;
 
 import java.awt.image.BufferedImage;
 
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
@@ -17,7 +18,7 @@ public interface InputHandler {
 	BufferedImage getPlaceBetImage(Bookie bookie);
 
 	BufferedImage getOddsInputImage();
-	
+
 	BufferedImage getBrowsingStatusImage();
 
 	void removeTopBet();
@@ -28,7 +29,7 @@ public interface InputHandler {
 
 	void placeBet(Bookie bookie, double stake);
 
-	void removeBet(Bookie bookie);
+	void removeBet(Bookie bookie) throws FatalValueBettingException;
 
 	boolean isBettingBrowserLoaded();
 

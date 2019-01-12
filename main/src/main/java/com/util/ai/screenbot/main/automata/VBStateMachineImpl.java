@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -67,7 +68,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 
 		// 2) wait while betting browser loading is done
 		int waitingTime = 0;
-		while (true) {			
+		while (true) {
 			// take photo of Done area
 			// OCR photo
 			// parse photo
@@ -153,7 +154,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 			email.send(LOG_FILE_PATH);
 
 			// 1) kladionica.removeBet()
-			in.removeBet(bookie);
+			try {
+				in.removeBet(bookie);
+			} catch (FatalValueBettingException e1) {
+				log.error("Can not continue", e);
+				// FIXME - send mail
+				System.exit(-1);
+			}
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();
@@ -165,7 +172,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 		} catch (UnknownBookieException e) {
 			log.error("Bookie not known.", e);
 			// 1) kladionica.removeBet()
-			in.removeBet(bookie);
+			try {
+				in.removeBet(bookie);
+			} catch (FatalValueBettingException e1) {
+				log.error("Can not continue", e);
+				// FIXME - send mail
+				System.exit(-1);
+			}
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();

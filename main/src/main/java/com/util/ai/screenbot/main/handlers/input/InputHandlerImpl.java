@@ -3,6 +3,7 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.main.bookie.Bookie;
@@ -49,7 +50,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void removeBet(Bookie bookie) {
+	public void removeBet(Bookie bookie) throws FatalValueBettingException {
 		bookie.getHandler().removeBet();
 	}
 
@@ -63,24 +64,28 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public BufferedImage getOddsInputImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return browserBot.takeBetInfoScreenshot();
 	}
-	
+
 	@Override
 	public BufferedImage getBrowsingStatusImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return browserBot.takeBrowsingStatusScreenshot();
 	}
 
 	@Override
 	public void clickOKAtBettingBrowser() {
-		// TODO Auto-generated method stub
+		browserBot.clickConfirm();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+		browserBot.clickConfirmOk();
 	}
 
 	@Override
 	public void clickCancelAtBettingBrowser() {
-		// TODO Auto-generated method stub
+		browserBot.clickCancel();
 	}
 
 	@Override

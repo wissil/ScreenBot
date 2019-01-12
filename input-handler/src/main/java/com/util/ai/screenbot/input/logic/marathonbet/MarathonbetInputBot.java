@@ -220,6 +220,17 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(stakeInputCoordinates.x, stakeInputCoordinates.y);
 	}
 
+	public void setBetStake(String stake) {
+		navigateToStakeInputButton();
+		mouseHandler.leftClick();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+		keyboardHandler.write(stake);
+	}
+
 	public void navigateToOddsInputButton() {
 
 		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
