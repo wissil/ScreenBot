@@ -94,9 +94,25 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickNeutralArea() {
-		// TODO Auto-generated method stub
+	public void clickNeutralArea(Bookie bookie) {
+		bookie.getHandler().neutralClick();
 
+	}
+
+	@Override
+	public BufferedImage getMinStakeImage(Bookie bookie) {
+
+		return bookie.getHandler().getMinStakeImage();
+	}
+
+	@Override
+	public BufferedImage getMaxStakeImage(Bookie bookie) {
+		return bookie.getHandler().getMaxStakeImage();
+	}
+
+	@Override
+	public BufferedImage getBalanceStakeImage(Bookie bookie) {
+		return bookie.getHandler().getBalanceStakeImage();
 	}
 
 }

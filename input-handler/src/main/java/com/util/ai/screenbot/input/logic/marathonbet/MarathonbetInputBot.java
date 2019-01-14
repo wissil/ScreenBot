@@ -256,9 +256,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	}
 
 	public void neutralClick() {
-		navigateToNeutralClick();
-
-		mouseHandler.leftClick();
 
 		navigateToStakeInputButton();
 

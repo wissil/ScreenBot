@@ -21,6 +21,12 @@ public interface InputHandler {
 
 	BufferedImage getBrowsingStatusImage();
 
+	BufferedImage getMinStakeImage(Bookie bookie);
+
+	BufferedImage getMaxStakeImage(Bookie bookie);
+
+	BufferedImage getBalanceStakeImage(Bookie bookie);
+
 	void removeTopBet();
 
 	void clickOKAtBettingBrowser();
@@ -33,5 +39,5 @@ public interface InputHandler {
 
 	boolean isBetPlaceable(Bookie bookie, double stake);
 
-	void clickNeutralArea();
+	void clickNeutralArea(Bookie bookie);
 }

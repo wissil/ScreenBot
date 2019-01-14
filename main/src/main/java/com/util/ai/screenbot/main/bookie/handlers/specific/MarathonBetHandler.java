@@ -37,7 +37,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 
 	@Override
 	public boolean isBetCorrect(double stake) {
-		// TODO Auto-generated method stub
+		boolean buttonsCorrect = marathonBot.checkBettingSlip();
 		return false;
 	}
 
@@ -46,4 +46,23 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 		return marathonBot.takeBookmakerOddsScreenshot();
 	}
 
+	@Override
+	public void neutralClick() {
+		marathonBot.neutralClick();
+	}
+
+	@Override
+	public BufferedImage getMinStakeImage() {
+		return marathonBot.takeMinStakeScreenshot();
+	}
+
+	@Override
+	public BufferedImage getMaxStakeImage() {
+		return marathonBot.takeMaxStakeScreenshot();
+	}
+
+	@Override
+	public BufferedImage getBalanceStakeImage() {
+		return marathonBot.takeBalanceScreenshot();
+	}
 }

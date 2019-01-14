@@ -13,4 +13,12 @@ public interface BookieHandler {
 	boolean isBetCorrect(double stake);
 
 	BufferedImage getBookmaerOddsImage();
+
+	void neutralClick();
+
+	BufferedImage getMinStakeImage();
+
+	BufferedImage getMaxStakeImage();
+
+	BufferedImage getBalanceStakeImage();
 }

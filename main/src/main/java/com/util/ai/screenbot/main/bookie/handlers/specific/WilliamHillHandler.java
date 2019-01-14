@@ -35,4 +35,28 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 		return null;
 	}
 
+	@Override
+	public void neutralClick() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public BufferedImage getMinStakeImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BufferedImage getMaxStakeImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BufferedImage getBalanceStakeImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

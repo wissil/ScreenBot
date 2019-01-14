@@ -89,14 +89,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 			waitingTime += 1;
 		}
 
-		in.clickNeutralArea();
-
 		Bookie bookie = null;
 
 		// 3) process bet
 		log.debug("Processing betting browser screen ...");
 		try {
 			bookie = Bookie.fromString(element.getBookie());
+			in.clickNeutralArea(bookie);
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getBookmakerOddsImage(bookie);
