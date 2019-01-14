@@ -1,10 +1,10 @@
 package com.util.ai.screenbot.output.elements;
 
-public class VBBookmakerStakeMaxElement implements VBScreenElement {
+public class VBBookmakerMaxStakeElement implements VBScreenElement {
 	
 	private final double stake;
 	
-	public VBBookmakerStakeMaxElement(double stake) {
+	public VBBookmakerMaxStakeElement(double stake) {
 		this.stake = stake;
 	}
 	

@@ -8,8 +8,8 @@ import com.google.inject.Singleton;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
@@ -146,22 +146,22 @@ public class OutputHandlerModule extends AbstractModule {
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter(
+	VBElementInterpreter<VBBookmakerMinStakeElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter(
 			OCR ocr, 
 			VBBookmakerMinStakeElementParser parser,
 			OcrImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBookmakerStakeMinElement, VBBookmakerMinStakeGui, VBBookmakerMinStakeElementParser>
+		return new VBElementInterpreterImpl<VBBookmakerMinStakeElement, VBBookmakerMinStakeGui, VBBookmakerMinStakeElementParser>
 		(ocr, parser, imageProcessor);
 	}
 	
 	@Inject
 	@Provides
 	@Singleton
-	VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter(
+	VBElementInterpreter<VBBookmakerMaxStakeElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter(
 			OCR ocr, 
 			VBBookmakerMaxStakeElementParser parser,
 			OcrImageProcessor imageProcessor) {
-		return new VBElementInterpreterImpl<VBBookmakerStakeMaxElement, VBBookmakerMaxStakeGui, VBBookmakerMaxStakeElementParser>
+		return new VBElementInterpreterImpl<VBBookmakerMaxStakeElement, VBBookmakerMaxStakeGui, VBBookmakerMaxStakeElementParser>
 		(ocr, parser, imageProcessor);
 	}
 	

@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
@@ -34,10 +34,10 @@ public class VBElementInterpreterProvider {
 	private static VBElementInterpreter<VBBalanceElement, ? super VBBalanceGui> balanceInterpreter;
 	
 	@Inject
-	private static VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter;
+	private static VBElementInterpreter<VBBookmakerMinStakeElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter;
 	
 	@Inject
-	private static VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter;
+	private static VBElementInterpreter<VBBookmakerMaxStakeElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter;
 
 	
 	public static VBElementInterpreter<VBSingleBetElement, VBSingleBetGui> singleBetInterpreter() {
@@ -60,11 +60,11 @@ public class VBElementInterpreterProvider {
 		return balanceInterpreter;
 	}
 
-	public static VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter() {
+	public static VBElementInterpreter<VBBookmakerMinStakeElement, ? super VBBookmakerMinStakeGui> bookmakerMinStakeInterpreter() {
 		return bookmakerMinStakeInterpreter;
 	}
 
-	public static VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter() {
+	public static VBElementInterpreter<VBBookmakerMaxStakeElement, ? super VBBookmakerMaxStakeGui> bookmakerMaxStakeInterpreter() {
 		return bookmakerMaxStakeInterpreter;
 	}
 }

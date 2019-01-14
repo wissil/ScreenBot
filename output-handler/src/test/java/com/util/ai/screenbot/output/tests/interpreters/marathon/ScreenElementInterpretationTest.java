@@ -11,8 +11,8 @@ import org.junit.Test;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
@@ -101,7 +101,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
 			final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image, new VBMarathonMaxStakeOcrConf());
-			final VBBookmakerStakeMaxElement element = bookmakerMaxStakeInterpreter().interpret(gui);
+			final VBBookmakerMaxStakeElement element = bookmakerMaxStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}
@@ -113,7 +113,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 		for (File f : root.listFiles()) {
 			final BufferedImage image = ImageIO.read(f);
 			final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image, new VBMarathonMinStakeOcrConf());
-			final VBBookmakerStakeMinElement element = bookmakerMinStakeInterpreter().interpret(gui);
+			final VBBookmakerMinStakeElement element = bookmakerMinStakeInterpreter().interpret(gui);
 			System.out.println(element);
 		}
 	}

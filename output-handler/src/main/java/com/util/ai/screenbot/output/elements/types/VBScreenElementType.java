@@ -3,8 +3,8 @@ package com.util.ai.screenbot.output.elements.types;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMaxElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBScreenElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
@@ -33,7 +33,7 @@ public enum VBScreenElementType {
 		
 		@Override
 		@SuppressWarnings("unchecked")
-		public VBElementInterpreter<VBBookmakerStakeMinElement, ? super VBBookmakerMinStakeGui> getInterpreter() {
+		public VBElementInterpreter<VBBookmakerMinStakeElement, ? super VBBookmakerMinStakeGui> getInterpreter() {
 			return bookmakerMinStakeInterpreter();
 		}
 	},
@@ -42,7 +42,7 @@ public enum VBScreenElementType {
 		
 		@Override
 		@SuppressWarnings("unchecked")
-		public VBElementInterpreter<VBBookmakerStakeMaxElement, ? super VBBookmakerMaxStakeGui> getInterpreter() {
+		public VBElementInterpreter<VBBookmakerMaxStakeElement, ? super VBBookmakerMaxStakeGui> getInterpreter() {
 			return bookmakerMaxStakeInterpreter();
 		}
 	},

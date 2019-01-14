@@ -5,10 +5,16 @@ import static com.util.ai.screenbot.output.elements.types.VBScreenElementType.*;
 import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.main.bookie.Bookie;
+import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
 import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBalanceGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMaxStakeGui;
+import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerMinStakeGui;
 import com.util.ai.screenbot.output.elements.gui.bookie.VBBookmakerOddsGui;
 import com.util.ai.screenbot.output.elements.gui.general.VBBetInfoGui;
 import com.util.ai.screenbot.output.elements.gui.general.VBBrowsingStatusGui;
@@ -44,6 +50,24 @@ public class OutputHandlerImpl implements OutputHandler {
 			throws VBElementInterpretationException {
 		final VBBrowsingStatusGui gui = new VBBrowsingStatusGui(image);
 		return (VBBrowsingStatusElement) BROWSING_STATUS.getInterpreter().interpret(gui);
+	}
+
+	@Override
+	public VBBalanceElement readBalance(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
+		final VBBalanceGui gui = new VBBalanceGui(image, bookie.getOcrConfig().getBalanceOcrConfig());
+		return (VBBalanceElement) BALANCE.getInterpreter().interpret(gui);
+	}
+
+	@Override
+	public VBBookmakerMinStakeElement readMinStake(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
+		final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image, bookie.getOcrConfig().getMinStakeOcrConfig());
+		return (VBBookmakerMinStakeElement) BOOKMAKER_MIN_STAKE.getInterpreter().interpret(gui);
+	}
+
+	@Override
+	public VBBookmakerMaxStakeElement readMaxStake(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
+		final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image, bookie.getOcrConfig().getMaxStakeOcrConfig());
+		return (VBBookmakerMaxStakeElement) BOOKMAKER_MIN_STAKE.getInterpreter().interpret(gui);
 	}
 
 }

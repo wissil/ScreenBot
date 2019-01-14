@@ -1,10 +1,10 @@
 package com.util.ai.screenbot.output.elements;
 
-public class VBBookmakerStakeMinElement implements VBScreenElement {
+public class VBBookmakerMinStakeElement implements VBScreenElement {
 	
 	private final double stake;
 	
-	public VBBookmakerStakeMinElement(double stake) {
+	public VBBookmakerMinStakeElement(double stake) {
 		this.stake = stake;
 	}
 	

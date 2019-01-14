@@ -1,15 +1,15 @@
 package com.util.ai.screenbot.output.parsing;
 
-import com.util.ai.screenbot.output.elements.VBBookmakerStakeMinElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 
-public class VBBookmakerMinStakeElementParser implements VBScreenElementParser<VBBookmakerStakeMinElement> {
+public class VBBookmakerMinStakeElementParser implements VBScreenElementParser<VBBookmakerMinStakeElement> {
 
 	@Override
-	public VBBookmakerStakeMinElement parse(String input) throws ScreenElementParseException {
+	public VBBookmakerMinStakeElement parse(String input) throws ScreenElementParseException {
 		try {
 			final double stake = Double.parseDouble(input);
-			return new VBBookmakerStakeMinElement(stake);
+			return new VBBookmakerMinStakeElement(stake);
 		} catch (Exception e) {
 			throw new ScreenElementParseException(
 					String.format("Couldn't parse input: %s to Double.", input));
