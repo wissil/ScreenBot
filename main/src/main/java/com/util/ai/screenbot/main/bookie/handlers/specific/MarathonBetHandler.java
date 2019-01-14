@@ -42,9 +42,8 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getPlaceBetImage() {
-		// TODO Auto-generated method stub
-		return null;
+	public BufferedImage getBookmaerOddsImage() {
+		return marathonBot.takeBookmakerOddsScreenshot();
 	}
 
 }

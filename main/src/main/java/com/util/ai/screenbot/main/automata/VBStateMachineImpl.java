@@ -99,7 +99,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 			bookie = Bookie.fromString(element.getBookie());
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
-			final BufferedImage placeBetImage = in.getPlaceBetImage(bookie);
+			final BufferedImage placeBetImage = in.getBookmakerOddsImage(bookie);
 
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
 			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage, bookie);

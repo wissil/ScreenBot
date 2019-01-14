@@ -15,7 +15,7 @@ public interface InputHandler {
 
 	BufferedImage getSingleBetImage();
 
-	BufferedImage getPlaceBetImage(Bookie bookie);
+	BufferedImage getBookmakerOddsImage(Bookie bookie);
 
 	BufferedImage getOddsInputImage();
 
@@ -30,8 +30,6 @@ public interface InputHandler {
 	void placeBet(Bookie bookie, double stake);
 
 	void removeBet(Bookie bookie) throws FatalValueBettingException;
-
-	boolean isBettingBrowserLoaded();
 
 	boolean isBetPlaceable(Bookie bookie, double stake);
 

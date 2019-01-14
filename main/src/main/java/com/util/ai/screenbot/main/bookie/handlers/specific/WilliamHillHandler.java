@@ -30,7 +30,7 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getPlaceBetImage() {
+	public BufferedImage getBookmaerOddsImage() {
 		// TODO Auto-generated method stub
 		return null;
 	}

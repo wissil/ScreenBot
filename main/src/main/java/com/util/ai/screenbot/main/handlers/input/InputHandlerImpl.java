@@ -55,7 +55,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getPlaceBetImage(Bookie bookie) {
+	public BufferedImage getBookmakerOddsImage(Bookie bookie) {
 		// bookie specific
 		//
 		// TODO Auto-generated method stub
@@ -86,12 +86,6 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public void clickCancelAtBettingBrowser() {
 		browserBot.clickCancel();
-	}
-
-	@Override
-	public boolean isBettingBrowserLoaded() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
