@@ -157,7 +157,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 				in.removeBet(bookie);
 			} catch (FatalValueBettingException e1) {
 				log.error("Can not continue", e);
-				// FIXME - send mail
+				email.send(LOG_FILE_PATH);
 				System.exit(-1);
 			}
 
@@ -170,14 +170,6 @@ public class VBStateMachineImpl implements VBStateMachine {
 			idle();
 		} catch (UnknownBookieException e) {
 			log.error("Bookie not known.", e);
-			// 1) kladionica.removeBet()
-			try {
-				in.removeBet(bookie);
-			} catch (FatalValueBettingException e1) {
-				log.error("Can not continue", e);
-				// FIXME - send mail
-				System.exit(-1);
-			}
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();
