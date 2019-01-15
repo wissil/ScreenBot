@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
-import com.util.ai.screenbot.output.elements.ocr.conf.bookie.BookmakerOcrConfiguration;
-import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonOcrConfiguration;
+import com.util.ai.screenbot.output.elements.gui.bookie.BookieGraphics;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
 
 
 public enum Bookie {
 
-	MARATHON_BET("Marathonbet", marathonBetHandler(), new MarathonOcrConfiguration()),
+	MARATHON_BET("Marathonbet", marathonBetHandler(), new MarathonGraphics()),
 
 	WILLIAM_HILL("WilliamHill", williamHillHandler(), null),
 
@@ -25,12 +25,12 @@ public enum Bookie {
 
 	final BookieHandler handler;
 	
-	final BookmakerOcrConfiguration ocrConfig;
+	final BookieGraphics graphics;
 
-	Bookie(String bookieName, BookieHandler handler, BookmakerOcrConfiguration ocrConfig) {
+	Bookie(String bookieName, BookieHandler handler, BookieGraphics graphics) {
 		this.bookieName = Objects.requireNonNull(bookieName);
 		this.handler = Objects.requireNonNull(handler);
-		this.ocrConfig = Objects.requireNonNull(ocrConfig);
+		this.graphics = Objects.requireNonNull(graphics);
 	}
 
 	public String getBookieName() {
@@ -41,8 +41,8 @@ public enum Bookie {
 		return handler;
 	}
 	
-	public BookmakerOcrConfiguration getOcrConfig() {
-		return ocrConfig;
+	public BookieGraphics getGraphics() {
+		return graphics;
 	}
 
 	public static Bookie fromString(String s) throws UnknownBookieException {

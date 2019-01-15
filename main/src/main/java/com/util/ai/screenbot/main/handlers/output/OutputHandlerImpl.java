@@ -34,7 +34,7 @@ public class OutputHandlerImpl implements OutputHandler {
 	@Override
 	public VBBookmakerOddsElement readBookmakerOdds(BufferedImage image, Bookie bookie) 
 			throws VBElementInterpretationException {
-		final VBBookmakerOddsGui gui = new VBBookmakerOddsGui(image, bookie.getOcrConfig().getOddsOcrConfig());
+		final VBBookmakerOddsGui gui = bookie.getGraphics().getOddsGui(image);
 		return (VBBookmakerOddsElement) BOOKMAKER_ODDS.getInterpreter().interpret(gui);
 	}
 
@@ -54,19 +54,19 @@ public class OutputHandlerImpl implements OutputHandler {
 
 	@Override
 	public VBBalanceElement readBalance(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
-		final VBBalanceGui gui = new VBBalanceGui(image, bookie.getOcrConfig().getBalanceOcrConfig());
+		final VBBalanceGui gui = bookie.getGraphics().getBalanceGui(image);
 		return (VBBalanceElement) BALANCE.getInterpreter().interpret(gui);
 	}
 
 	@Override
 	public VBBookmakerMinStakeElement readMinStake(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
-		final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image, bookie.getOcrConfig().getMinStakeOcrConfig());
+		final VBBookmakerMinStakeGui gui = bookie.getGraphics().getMinStakeGui(image);
 		return (VBBookmakerMinStakeElement) BOOKMAKER_MIN_STAKE.getInterpreter().interpret(gui);
 	}
 
 	@Override
 	public VBBookmakerMaxStakeElement readMaxStake(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
-		final VBBookmakerMaxStakeGui gui = new VBBookmakerMaxStakeGui(image, bookie.getOcrConfig().getMaxStakeOcrConfig());
+		final VBBookmakerMaxStakeGui gui = bookie.getGraphics().getMaxStageGui(image);
 		return (VBBookmakerMaxStakeElement) BOOKMAKER_MIN_STAKE.getInterpreter().interpret(gui);
 	}
 
