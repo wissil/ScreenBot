@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -103,6 +104,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		log.debug("Processing betting browser screen ...");
 		try {
 			bookie = Bookie.fromString(element.getBookie());
+			in.checkBettingSlip(bookie);
 			in.clickNeutralArea(bookie);
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
@@ -183,6 +185,15 @@ public class VBStateMachineImpl implements VBStateMachine {
 			idle();
 		} catch (UnknownBookieException e) {
 			log.error("Bookie not known.", e);
+
+			// 2) click Cancel
+			in.clickCancelAtBettingBrowser();
+
+			in.openMainWindow();
+			in.removeTopBet();
+			idle();
+		} catch (NoBetFoundException e) {
+			log.error("Bet does not exists in bookmater", e);
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();

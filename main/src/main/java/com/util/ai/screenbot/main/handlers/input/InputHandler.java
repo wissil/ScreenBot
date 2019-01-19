@@ -2,7 +2,9 @@ package com.util.ai.screenbot.main.handlers.input;
 
 import java.awt.image.BufferedImage;
 
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
@@ -29,6 +31,8 @@ public interface InputHandler {
 
 	void removeTopBet();
 
+	void removeAllBetsFromTopBetEvent();
+
 	void clickOKAtBettingBrowser();
 
 	void clickCancelAtBettingBrowser();
@@ -40,4 +44,6 @@ public interface InputHandler {
 	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double min, double max);
 
 	void clickNeutralArea(Bookie bookie);
+
+	void checkBettingSlip(Bookie bookie) throws BetSlipException, NoBetFoundException;
 }

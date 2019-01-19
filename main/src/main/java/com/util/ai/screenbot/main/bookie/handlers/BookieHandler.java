@@ -2,7 +2,9 @@ package com.util.ai.screenbot.main.bookie.handlers;
 
 import java.awt.image.BufferedImage;
 
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 
 public interface BookieHandler {
 
@@ -21,4 +23,6 @@ public interface BookieHandler {
 	BufferedImage getMaxStakeImage();
 
 	BufferedImage getBalanceStakeImage();
+
+	void checkBettingSlip() throws BetSlipException, NoBetFoundException;
 }

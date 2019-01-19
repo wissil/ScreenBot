@@ -2,6 +2,8 @@ package com.util.ai.screenbot.main.bookie.handlers.specific;
 
 import java.awt.image.BufferedImage;
 
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 
@@ -57,6 +59,12 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 	public BufferedImage getBalanceStakeImage() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -3,7 +3,9 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.main.bookie.Bookie;
@@ -56,10 +58,7 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public BufferedImage getBookmakerOddsImage(Bookie bookie) {
-		// bookie specific
-		//
-		// TODO Auto-generated method stub
-		return null;
+		return bookie.getHandler().getBookmaerOddsImage();
 	}
 
 	@Override
@@ -114,6 +113,18 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public BufferedImage getBalanceStakeImage(Bookie bookie) {
 		return bookie.getHandler().getBalanceStakeImage();
+	}
+
+	@Override
+	public void checkBettingSlip(Bookie bookie) throws BetSlipException, NoBetFoundException {
+		bookie.getHandler().checkBettingSlip();
+
+	}
+
+	@Override
+	public void removeAllBetsFromTopBetEvent() {
+		mainBot.removeAllBetsFromTopBetEvent();
+
 	}
 
 }

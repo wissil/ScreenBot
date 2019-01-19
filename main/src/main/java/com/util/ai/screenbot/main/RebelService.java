@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
@@ -46,10 +48,11 @@ public class RebelService {
 
 		Thread.sleep(10000);
 
-		Boolean isOK = marathonbetInputBot.checkBettingSlip();
-
-		if (!isOK)
+		try {
+			marathonbetInputBot.checkBettingSlip();
+		} catch (BetSlipException | NoBetFoundException e1) {
 			return;
+		}
 
 		Thread.sleep(1000);
 		marathonbetInputBot.neutralClick();

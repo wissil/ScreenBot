@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -52,7 +54,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.leftClick();
 	}
 
-	public Boolean checkBettingSlip() {
+	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
 
 		BotCoordinates bettingSlipButtonCoordinates = getBettingSlipCoordinates();
 
@@ -76,7 +78,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		if (!bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
 
 			log.info("Slip not correct");
-			return false;
+			throw new NoBetFoundException("There is no bet in betting slip");
 		}
 
 		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
@@ -107,7 +109,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				if (!marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
 					this.buttonDeviation = 0;
 					log.info("Remove button not correct");
-					return false;
+					throw new BetSlipException("RemoveAll button is not positioned correctly");
 				}
 			}
 
@@ -119,7 +121,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		// Check if betting button is green
 		if (!betButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
 			log.info("Bet button not correct");
-			return false;
+			throw new BetSlipException("Bet button is not positioned correctly");
 		}
 
 		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
@@ -146,14 +148,14 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				if (!stakeInputColor.equals(marathonbetConstants.getMarathonbetWhite())) {
 					this.buttonDeviation = 0;
 					log.info("Remove button not correct");
-					return false;
+					throw new BetSlipException("Stake input field is not positioned correctly");
 				}
 			}
 
 		}
 
 		log.info("Bet slip OK!");
-		return true;
+
 	}
 
 	public void navigateToRemoveAllButton() {
