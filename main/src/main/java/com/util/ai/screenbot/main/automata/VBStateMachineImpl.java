@@ -78,8 +78,13 @@ public class VBStateMachineImpl implements VBStateMachine {
 			// if Done
 			final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();
 			if (out.readBrowsingStatus(browsingStatusImage).isDone()) {
-				log.debug("Betting browser successfully loaded!");
-				break;
+				log.debug("Betting browser successfully loaded! - first check");
+				Thread.sleep(500);
+				// Added second check because of the false true that sometimes happen
+				final BufferedImage browsingStatusImage2 = in.getBrowsingStatusImage();
+				if (out.readBrowsingStatus(browsingStatusImage2).isDone()) {
+					break;
+				}
 			}
 
 			if (waitingTime == BET_BROWSER_LOAD_TIMEOUT) {
