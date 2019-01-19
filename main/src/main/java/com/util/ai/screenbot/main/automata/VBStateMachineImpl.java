@@ -1,7 +1,5 @@
 package com.util.ai.screenbot.main.automata;
 
-import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
-
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -147,20 +145,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 				// 3) go to main screen
 				in.openMainWindow();
 
-				// while (najgornji == taj_isti) makni najgornji
 				// click and remove all
-				final String participantsToRemove = element.getParticipants();
-				while (in.isNewBetPresent()) {
-					final BufferedImage image = in.getSingleBetImage();
-					final VBSingleBetElement newElement = out.readSingleBet(image);
-
-					final String newParticipants = newElement.getParticipants();
-					if (consideredEqual(participantsToRemove, newParticipants)) {
-						in.removeTopBet();
-					} else {
-						break;
-					}
-				}
+				in.removeAllBetsFromTopBetEvent();
 				idle();
 			}
 		} catch (VBElementInterpretationException e) {
