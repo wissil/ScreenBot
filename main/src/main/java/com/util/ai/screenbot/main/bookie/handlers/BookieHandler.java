@@ -10,7 +10,7 @@ public interface BookieHandler {
 
 	void removeBet() throws FatalValueBettingException;
 
-	boolean isBetCorrect(double stake);
+	boolean isBetCorrect();
 
 	BufferedImage getBookmaerOddsImage();
 

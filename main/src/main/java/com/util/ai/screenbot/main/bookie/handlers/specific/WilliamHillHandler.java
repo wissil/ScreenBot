@@ -24,7 +24,7 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public boolean isBetCorrect(double stake) {
+	public boolean isBetCorrect() {
 		// TODO Auto-generated method stub
 		return false;
 	}

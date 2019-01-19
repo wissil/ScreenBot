@@ -36,9 +36,8 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public boolean isBetCorrect(double stake) {
-		boolean buttonsCorrect = marathonBot.checkBettingSlip();
-		return false;
+	public boolean isBetCorrect() {
+		return marathonBot.checkBettingSlip();
 	}
 
 	@Override

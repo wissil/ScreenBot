@@ -13,7 +13,10 @@ import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
+import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
@@ -103,12 +106,17 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
 			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage, bookie);
 
+			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
+			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
+			final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
+
 			final double oddsLeft = Double.parseDouble(oddsInput.getOdds().trim());
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());
 
 			final double stake = Double.parseDouble(oddsInput.getStake().trim());
 
-			if (oddsRight >= oddsLeft && in.isBetPlaceable(bookie, stake)) {
+			if (oddsRight >= oddsLeft && in.isBetPlaceable(bookie, stake, balanceElement.getBalance(),
+					maxStakeElement.getStake(), minStakeElement.getStake())) {
 				// place bet logic
 
 				// 1) kladionica.placeBet()
