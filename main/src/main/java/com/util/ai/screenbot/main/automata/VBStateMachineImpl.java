@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.utils.DiskUtils;
+import com.util.ai.screenbot.input.utils.SystemUtils;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -57,8 +59,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 	}
 
 	public void logBet() throws InterruptedException {
-		// TODO: excel table
 		log.debug("Enter state: LOG_BET ...");
+		DiskUtils.logBetToFile(SystemUtils.getClipboardContents());
 		idle();
 	}
 
@@ -138,9 +140,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 
 				Thread.sleep(500);
 
+				logBet();
+
 				// 3) log bet
 				in.openMainWindow();
-				logBet();
 			} else {
 				// clean bets logic
 
