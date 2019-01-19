@@ -245,8 +245,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 	}
 
 	public void init() throws InterruptedException {
-		// TODO: init
 		log.debug("Enter state: INIT ...");
+		in.openMainWindow();
 		idle();
 	}
 
