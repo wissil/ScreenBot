@@ -68,6 +68,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 		// 1) go to betting browser
 		in.openBettingBrowserWindow();
 
+		Thread.sleep(1000);
+
 		// 2) wait while betting browser loading is done
 		int waitingTime = 0;
 		while (true) {
@@ -105,6 +107,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 			in.checkBettingSlip(bookie);
 			in.clickNeutralArea(bookie);
 
+			Thread.sleep(500);
+
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage placeBetImage = in.getBookmakerOddsImage(bookie);
 
@@ -127,8 +131,12 @@ public class VBStateMachineImpl implements VBStateMachine {
 				// 1) kladionica.placeBet()
 				in.placeBet(bookie, stake);
 
+				Thread.sleep(500);
+
 				// 2) click OK on the betting browser
 				in.clickOKAtBettingBrowser();
+
+				Thread.sleep(500);
 
 				// 3) log bet
 				in.openMainWindow();
@@ -139,11 +147,17 @@ public class VBStateMachineImpl implements VBStateMachine {
 				// 1) kladionica.removeBet()
 				in.removeBet(bookie);
 
+				Thread.sleep(1000);
+
 				// 2) click Cancel
 				in.clickCancelAtBettingBrowser();
 
+				Thread.sleep(1000);
+
 				// 3) go to main screen
 				in.openMainWindow();
+
+				Thread.sleep(500);
 
 				// click and remove all
 				in.removeAllBetsFromTopBetEvent();
@@ -161,31 +175,36 @@ public class VBStateMachineImpl implements VBStateMachine {
 				email.send(LOG_FILE_PATH);
 				System.exit(-1);
 			}
-
+			Thread.sleep(1000);
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();
-
+			Thread.sleep(1000);
 			// remove top bet --> idle()
 			in.openMainWindow();
-			in.removeTopBet();
+			Thread.sleep(500);
+			in.removeAllBetsFromTopBetEvent();
 			idle();
 		} catch (UnknownBookieException e) {
 			log.error("Bookie not known.", e);
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();
-
+			Thread.sleep(1000);
+			// remove top bet --> idle()
 			in.openMainWindow();
-			in.removeTopBet();
+			Thread.sleep(500);
+			in.removeAllBetsFromTopBetEvent();
 			idle();
 		} catch (NoBetFoundException e) {
 			log.error("Bet does not exists in bookmater", e);
 
 			// 2) click Cancel
 			in.clickCancelAtBettingBrowser();
-
+			Thread.sleep(1000);
+			// remove top bet --> idle()
 			in.openMainWindow();
-			in.removeTopBet();
+			Thread.sleep(500);
+			in.removeAllBetsFromTopBetEvent();
 			idle();
 		} catch (Exception e) {
 			// any other exception
