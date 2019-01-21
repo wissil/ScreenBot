@@ -11,6 +11,8 @@ public interface InputHandler {
 
 	boolean isNewBetPresent();
 
+	void clickBetOnTopEvent();
+
 	void openBettingBrowserWindow();
 
 	void openMainWindow();

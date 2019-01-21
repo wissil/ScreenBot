@@ -67,6 +67,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException {
 		log.debug("Enter state: PLACE_BET ...");
 
+		in.clickBetOnTopEvent();
+
 		// 1) go to betting browser
 		in.openBettingBrowserWindow();
 

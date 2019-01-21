@@ -127,4 +127,10 @@ public class InputHandlerImpl implements InputHandler {
 
 	}
 
+	@Override
+	public void clickBetOnTopEvent() {
+		mainBot.betOnTopBet();
+
+	}
+
 }
