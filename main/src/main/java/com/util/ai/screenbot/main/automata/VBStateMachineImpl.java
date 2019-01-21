@@ -108,6 +108,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		log.debug("Processing betting browser screen ...");
 		try {
 			bookie = Bookie.fromString(element.getBookie());
+			in.intializeBookieBot(bookie);
 			in.checkBettingSlip(bookie);
 			in.clickNeutralArea(bookie);
 

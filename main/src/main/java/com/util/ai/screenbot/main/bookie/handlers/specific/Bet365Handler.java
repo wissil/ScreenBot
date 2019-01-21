@@ -1,5 +1,6 @@
 package com.util.ai.screenbot.main.bookie.handlers.specific;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
@@ -63,6 +64,12 @@ public class Bet365Handler extends AbstractBookieHandler {
 
 	@Override
 	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void initialize(Rectangle browserDimensions) {
 		// TODO Auto-generated method stub
 
 	}

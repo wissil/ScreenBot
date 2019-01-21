@@ -1,5 +1,6 @@
 package com.util.ai.screenbot.main.bookie.handlers.specific;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -77,5 +78,11 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	@Override
 	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
 		marathonBot.checkBettingSlip();
+	}
+
+	@Override
+	public void initialize(Rectangle browserDimensions) {
+		marathonBot.initialize(browserDimensions);
+
 	}
 }

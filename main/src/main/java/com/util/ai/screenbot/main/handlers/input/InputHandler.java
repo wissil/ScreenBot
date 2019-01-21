@@ -17,6 +17,8 @@ public interface InputHandler {
 
 	void openMainWindow();
 
+	void intializeBookieBot(Bookie bookie);
+
 	BufferedImage getSingleBetImage();
 
 	BufferedImage getBookmakerOddsImage(Bookie bookie);

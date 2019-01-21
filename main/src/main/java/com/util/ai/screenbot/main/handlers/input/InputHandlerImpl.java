@@ -133,4 +133,10 @@ public class InputHandlerImpl implements InputHandler {
 
 	}
 
+	@Override
+	public void intializeBookieBot(Bookie bookie) {
+		bookie.getHandler().initialize(browserBot.getBrowserDimensions());
+
+	}
+
 }
