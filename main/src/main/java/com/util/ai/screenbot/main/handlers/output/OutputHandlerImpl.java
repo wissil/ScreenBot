@@ -67,7 +67,7 @@ public class OutputHandlerImpl implements OutputHandler {
 	@Override
 	public VBBookmakerMaxStakeElement readMaxStake(BufferedImage image, Bookie bookie) throws VBElementInterpretationException {
 		final VBBookmakerMaxStakeGui gui = bookie.getGraphics().getMaxStageGui(image);
-		return (VBBookmakerMaxStakeElement) BOOKMAKER_MIN_STAKE.getInterpreter().interpret(gui);
+		return (VBBookmakerMaxStakeElement) BOOKMAKER_MAX_STAKE.getInterpreter().interpret(gui);
 	}
 
 }
