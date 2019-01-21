@@ -15,22 +15,25 @@ import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
 
 public enum Bookie {
 
-	MARATHON_BET("Marathonbet", marathonBetHandler(), new MarathonGraphics()),
+	MARATHON_BET("Marathonbet", marathonBetHandler()) {
+		
+		@Override
+		public BookieGraphics getGraphics() {
+			return new MarathonGraphics();
+		}
+	},
 
-	WILLIAM_HILL("WilliamHill", williamHillHandler(), null),
+	WILLIAM_HILL("WilliamHill", williamHillHandler()),
 
-	BET_365("Bet365", bet365Handler(), null);
+	BET_365("Bet365", bet365Handler());
 
 	final String bookieName;
 
 	final BookieHandler handler;
 	
-	final BookieGraphics graphics;
-
-	Bookie(String bookieName, BookieHandler handler, BookieGraphics graphics) {
+	Bookie(String bookieName, BookieHandler handler) {
 		this.bookieName = Objects.requireNonNull(bookieName);
 		this.handler = Objects.requireNonNull(handler);
-		this.graphics = Objects.requireNonNull(graphics);
 	}
 
 	public String getBookieName() {
@@ -42,7 +45,8 @@ public enum Bookie {
 	}
 	
 	public BookieGraphics getGraphics() {
-		return graphics;
+		// implement for each bookie 
+		return null;
 	}
 
 	public static Bookie fromString(String s) throws UnknownBookieException {

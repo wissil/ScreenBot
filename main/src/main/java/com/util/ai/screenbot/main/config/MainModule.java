@@ -9,6 +9,7 @@ import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.main.automata.VBStateMachine;
 import com.util.ai.screenbot.main.automata.VBStateMachineImpl;
+import com.util.ai.screenbot.main.automata.VBStateMachineMock;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider;
 import com.util.ai.screenbot.main.bookie.handlers.specific.Bet365Handler;
 import com.util.ai.screenbot.main.bookie.handlers.specific.MarathonBetHandler;
@@ -51,7 +52,8 @@ public class MainModule extends AbstractModule {
 	@Provides
 	@Singleton
 	VBStateMachine stateMachine(InputHandler in, OutputHandler out, EmailSender emailSender) {
-		return new VBStateMachineImpl(in, out, emailSender);
+//		return new VBStateMachineImpl(in, out, emailSender);
+		return new VBStateMachineMock(in, out);
 	}
 
 	@Inject

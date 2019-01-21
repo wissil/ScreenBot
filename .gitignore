@@ -6,6 +6,7 @@ external/
 .settings
 .project
 logs/
+*.log
 
 # IntelliJ files #
 .idea/

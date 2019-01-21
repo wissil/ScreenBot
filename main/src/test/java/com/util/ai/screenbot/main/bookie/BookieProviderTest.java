@@ -14,7 +14,7 @@ import com.util.ai.screenbot.main.config.MainTestBase;
 public class BookieProviderTest extends MainTestBase {
 		
     @Test
-    public void shouldNotThrow() {
+    public void shouldNotThrow() {    	
     		assertTrue(Bookie.BET_365.getHandler() instanceof Bet365Handler);
     		assertTrue(Bookie.MARATHON_BET.getHandler() instanceof MarathonBetHandler);
     		assertTrue(Bookie.WILLIAM_HILL.getHandler() instanceof WilliamHillHandler);
