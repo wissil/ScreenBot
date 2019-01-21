@@ -40,7 +40,7 @@ import com.util.ai.screenbot.output.parsing.VBBrowsingStatusElementParser;
 
 public class OutputHandlerModule extends AbstractModule {
 	
-	private static final String TESSDATA_PATH = "./tessdata";
+	private static final String TESSDATA_PATH = "../output-handler/tessdata";
 
 	@Override
 	protected void configure() {
