@@ -19,6 +19,8 @@ import com.util.ai.screenbot.main.handlers.input.InputHandlerImpl;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandlerImpl;
 import com.util.ai.screenbot.support.email.EmailSender;
+import com.util.ai.screenbot.support.platform.Platform;
+import com.util.ai.screenbot.support.platform.PlatformResolver;
 
 public class MainModule extends AbstractModule {
 
@@ -52,8 +54,16 @@ public class MainModule extends AbstractModule {
 	@Provides
 	@Singleton
 	VBStateMachine stateMachine(InputHandler in, OutputHandler out, EmailSender emailSender) {
-//		return new VBStateMachineImpl(in, out, emailSender);
-		return new VBStateMachineMock(in, out);
+		if (PlatformResolver.resolveCurrentPlatform().equals(Platform.MAC)) {
+			// use mock state machine for Mac, as program can't be installed there
+			return new VBStateMachineMock(in, out);
+		}
+		
+		if (PlatformResolver.resolveCurrentPlatform().equals(Platform.WINDOWS)) {
+			return new VBStateMachineImpl(in, out, emailSender);
+		}
+		
+		return null;
 	}
 
 	@Inject
