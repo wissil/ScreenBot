@@ -8,6 +8,7 @@ import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
 import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
+import com.util.ai.screenbot.input.utils.DiskUtils;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public class InputHandlerImpl implements InputHandler {
@@ -58,17 +59,23 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public BufferedImage getBookmakerOddsImage(Bookie bookie) {
-		return bookie.getHandler().getBookmaerOddsImage();
+		BufferedImage bookmakerOdds = bookie.getHandler().getBookmakerOddsImage();
+		DiskUtils.saveBookmakerOddsToDisk(bookmakerOdds);
+		return bookmakerOdds;
 	}
 
 	@Override
 	public BufferedImage getOddsInputImage() {
-		return browserBot.takeBetInfoScreenshot();
+		BufferedImage betInfo = browserBot.takeBetInfoScreenshot();
+		DiskUtils.saveBetInfoToDisk(betInfo);
+		return betInfo;
 	}
 
 	@Override
 	public BufferedImage getBrowsingStatusImage() {
-		return browserBot.takeBrowsingStatusScreenshot();
+		BufferedImage browsingStatus = browserBot.takeBrowsingStatusScreenshot();
+		DiskUtils.saveBrowsingStatusToDisk(browsingStatus);
+		return browsingStatus;
 	}
 
 	@Override
@@ -102,17 +109,23 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public BufferedImage getMinStakeImage(Bookie bookie) {
 
-		return bookie.getHandler().getMinStakeImage();
+		BufferedImage minStake = bookie.getHandler().getMinStakeImage();
+		DiskUtils.saveMinStakeToDisk(minStake);
+		return minStake;
 	}
 
 	@Override
 	public BufferedImage getMaxStakeImage(Bookie bookie) {
-		return bookie.getHandler().getMaxStakeImage();
+		BufferedImage maxStake = bookie.getHandler().getMaxStakeImage();
+		DiskUtils.saveMaxStakeToDisk(maxStake);
+		return maxStake;
 	}
 
 	@Override
 	public BufferedImage getBalanceStakeImage(Bookie bookie) {
-		return bookie.getHandler().getBalanceStakeImage();
+		BufferedImage balance = bookie.getHandler().getBalanceStakeImage();
+		DiskUtils.saveBalanceToDisk(balance);
+		return balance;
 	}
 
 	@Override

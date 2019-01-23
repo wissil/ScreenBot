@@ -51,7 +51,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getBookmaerOddsImage() {
+	public BufferedImage getBookmakerOddsImage() {
 		return marathonBot.takeBookmakerOddsScreenshot();
 	}
 
