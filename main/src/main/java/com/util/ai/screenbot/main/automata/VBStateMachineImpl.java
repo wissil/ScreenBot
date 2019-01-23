@@ -217,6 +217,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 			// any other exception
 			log.error("Unknown exception has occurred.", e);
 			email.send(LOG_FILE_PATH);
+			System.exit(-1);
 		}
 	}
 
