@@ -33,7 +33,7 @@ public class Bet365Handler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getBookmaerOddsImage() {
+	public BufferedImage getBookmakerOddsImage() {
 		// TODO Auto-generated method stub
 		return null;
 	}

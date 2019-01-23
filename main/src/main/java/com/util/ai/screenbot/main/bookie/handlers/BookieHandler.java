@@ -17,7 +17,7 @@ public interface BookieHandler {
 
 	boolean isBetCorrect();
 
-	BufferedImage getBookmaerOddsImage();
+	BufferedImage getBookmakerOddsImage();
 
 	void neutralClick();
 

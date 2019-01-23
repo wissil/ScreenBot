@@ -86,6 +86,12 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
 				removeAllButtonCoordinates.y);
+		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+		try {
+			Thread.sleep(5000);// FIXME - debug purposes
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
 
 		log.info("RemoveAll button color:" + removeAllButtonColor.toString());
 
