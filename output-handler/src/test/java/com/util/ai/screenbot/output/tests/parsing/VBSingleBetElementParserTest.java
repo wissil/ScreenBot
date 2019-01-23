@@ -30,4 +30,20 @@ public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 		
 		System.out.println(element);
 	}
+	
+	@Test
+	public void parseExampleThreeTest() throws ScreenElementParseException {
+		final String s = "2.9% 15 3 hours Chile vs Brazil U1) iH 1.69 @ Marathonbet";
+		final VBSingleBetElement element = parser.parse(s);
+		
+		System.out.println(element);
+	}
+	
+	@Test
+	public void parseExampleFourTest() throws ScreenElementParseException {
+		final String s = "2.2% 9  4hours San Carlos vs Munidpal U1) iH 2.13 @ Marathonbet";
+		final VBSingleBetElement element = parser.parse(s);
+		
+		System.out.println(element);
+	}
 }
