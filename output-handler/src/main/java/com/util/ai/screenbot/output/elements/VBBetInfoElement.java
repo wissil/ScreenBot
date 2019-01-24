@@ -2,27 +2,27 @@ package com.util.ai.screenbot.output.elements;
 
 public class VBBetInfoElement implements VBScreenElement {
 	
-	private final String odds;
+	private final double odds;
 	
-	private final String stake;
+	private final double stake;
 	
-	private final String value;
+	private final double value;
 
-	public VBBetInfoElement(String odds, String stake, String value) {
+	public VBBetInfoElement(double odds, double stake, double value) {
 		this.odds = odds;
 		this.stake = stake;
 		this.value = value;
 	}
 
-	public String getOdds() {
+	public double getOdds() {
 		return odds;
 	}
 
-	public String getStake() {
+	public double getStake() {
 		return stake;
 	}
 
-	public String getValue() {
+	public double getValue() {
 		return value;
 	}
 

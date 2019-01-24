@@ -5,16 +5,17 @@ import java.util.regex.Pattern;
 
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
+import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
 
 public class VBBetInfoElementParser 
 	implements VBScreenElementParser<VBBetInfoElement> {
 		
 	private static final Pattern PATTERN_BET_INFO = Pattern.compile(
-			"(\\d+(?:\\.\\d)?\\d*)"
+			"(\\d+(?:\\.(?:\\s+)*\\d)?\\d*)"
 			+ "\\s*[\\r\\n]+"
-			+ "(\\d+(?:\\.\\d)?\\d*)"
+			+ "(\\d+(?:\\.(?:\\s+)*\\d)?\\d*)"
 			+ "\\s*[\\r\\n]+"
-			+ "(\\d+(?:\\.\\d)?\\d*)"
+			+ "(\\d+(?:\\.(?:\\s+)*\\d)?\\d*)"
 			+ "\\s*[\\r\\n]*"); 
 
 	@Override
@@ -25,9 +26,9 @@ public class VBBetInfoElementParser
 					String.format("Input %s doesn't correspond to the BET_INFO pattern.", input.trim()));
 		}
 		
-		final String odds = matcher.group(1);
-		final String stake = matcher.group(2);
-		final String value = matcher.group(3);
+		final double odds = CustomNumberFormat.parseDouble(matcher.group(1));
+		final double stake = CustomNumberFormat.parseDouble(matcher.group(2));
+		final double value = CustomNumberFormat.parseDouble(matcher.group(3));
 		
 		return new VBBetInfoElement(odds, stake, value);
 	}
