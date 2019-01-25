@@ -65,7 +65,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		if (bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetLightGreen())) {
 			clickBettingSlip();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// Do nothing
 			}
