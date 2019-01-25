@@ -149,10 +149,12 @@ public class VBStateMachineImpl implements VBStateMachine {
 				// 3) log bet
 				in.openMainWindow();
 			} else {
+				log.debug("Bet not plecable");
 				// clean bets logic
 
 				// 1) kladionica.removeBet()
 				in.removeBet(bookie);
+				log.debug("Bet removed from bet slip");
 
 				Thread.sleep(1000);
 

@@ -29,7 +29,9 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public BufferedImage getSingleBetImage() {
-		return mainBot.takeTopBetScreenshot();
+		BufferedImage singleBet = mainBot.takeTopBetScreenshot();
+		DiskUtils.saveBetToDisk(singleBet);
+		return singleBet;
 	}
 
 	@Override
