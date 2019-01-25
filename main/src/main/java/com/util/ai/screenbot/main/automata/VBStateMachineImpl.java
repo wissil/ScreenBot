@@ -125,10 +125,10 @@ public class VBStateMachineImpl implements VBStateMachine {
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
 			final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
 
-			final double oddsLeft = Double.parseDouble(oddsInput.getOdds().trim());
+			final double oddsLeft = oddsInput.getOdds();
 			final double oddsRight = Double.parseDouble(placeBet.getOdds().trim());
 
-			final double stake = Double.parseDouble(oddsInput.getStake().trim());
+			final double stake = oddsInput.getStake();
 
 			if (oddsRight >= oddsLeft && in.isBetPlaceable(bookie, stake, balanceElement.getBalance(),
 					maxStakeElement.getStake(), minStakeElement.getStake())) {
