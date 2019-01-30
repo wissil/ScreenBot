@@ -86,37 +86,45 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
 				removeAllButtonCoordinates.y);
-		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
-		try {
-			Thread.sleep(5000);// FIXME - debug purposes
-		} catch (InterruptedException e) {
-			// Do nothing
-		}
 
 		log.info("RemoveAll button color:" + removeAllButtonColor.toString());
 
 		// Check if remove all button is red
 		if (!marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
 
-			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
-					removeAllButtonCoordinates.y - marathonbetConstants.getDeviation());
+			boolean foundRemoveAllButton = false;
 
-			log.info("Upper removeAll button color:" + removeAllButtonColor.toString());
-			this.buttonDeviation = marathonbetConstants.getDeviation() * -1;
+			for (int step = 1; step <= 5; step++) {
 
-			if (!marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+				int deviation = step * marathonbetConstants.getDeviation();
 
 				removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
-						removeAllButtonCoordinates.y + marathonbetConstants.getDeviation());
+						removeAllButtonCoordinates.y - deviation);
 
-				log.info("Lower removeAll button color:" + removeAllButtonColor.toString());
-				this.buttonDeviation = marathonbetConstants.getDeviation();
+				log.info("Upper removeAll button color:" + removeAllButtonColor.toString());
 
-				if (!marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
-					this.buttonDeviation = 0;
-					log.info("Remove button not correct");
-					throw new BetSlipException("RemoveAll button is not positioned correctly");
+				if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+					foundRemoveAllButton = true;
+					this.buttonDeviation = deviation * -1;
+					break;
+				} else {
+					removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+							removeAllButtonCoordinates.y + deviation);
+
+					log.info("Lower removeAll button color:" + removeAllButtonColor.toString());
+
+					if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+						foundRemoveAllButton = true;
+						this.buttonDeviation = deviation;
+						break;
+					}
 				}
+			}
+
+			if (!foundRemoveAllButton) {
+				this.buttonDeviation = 0;
+				log.info("Remove button not correct");
+				throw new BetSlipException("RemoveAll button is not positioned correctly");
 			}
 
 		}
@@ -183,27 +191,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 			mouseHandler.leftClick();
 		} else {
-
-			removeAllButtonCoordinates.y -= marathonbetConstants.getDeviation();
-			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
-					removeAllButtonCoordinates.y);
-
-			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
-
-				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
-				mouseHandler.leftClick();
-			} else {
-				removeAllButtonCoordinates.y += marathonbetConstants.getDeviation();
-			}
-			removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
-					removeAllButtonCoordinates.y);
-
-			if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
-				mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
-				mouseHandler.leftClick();
-			} else {
-				throw new FatalValueBettingException("Not able to removeAll");
-			}
+			throw new FatalValueBettingException("Not able to removeAll");
 		}
 
 	}

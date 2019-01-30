@@ -120,6 +120,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
 			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage, bookie);
+			log.debug("Bet odds: " + placeBet.getOdds().trim());
 
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
