@@ -356,7 +356,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputOddsHeight());
 
-		return new BotCoordinates(betX, betY);
+		return new BotCoordinates(betX, betY + this.stakeDeviation);
 	}
 
 	private BotCoordinates getNeutralClickCoordinates() {
