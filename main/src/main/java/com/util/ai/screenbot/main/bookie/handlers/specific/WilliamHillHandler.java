@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 
@@ -63,7 +63,7 @@ public class WilliamHillHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
+	public void checkBettingSlip() throws BetSlipException, BetNotFoundException {
 		// TODO Auto-generated method stub
 
 	}

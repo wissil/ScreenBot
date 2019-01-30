@@ -12,7 +12,7 @@ import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -54,7 +54,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.leftClick();
 	}
 
-	public void checkBettingSlip() throws BetSlipException, NoBetFoundException {
+	public void checkBettingSlip() throws BetSlipException, BetNotFoundException {
 
 		BotCoordinates bettingSlipButtonCoordinates = getBettingSlipCoordinates();
 
@@ -78,7 +78,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		if (!bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
 
 			log.info("Slip not correct");
-			throw new NoBetFoundException("There is no bet in betting slip");
+			throw new BetNotFoundException("There is no bet in betting slip");
 		}
 
 		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
@@ -49,5 +49,5 @@ public interface InputHandler {
 
 	void clickNeutralArea(Bookie bookie);
 
-	void checkBettingSlip(Bookie bookie) throws BetSlipException, NoBetFoundException;
+	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException;
 }

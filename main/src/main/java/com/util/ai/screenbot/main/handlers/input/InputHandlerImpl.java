@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.input.utils.DiskUtils;
@@ -131,7 +131,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void checkBettingSlip(Bookie bookie) throws BetSlipException, NoBetFoundException {
+	public void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException {
 		bookie.getHandler().checkBettingSlip();
 
 	}

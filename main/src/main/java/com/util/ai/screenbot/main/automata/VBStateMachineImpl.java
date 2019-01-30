@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.NoBetFoundException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.utils.DiskUtils;
 import com.util.ai.screenbot.input.utils.SystemUtils;
 import com.util.ai.screenbot.main.bookie.Bookie;
@@ -205,7 +205,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 			Thread.sleep(500);
 			in.removeAllBetsFromTopBetEvent();
 			idle();
-		} catch (NoBetFoundException | BetSlipException e) {
+		} catch (BetNotFoundException | BetSlipException e) {
 			log.error("Bet does not exists in bookmater", e);
 
 			// 2) click Cancel
