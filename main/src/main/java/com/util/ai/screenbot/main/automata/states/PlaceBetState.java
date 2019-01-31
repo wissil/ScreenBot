@@ -110,7 +110,7 @@ public class PlaceBetState extends VBState {
 			sendEmail();
 			new CleanBetState(in, out, email, participants).process();			
 		} catch (BetSlipException | BetNotFoundException e) {
-			new CleanBetState(in, out, email, participants, bookie);
+			new CleanBetState(in, out, email, participants, bookie).process();;
 		} catch (Exception e) {
 			// any other exception
 			log.error("Unknown exception has occurred.", e);
