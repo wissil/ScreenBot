@@ -8,8 +8,8 @@ import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.main.automata.VBStateMachine;
-import com.util.ai.screenbot.main.automata.VBStateMachineImpl;
 import com.util.ai.screenbot.main.automata.VBStateMachineMock;
+import com.util.ai.screenbot.main.automata.VBStateMachineV2;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider;
 import com.util.ai.screenbot.main.bookie.handlers.specific.Bet365Handler;
 import com.util.ai.screenbot.main.bookie.handlers.specific.MarathonBetHandler;
@@ -58,11 +58,11 @@ public class MainModule extends AbstractModule {
 			// use mock state machine for Mac, as program can't be installed there
 			return new VBStateMachineMock(in, out);
 		}
-		
+
 		if (PlatformResolver.resolveCurrentPlatform().equals(Platform.WINDOWS)) {
-			return new VBStateMachineImpl(in, out, emailSender);
+			return new VBStateMachineV2(in, out, emailSender);
 		}
-		
+
 		return null;
 	}
 
