@@ -107,6 +107,8 @@ public class PlaceBetState extends VBState {
 			}
 		} catch (VBElementInterpretationException e) {
 			// TODO: handle exception
+			sendEmail();
+			new CleanBetState(in, out, email, participants).process();			
 		} catch (BetSlipException | BetNotFoundException e) {
 			new CleanBetState(in, out, email, participants, bookie);
 		} catch (Exception e) {
