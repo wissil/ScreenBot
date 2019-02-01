@@ -71,6 +71,11 @@ public class VBMainInputBot extends VBInputBot {
 
 	public BufferedImage takeTopBetScreenshot() {
 
+		BotCoordinates clickCoordinates = getTopBetMiddleCoordinates();
+
+		mouseHandler.moveMouse(clickCoordinates.x, clickCoordinates.y);
+		mouseHandler.leftClick();
+
 		BotCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(betCoordinates.x, betCoordinates.y,
@@ -97,6 +102,12 @@ public class VBMainInputBot extends VBInputBot {
 			// Do nothing
 		}
 		mouseHandler.leftClick();
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
 	}
 
 	/**

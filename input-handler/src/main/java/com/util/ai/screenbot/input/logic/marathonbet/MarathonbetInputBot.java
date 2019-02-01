@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -64,15 +64,16 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		if (bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetLightGreen())) {
 			clickBettingSlip();
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// Do nothing
-			}
-			bettingSlipButtonColor = screenHandler.detectColor(bettingSlipButtonCoordinates.x,
-					bettingSlipButtonCoordinates.y);
-			log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 		}
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+		bettingSlipButtonColor = screenHandler.detectColor(bettingSlipButtonCoordinates.x,
+				bettingSlipButtonCoordinates.y);
+		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
 		// Check if betting slip button is green
 		if (!bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
