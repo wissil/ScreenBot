@@ -4,20 +4,22 @@ import java.awt.Color;
 
 public class ColorComparator {
 	
+	private static final int MAX_VALUE = 255 / 2;
+	
 	private static final double PRECISION_TRESHOLD = 10E-5;
 	
-	private static final int VALUE_TRESHOLD = 8;
-
 	public static boolean areEqualColors(Color c1, Color c2, double precision) {
+		final int valueTresh = (int) Math.round(precision * MAX_VALUE);
+		
 		return 
-				areEqualPixels(c1.getRed(), c2.getRed(), precision) &&
-				areEqualPixels(c1.getGreen(), c2.getGreen(), precision) &&
-				areEqualPixels(c1.getBlue(), c2.getBlue(), precision);
+				areEqualPixels(c1.getRed(), c2.getRed(), precision, valueTresh) &&
+				areEqualPixels(c1.getGreen(), c2.getGreen(), precision, valueTresh) &&
+				areEqualPixels(c1.getBlue(), c2.getBlue(), precision, valueTresh);
 	}
 	
-	private static boolean areEqualPixels(int p1, int p2, double precision) {
-		if (p1 < VALUE_TRESHOLD) p1 = VALUE_TRESHOLD;
-		if (p2 < VALUE_TRESHOLD) p2 = VALUE_TRESHOLD;
+	private static boolean areEqualPixels(int p1, int p2, double precision, int valueTresh) {
+		if (p1 < valueTresh) p1 = valueTresh;
+		if (p2 < valueTresh) p2 = valueTresh;
 		
 		final double minBound = (double) p1 - (double) p1 * precision;
 		final double maxBound = (double) p1 + (double) p1 * precision;

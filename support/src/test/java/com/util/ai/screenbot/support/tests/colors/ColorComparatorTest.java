@@ -22,7 +22,7 @@ public class ColorComparatorTest {
 		final Color otherGreen = new Color(6, 140, 73);
 		final Color otherWhite = new Color(250, 251, 249);
 		
-		final double precision = 0.2;
+		final double precision = 0.1;
 		
 		assertTrue(ColorComparator.areEqualColors(MARATHON_LIGHT_GREEN, otherLightGreen, precision));
 		assertTrue(ColorComparator.areEqualColors(MARATHON_GREEN, otherGreen, precision));
