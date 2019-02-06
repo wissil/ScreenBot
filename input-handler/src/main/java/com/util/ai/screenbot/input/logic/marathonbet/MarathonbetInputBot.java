@@ -17,6 +17,7 @@ import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
+import com.util.ai.screenbot.support.colors.ColorComparator;
 
 public class MarathonbetInputBot extends AbstractInputBot {
 
@@ -62,7 +63,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				bettingSlipButtonCoordinates.y);
 		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
-		if (bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetLightGreen())) {
+		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetLightGreen(),
+				marathonbetConstants.getColorDeviation())) {
 			clickBettingSlip();
 		}
 
@@ -76,8 +78,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
 		// Check if betting slip button is green
-		if (!bettingSlipButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
-
+		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetLightGreen(),
+				marathonbetConstants.getColorDeviation())) {
 			log.info("Slip not correct");
 			throw new BetNotFoundException("There is no bet in betting slip");
 		}
@@ -91,7 +93,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.info("RemoveAll button color:" + removeAllButtonColor.toString());
 
 		// Check if remove all button is red
-		if (!marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+		if (!ColorComparator.areEqualColors(removeAllButtonColor, marathonbetConstants.getMarathonbetRed().get(0),
+				marathonbetConstants.getColorDeviation())) {
 
 			boolean foundRemoveAllButton = false;
 
@@ -104,7 +107,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 				log.info("Upper removeAll button color:" + removeAllButtonColor.toString());
 
-				if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+				if (ColorComparator.areEqualColors(removeAllButtonColor,
+						marathonbetConstants.getMarathonbetRed().get(0), marathonbetConstants.getColorDeviation())) {
 					foundRemoveAllButton = true;
 					this.buttonDeviation = deviation * -1;
 					break;
@@ -114,7 +118,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 					log.info("Lower removeAll button color:" + removeAllButtonColor.toString());
 
-					if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+					if (ColorComparator.areEqualColors(removeAllButtonColor,
+							marathonbetConstants.getMarathonbetRed().get(0),
+							marathonbetConstants.getColorDeviation())) {
 						foundRemoveAllButton = true;
 						this.buttonDeviation = deviation;
 						break;
@@ -134,7 +140,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				betButtonCoordinates.y + this.buttonDeviation);
 
 		// Check if betting button is green
-		if (!betButtonColor.equals(marathonbetConstants.getMarathonbetGreen())) {
+		if (!ColorComparator.areEqualColors(betButtonColor, marathonbetConstants.getMarathonbetGreen(),
+				marathonbetConstants.getColorDeviation())) {
 			log.info("Bet button not correct");
 			throw new BetSlipException("Bet button is not positioned correctly");
 		}
@@ -144,7 +151,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Color stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x, stakeInputCoordinates.y);
 
 		// Check if input stake is white
-		if (!stakeInputColor.equals(marathonbetConstants.getMarathonbetWhite())) {
+		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
+				marathonbetConstants.getColorDeviation())) {
 
 			stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
 					stakeInputCoordinates.y - marathonbetConstants.getDeviation());
@@ -152,7 +160,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 			log.info("Upper stake input color:" + stakeInputColor.toString());
 			this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
 
-			if (!stakeInputColor.equals(marathonbetConstants.getMarathonbetWhite())) {
+			if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
+					marathonbetConstants.getColorDeviation())) {
 
 				stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
 						stakeInputCoordinates.y + marathonbetConstants.getDeviation());
@@ -160,7 +169,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				log.info("Lower stake input color:" + stakeInputColor.toString());
 				this.stakeDeviation = marathonbetConstants.getDeviation();
 
-				if (!stakeInputColor.equals(marathonbetConstants.getMarathonbetWhite())) {
+				if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
+						marathonbetConstants.getColorDeviation())) {
 					this.buttonDeviation = 0;
 					log.info("Remove button not correct");
 					throw new BetSlipException("Stake input field is not positioned correctly");

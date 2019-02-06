@@ -6,6 +6,8 @@ import java.util.List;
 
 public abstract class AbstractMarathonbetConstants {
 
+	private static final double COLOR_DEVIATION = 0.1; // 10%
+
 	private static final Color MARATHON_LIGHT_GREEN = new Color(232, 255, 230);
 
 	private static final Color MARATHON_GREEN = new Color(0, 143, 76);
@@ -74,5 +76,9 @@ public abstract class AbstractMarathonbetConstants {
 
 	public List<Color> getMarathonbetRed() {
 		return MARATHON_RED;
+	}
+
+	public double getColorDeviation() {
+		return COLOR_DEVIATION;
 	}
 }
