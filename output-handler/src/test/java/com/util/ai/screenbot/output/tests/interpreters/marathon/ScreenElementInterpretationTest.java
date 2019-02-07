@@ -114,7 +114,7 @@ public class ScreenElementInterpretationTest extends OutputHandlerTestBase {
 			final BufferedImage image = ImageIO.read(f);
 			final VBBookmakerMinStakeGui gui = new VBBookmakerMinStakeGui(image, new VBMarathonMinStakeOcrConf());
 			final VBBookmakerMinStakeElement element = bookmakerMinStakeInterpreter().interpret(gui);
-			System.out.println(element);
+			System.out.println(f.getName() + ": " + element);
 		}
 	}
 }

@@ -10,7 +10,7 @@ import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
 public class VBBookmakerMinStakeElementParser implements VBScreenElementParser<VBBookmakerMinStakeElement> {
 
 	private static final Pattern PATTERN_MIN_STAKE = Pattern.compile(
-			"(?:.*)(\\d+(\\.\\d)?\\d*)"); 
+			"(?:[^\\d]*)(\\d+\\s*(\\.\\s*\\d)?\\s*\\d*)");
 	
 	@Override
 	public VBBookmakerMinStakeElement parse(String input) throws ScreenElementParseException {

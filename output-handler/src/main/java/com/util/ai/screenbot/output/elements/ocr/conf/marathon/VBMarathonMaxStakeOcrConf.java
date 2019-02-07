@@ -5,7 +5,7 @@ import com.util.ai.screenbot.output.ocr.OcrReadMode;
 
 public class VBMarathonMaxStakeOcrConf implements OcrImageProcessingConf {
 	
-	private static final int SCALE = 5;
+	private static final int SCALE = 2;
 	
 	private static final int WHITE_TRESHOLD = 210;
 
@@ -21,7 +21,7 @@ public class VBMarathonMaxStakeOcrConf implements OcrImageProcessingConf {
 
 	@Override
 	public OcrReadMode OCR_READ_MODE() {
-		return OcrReadMode.DIGITS;
+		return OcrReadMode.ENGLISH;
 	}
 
 	@Override

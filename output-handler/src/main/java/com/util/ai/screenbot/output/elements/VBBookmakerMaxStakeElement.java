@@ -14,6 +14,6 @@ public class VBBookmakerMaxStakeElement implements VBScreenElement {
 
 	@Override
 	public String toString() {
-		return "VBBookmakerStakeElement [stake=" + stake + "]";
+		return "VBBookmakerMaxStakeElement [stake=" + stake + "]";
 	}
 }

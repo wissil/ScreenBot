@@ -14,6 +14,6 @@ public class VBBookmakerMinStakeElement implements VBScreenElement {
 
 	@Override
 	public String toString() {
-		return "VBBookmakerStakeElement [stake=" + stake + "]";
+		return "VBBookmakerMinStakeElement [stake=" + stake + "]";
 	}
 }

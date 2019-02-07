@@ -5,7 +5,7 @@ import com.util.ai.screenbot.output.ocr.OcrReadMode;
 
 public class VBMarathonMinStakeOcrConf implements OcrImageProcessingConf {
 	
-	private static final int SCALE = 5;
+	private static final int SCALE = 2;
 	
 	private static final int WHITE_TRESHOLD = 210;
 

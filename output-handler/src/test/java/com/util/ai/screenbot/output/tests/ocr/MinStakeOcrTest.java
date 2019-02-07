@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.inject.Inject;
-import com.util.ai.screenbot.output.elements.ocr.conf.general.VBBetInfoOcrConf;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonMinStakeOcrConf;
 import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 import com.util.ai.screenbot.output.ocr.OcrImageProcessor;
@@ -30,7 +30,7 @@ public class MinStakeOcrTest extends OutputHandlerTestBase {
 	
 	@BeforeClass
 	public static void setup() {
-		conf = new VBBetInfoOcrConf();
+		conf = new VBMarathonMinStakeOcrConf();
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class MinStakeOcrTest extends OutputHandlerTestBase {
 			BufferedImage image = ImageIO.read(f);
 			image = imageProcessor.process(image, conf);
 
-			String result = ocr.doOcr(image, OcrReadMode.DIGITS);
+			String result = ocr.doOcr(image, OcrReadMode.ENGLISH);
 			double d = CustomNumberFormat.parseDouble(result);
 			System.out.println(f.getName() + ": " + result + ", d: " + d);
 		}
