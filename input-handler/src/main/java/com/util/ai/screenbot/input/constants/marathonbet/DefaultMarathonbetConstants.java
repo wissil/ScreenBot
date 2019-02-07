@@ -117,4 +117,14 @@ public class DefaultMarathonbetConstants extends AbstractMarathonbetConstants {
 		return null;
 	}
 
+	@Override
+	public Float getBetOKButtonWidth() {
+		return null;
+	}
+
+	@Override
+	public Float getBetOKButtonHeight() {
+		return null;
+	}
+
 }
