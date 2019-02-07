@@ -128,7 +128,7 @@ public class PlaceBetState extends VBState {
 				final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();
 				if (out.readBrowsingStatus(browsingStatusImage).isDone()) {
 					log.debug("Betting browser successfully loaded! - first check");
-					Thread.sleep(500);
+					Thread.sleep(2000);
 
 					// added second check because of the false true that sometimes happens
 					final BufferedImage browsingStatusImage2 = in.getBrowsingStatusImage();
