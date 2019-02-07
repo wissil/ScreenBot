@@ -45,7 +45,7 @@ public interface InputHandler {
 
 	void removeBet(Bookie bookie) throws FatalValueBettingException;
 
-	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double min, double max);
+	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min);
 
 	void clickNeutralArea(Bookie bookie);
 

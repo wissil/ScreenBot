@@ -97,7 +97,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double min, double max) {
+	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) {
 		boolean stakeCorrect = (stake >= balance) && (stake >= min) && (stake <= max);
 		return stakeCorrect && bookie.getHandler().isBetCorrect();
 	}
