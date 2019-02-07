@@ -21,7 +21,7 @@ public class VBMarathonMinStakeOcrConf implements OcrImageProcessingConf {
 
 	@Override
 	public OcrReadMode OCR_READ_MODE() {
-		return OcrReadMode.DIGITS;
+		return OcrReadMode.ENGLISH;
 	}
 
 	@Override
