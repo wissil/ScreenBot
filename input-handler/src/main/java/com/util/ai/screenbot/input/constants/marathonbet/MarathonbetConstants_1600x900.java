@@ -140,4 +140,16 @@ public class MarathonbetConstants_1600x900 extends AbstractMarathonbetConstants 
 		return null;
 	}
 
+	@Override
+	public Float getBetOKButtonWidth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Float getBetOKButtonHeight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

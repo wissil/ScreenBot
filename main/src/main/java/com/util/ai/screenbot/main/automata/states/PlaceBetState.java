@@ -6,9 +6,9 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -33,8 +33,7 @@ public class PlaceBetState extends VBState {
 
 	private final VBSingleBetElement element;
 
-	public PlaceBetState(InputHandler in, OutputHandler out, EmailSender email,
-			VBSingleBetElement element) {
+	public PlaceBetState(InputHandler in, OutputHandler out, EmailSender email, VBSingleBetElement element) {
 		super(in, out, email);
 		this.element = Objects.requireNonNull(element);
 	}
@@ -86,10 +85,10 @@ public class PlaceBetState extends VBState {
 
 			final double stake = oddsInput.getStake();
 
-			if (isBetPlacable(oddsRight, oddsLeft, stake, 
-					bookie, balanceElement, maxStakeElement, minStakeElement)) {			
+			if (isBetPlacable(oddsRight, oddsLeft, stake, bookie, balanceElement, maxStakeElement, minStakeElement)) {
 				// 1) place bet
-				in.placeBet(bookie, stake);
+				// in.placeBet(bookie, stake);
+				in.placeBet(bookie, 1); // FIXME - stake hardcoded to 1
 				Thread.sleep(500);
 
 				// 2) click OK on the betting browser
@@ -103,20 +102,22 @@ public class PlaceBetState extends VBState {
 				in.openMainWindow();
 			} else {
 				log.warn("Bet could not be placed!");
-				new CleanBetState(in, out, email, participants, bookie).process();
+				new CleanBetState(in, out, email, participants, bookie, true).process();
 			}
 		} catch (VBElementInterpretationException e) {
 			// TODO: handle exception
 			sendEmail();
-			new CleanBetState(in, out, email, participants).process();			
-		} catch (BetSlipException | BetNotFoundException e) {
-			new CleanBetState(in, out, email, participants, bookie).process();;
+			new CleanBetState(in, out, email, participants, true).process();
+		} catch (BetNotFoundException e) {
+			new CleanBetState(in, out, email, participants, false).process();
+		} catch (BetSlipException e) {
+			new CleanBetState(in, out, email, participants, bookie, true).process();
 		} catch (Exception e) {
 			// any other exception
 			log.error("Unknown exception has occurred.", e);
 			log.error("Shutting down ...");
 			sendEmail();
-			System.exit(-1);		
+			System.exit(-1);
 		}
 	}
 
@@ -124,7 +125,7 @@ public class PlaceBetState extends VBState {
 		try {
 			int waitingTime = 0;
 			while (true) {
-				final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();		
+				final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();
 				if (out.readBrowsingStatus(browsingStatusImage).isDone()) {
 					log.debug("Betting browser successfully loaded! - first check");
 					Thread.sleep(500);
@@ -151,26 +152,24 @@ public class PlaceBetState extends VBState {
 		}
 	}
 
-	private Bookie parseBookie(String bookieName, String participants) throws InterruptedException, FatalValueBettingException {
+	private Bookie parseBookie(String bookieName, String participants)
+			throws InterruptedException, FatalValueBettingException {
 		try {
 			return Bookie.fromString(bookieName);
 		} catch (UnknownBookieException e) {
 			log.error("Bookmaker couldn't be recognized.", e);
 			sendEmail();
-			new CleanBetState(in, out, email, participants).process();
+			new CleanBetState(in, out, email, participants, false).process();
 		}
 
 		return null;
 	}
 
-	private boolean isBetPlacable(double oddsRight, double oddsLeft, double stake,
-			Bookie bookie, VBBalanceElement balanceElement, 
-			VBBookmakerMaxStakeElement maxStakeElement, VBBookmakerMinStakeElement minStakeElement) {
-		return (oddsRight >= oddsLeft) && in.isBetPlaceable(
-				bookie, stake, 
-				balanceElement.getBalance(), 
-				maxStakeElement.getStake(),
-				minStakeElement.getStake());
+	private boolean isBetPlacable(double oddsRight, double oddsLeft, double stake, Bookie bookie,
+			VBBalanceElement balanceElement, VBBookmakerMaxStakeElement maxStakeElement,
+			VBBookmakerMinStakeElement minStakeElement) {
+		return (oddsRight >= oddsLeft) && in.isBetPlaceable(bookie, stake, balanceElement.getBalance(),
+				maxStakeElement.getStake(), minStakeElement.getStake());
 	}
 
 }

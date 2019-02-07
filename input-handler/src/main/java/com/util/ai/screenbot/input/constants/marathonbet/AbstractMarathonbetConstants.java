@@ -62,6 +62,10 @@ public abstract class AbstractMarathonbetConstants {
 
 	public abstract Integer getDeviation();
 
+	public abstract Float getBetOKButtonWidth();
+
+	public abstract Float getBetOKButtonHeight();
+
 	public Color getMarathonbetGreen() {
 		return MARATHON_GREEN;
 	}

@@ -63,8 +63,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				bettingSlipButtonCoordinates.y);
 		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
-		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetLightGreen(),
-				marathonbetConstants.getColorDeviation())) {
+		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
+																														// deviation
 			clickBettingSlip();
 		}
 
@@ -78,8 +78,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
 		// Check if betting slip button is green
-		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetLightGreen(),
-				marathonbetConstants.getColorDeviation())) {
+		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
+																														// deviation
 			log.info("Slip not correct");
 			throw new BetNotFoundException("There is no bet in betting slip");
 		}
@@ -130,6 +130,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 			if (!foundRemoveAllButton) {
 				this.buttonDeviation = 0;
+				this.stakeDeviation = 0;
 				log.info("Remove button not correct");
 				throw new BetSlipException("RemoveAll button is not positioned correctly");
 			}
@@ -151,30 +152,42 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		Color stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x, stakeInputCoordinates.y);
 
 		// Check if input stake is white
-		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
-				marathonbetConstants.getColorDeviation())) {
-
-			stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-					stakeInputCoordinates.y - marathonbetConstants.getDeviation());
-
-			log.info("Upper stake input color:" + stakeInputColor.toString());
-			this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
-
-			if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
-					marathonbetConstants.getColorDeviation())) {
+		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) {// No
+																												// deviation
+			boolean foundStake = false;
+			for (int step = 1; step <= 5; step++) {
+				int deviation = step * marathonbetConstants.getDeviation();
 
 				stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-						stakeInputCoordinates.y + marathonbetConstants.getDeviation());
+						stakeInputCoordinates.y - deviation);
 
-				log.info("Lower stake input color:" + stakeInputColor.toString());
-				this.stakeDeviation = marathonbetConstants.getDeviation();
+				log.info("Upper stake input color:" + stakeInputColor.toString());
 
-				if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
-						marathonbetConstants.getColorDeviation())) {
-					this.buttonDeviation = 0;
-					log.info("Remove button not correct");
-					throw new BetSlipException("Stake input field is not positioned correctly");
+				if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) { // No
+																														// deviation
+					foundStake = true;
+					this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
+					break;
+				} else {
+
+					stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
+							stakeInputCoordinates.y + deviation);
+
+					log.info("Upper stake input color:" + stakeInputColor.toString());
+
+					if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
+							0)) { // No deviation
+						foundStake = true;
+						this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
+						break;
+					}
 				}
+			}
+			if (!foundStake) {
+				this.buttonDeviation = 0;
+				this.stakeDeviation = 0;
+				log.info("Stake input field is not positioned correctly");
+				throw new BetSlipException("Stake input field is not positioned correctly");
 			}
 
 		}
@@ -214,10 +227,34 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
 	}
 
+	public void navigateToBetOKButton() {
+
+		BotCoordinates betOKButtonCoordinates = getBetOKButtonCoordinates();
+
+		mouseHandler.moveMouse(betOKButtonCoordinates.x, betOKButtonCoordinates.y);
+	}
+
 	public void clickBet() {
 		navigateToBetButton();
 
 		mouseHandler.leftClick();
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
+
+		navigateToBetOKButton();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO - add check
+		mouseHandler.leftClick();
+
 	}
 
 	public void navigateToStakeInputButton() {
@@ -238,7 +275,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		keyboardHandler.write(stake);
 	}
 
-	public void navigateToOddsInputButton() {
+	public void navigateToOdds() {
 
 		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
 
@@ -246,6 +283,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	}
 
 	public BufferedImage takeBookmakerOddsScreenshot() {
+		navigateToOdds();
 		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
 
 		BufferedImage image = screenHandler.takeScreenshot(oddsInputCoordinates.x, oddsInputCoordinates.y,
@@ -348,6 +386,16 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
 
 		return new BotCoordinates(betX, betY + this.buttonDeviation);
+	}
+
+	private BotCoordinates getBetOKButtonCoordinates() {
+		Integer betX = (int) (browserDimensions.x + Math
+				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetOKButtonWidth()));
+
+		Integer betY = browserDimensions.y
+				+ Math.round(browserDimensions.height * marathonbetConstants.getBetOKButtonHeight());
+
+		return new BotCoordinates(betX, betY);
 	}
 
 	private BotCoordinates getBetInputStakeCoordinates() {
