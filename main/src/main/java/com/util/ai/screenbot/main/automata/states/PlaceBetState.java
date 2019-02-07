@@ -83,12 +83,13 @@ public class PlaceBetState extends VBState {
 			final double oddsLeft = oddsInput.getOdds();
 			final double oddsRight = CustomNumberFormat.parseDouble(placeBet.getOdds());
 
-			final double stake = oddsInput.getStake();
+			double stake = oddsInput.getStake();
+			stake = 1.0;// FIXEME - testing purposes
 
 			if (isBetPlacable(oddsRight, oddsLeft, stake, bookie, balanceElement, maxStakeElement, minStakeElement)) {
 				// 1) place bet
 				// in.placeBet(bookie, stake);
-				in.placeBet(bookie, 1); // FIXME - stake hardcoded to 1
+				in.placeBet(bookie, stake);
 				Thread.sleep(500);
 
 				// 2) click OK on the betting browser
