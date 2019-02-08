@@ -48,9 +48,9 @@ public class MarathonbetConstants_1366x768 extends AbstractMarathonbetConstants 
 
 	private static final Integer DEVIATION = 20;
 
-	private static final Float BET_OK_HEIGHT = 0.6f;
+	private static final Float BET_OK_HEIGHT = 0.4f;
 
-	private static final Float BET_OK_WIDTH = 0.6f;
+	private static final Float BET_OK_WIDTH = 0.57f;
 
 	@Override
 	public Float getBettingSlipHeight() {
