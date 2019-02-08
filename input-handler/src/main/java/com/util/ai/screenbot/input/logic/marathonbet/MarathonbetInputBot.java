@@ -212,12 +212,19 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				removeAllButtonCoordinates.y);
 
 		// Check if remove all button is red
-		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+		if (marathonbetConstants.getMarathonbetRed().stream().anyMatch(c1 -> ColorComparator.areEqualColors(c1, removeAllButtonColor, 0.6))) {
 			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 			mouseHandler.leftClick();
 		} else {
 			throw new FatalValueBettingException("Not able to removeAll");
 		}
+		
+//		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+//			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+//			mouseHandler.leftClick();
+//		} else {
+//			throw new FatalValueBettingException("Not able to removeAll");
+//		}
 
 	}
 
