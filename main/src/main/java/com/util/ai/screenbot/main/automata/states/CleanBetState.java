@@ -3,7 +3,6 @@ package com.util.ai.screenbot.main.automata.states;
 import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
 
 import java.awt.image.BufferedImage;
-import java.awt.print.Book;
 import java.util.Objects;
 
 import org.slf4j.Logger;

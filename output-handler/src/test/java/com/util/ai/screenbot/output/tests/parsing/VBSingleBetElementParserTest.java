@@ -50,7 +50,7 @@ public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void parseExampleFiveTest() throws ScreenElementParseException {
-		final String s = "2.5% 15 1lhour 3min  Kabilye vs AS Ain Mlila U21 U(1.5) 1.70 @ Marathonbet";
+		final String s = "1.7% 3hours FC Almere vs AZ Alkmaar II AH1(-1) 1.83 @ Marathonbet";
 		final VBSingleBetElement element = parser.parse(s);
 		
 		System.out.println(element);

@@ -85,7 +85,7 @@ public class PlaceBetState extends VBState {
 			final double oddsRight = CustomNumberFormat.parseDouble(placeBet.getOdds());
 
 			double stake = oddsInput.getStake();
-			stake = 1.0;// FIXEME - testing purposes
+			stake = 0.5;// FIXEME - testing purposes
 
 			if (isBetPlacable(oddsRight, oddsLeft, stake, bookie, balanceElement, maxStakeElement, minStakeElement)) {
 				// 1) place bet
