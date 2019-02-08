@@ -3,9 +3,9 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.input.utils.DiskUtils;
@@ -98,7 +98,7 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) {
-		boolean stakeCorrect = (stake >= balance) && (stake >= min) && (stake <= max);
+		boolean stakeCorrect = (stake <= balance) && (stake >= min) && (stake <= max);
 		return stakeCorrect && bookie.getHandler().isBetCorrect();
 	}
 
