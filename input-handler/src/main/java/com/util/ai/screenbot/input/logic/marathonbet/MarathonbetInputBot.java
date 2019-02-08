@@ -85,7 +85,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		}
 
 		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
-		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
 
 		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
 				removeAllButtonCoordinates.y);
@@ -137,9 +136,10 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		}
 
-		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x,
-				betButtonCoordinates.y + this.buttonDeviation);
+		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
 
+		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x, betButtonCoordinates.y);
+		log.info("Bet button color:" + betButtonColor.toString());
 		// Check if betting button is green
 		if (!ColorComparator.areEqualColors(betButtonColor, marathonbetConstants.getMarathonbetGreen(),
 				marathonbetConstants.getColorDeviation())) {
