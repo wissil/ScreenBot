@@ -3,6 +3,7 @@ package com.util.ai.screenbot.main.automata.states;
 import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
 
 import java.awt.image.BufferedImage;
+import java.awt.print.Book;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class CleanBetState extends VBState {
 
 	@Override
 	void execute() throws InterruptedException, FatalValueBettingException {
-		if (!bookie.equals(NO_BOOKIE) && removeBet) {
+		if (bookieExists() && removeBet) {
 			// remove from the betting slip
 			log.debug("Bookmaker was interpeted! Removing bet from the bookmaker betting slip ...");
 			in.removeBet(bookie);
@@ -91,6 +92,10 @@ public class CleanBetState extends VBState {
 		}
 
 		new IdleState(in, out, email).process();
+	}
+	
+	private boolean bookieExists() {
+		return bookie != NO_BOOKIE;
 	}
 
 }
