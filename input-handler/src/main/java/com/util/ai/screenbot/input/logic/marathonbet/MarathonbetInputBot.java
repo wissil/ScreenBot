@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
+import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
@@ -234,7 +235,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(betOKButtonCoordinates.x, betOKButtonCoordinates.y);
 	}
 
-	public void clickBet() {
+	public void clickBet() throws BetException {
 		navigateToBetButton();
 
 		mouseHandler.leftClick();
@@ -251,7 +252,14 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		} catch (InterruptedException e) {
 			// Do nothing
 		}
-		// TODO - add check
+		BotCoordinates betOKCoordinates = getBetOKButtonCoordinates();
+		Color betOkColor = screenHandler.detectColor(betOKCoordinates.x, betOKCoordinates.y);
+
+		if (!ColorComparator.areEqualColors(betOkColor, marathonbetConstants.getMarathonbetGreen(),
+				marathonbetConstants.getColorDeviation())) {
+			throw new BetException("Someting happend - bet not placed");
+		}
+
 		mouseHandler.leftClick();
 
 	}

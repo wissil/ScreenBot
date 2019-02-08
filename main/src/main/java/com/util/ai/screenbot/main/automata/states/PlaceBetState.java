@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
@@ -113,6 +114,10 @@ public class PlaceBetState extends VBState {
 			new CleanBetState(in, out, email, participants, false).process();
 		} catch (BetSlipException e) {
 			new CleanBetState(in, out, email, participants, bookie, true).process();
+		} catch (BetException e) {
+			log.error("Can not continue ...");
+			sendEmail();
+			System.exit(-1);
 		} catch (Exception e) {
 			// any other exception
 			log.error("Unknown exception has occurred.", e);

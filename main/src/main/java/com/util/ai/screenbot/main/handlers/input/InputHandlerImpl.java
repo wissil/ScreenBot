@@ -3,6 +3,7 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
@@ -50,7 +51,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void placeBet(Bookie bookie, double stake) {
+	public void placeBet(Bookie bookie, double stake) throws BetException {
 		bookie.getHandler().placeBet(stake);
 	}
 

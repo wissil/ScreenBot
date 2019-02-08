@@ -4,9 +4,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BetException;
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -22,7 +23,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void placeBet(double stake) {
+	public void placeBet(double stake) throws BetException {
 		marathonBot.setBetStake(String.valueOf(stake));
 		try {
 			Thread.sleep(500);
