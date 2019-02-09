@@ -66,30 +66,27 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void clickCancel() throws FatalValueBettingException {
 		try {
-			SCREEN.wait("marathon/Cancel.png", 5);
-			SCREEN.click("marathon/Cancel.png");
-		}
-		catch (FindFailed e) {
+			SCREEN.wait("Cancel.png", 5);
+			SCREEN.click("Cancel.png");
+		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click cancel.", e);
 		}
 	}
 
 	public void clickConfirm() throws FatalValueBettingException {
 		try {
-			SCREEN.wait("marathon/ConfirmPlacedBet.png", 5);
-			SCREEN.click("marathon/ConfirmPlacedBet.png");
-		}
-		catch (FindFailed e) {
+			SCREEN.wait("ConfirmPlacedBet.png", 5);
+			SCREEN.click("ConfirmPlacedBet.png");
+		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click confirm.", e);
 		}
 	}
 
 	public void clickConfirmOk() throws FatalValueBettingException {
 		try {
-			SCREEN.wait("marathon/ConfirmPlacedBet_OK.png", 5);
-			SCREEN.click("marathon/ConfirmPlacedBet_OK.png");
-		}
-		catch (FindFailed e) {
+			SCREEN.wait("ConfirmPlacedBet_OK.png", 5);
+			SCREEN.click("ConfirmPlacedBet_OK.png");
+		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click confirm.", e);
 		}
 	}
@@ -134,16 +131,6 @@ public class VBBrowserInputBot extends VBInputBot {
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
 
 		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getCancelButtonCoordinates() {
-		Integer betX = (int) (browserDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getCancelButtonWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * vbConstants.getBrowserButtonsHeight());
 
 		return new BotCoordinates(betX, betY);
 	}

@@ -42,16 +42,22 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		this.browserDimensions = browserDimensions;
 	}
 
-	public void clickBettingSlip() throws FatalValueBettingException {		
+	public void clickBettingSlip() throws FatalValueBettingException {
 		try {
 			SCREEN.wait("marathon/Marathon_BetSlip.png", 5);
 			SCREEN.click("marathon/Marathon_BetSlip.png");
 		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click bet slip.", e);
-		}	
+		}
 	}
 
 	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// Do nothing
+		}
 
 		BotCoordinates bettingSlipButtonCoordinates = getBettingSlipCoordinates();
 
@@ -131,17 +137,23 @@ public class MarathonbetInputBot extends AbstractInputBot {
 			}
 
 		}
-
-		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
-
-		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x, betButtonCoordinates.y);
-		log.info("Bet button color:" + betButtonColor.toString());
-		// Check if betting button is green
-		if (!ColorComparator.areEqualColors(betButtonColor, marathonbetConstants.getMarathonbetGreen(),
-				marathonbetConstants.getColorDeviation())) {
-			log.info("Bet button not correct");
-			throw new BetSlipException("Bet button is not positioned correctly");
-		}
+//
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// Do nothing
+//		}
+//
+//		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
+//
+//		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x, betButtonCoordinates.y);
+//		log.info("Bet button color:" + betButtonColor.toString());
+//		// Check if betting button is green
+//		if (!ColorComparator.areEqualColors(betButtonColor, marathonbetConstants.getMarathonbetGreen(),
+//				marathonbetConstants.getColorDeviation())) {
+//			log.info("Bet button not correct");
+//			throw new BetSlipException("Bet button is not positioned correctly");
+//		}
 
 		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
 
@@ -208,14 +220,14 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
 	}
 
-	public void clickBet() throws BetException, FatalValueBettingException {		
+	public void clickBet() throws BetException, FatalValueBettingException {
 		try {
 			SCREEN.wait("marathon/Marathon_PlaceBet.png", 10);
 			SCREEN.click("marathon/Marathon_PlaceBet.png");
 		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to place bet.", e);
 		}
-		
+
 		try {
 			SCREEN.wait("marathon/Marathon_OK.png", 10);
 			SCREEN.click("marathon/Marathon_OK.png");
