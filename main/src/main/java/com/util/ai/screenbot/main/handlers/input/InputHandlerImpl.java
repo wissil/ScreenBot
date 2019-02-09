@@ -51,7 +51,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void placeBet(Bookie bookie, double stake) throws BetException {
+	public void placeBet(Bookie bookie, double stake) throws BetException, FatalValueBettingException {
 		bookie.getHandler().placeBet(stake);
 	}
 
@@ -98,7 +98,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) {
+	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalValueBettingException {
 		boolean stakeCorrect = (stake <= balance) && (stake >= min) && (stake <= max);
 		return stakeCorrect && bookie.getHandler().isBetCorrect();
 	}
@@ -132,7 +132,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException {
+	public void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalValueBettingException {
 		bookie.getHandler().checkBettingSlip();
 
 	}

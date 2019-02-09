@@ -12,11 +12,11 @@ public interface BookieHandler {
 
 	void initialize(Rectangle browserDimensions);
 
-	void placeBet(double stake) throws BetException;
+	void placeBet(double stake) throws BetException, FatalValueBettingException;
 
 	void removeBet() throws FatalValueBettingException;
 
-	boolean isBetCorrect();
+	boolean isBetCorrect() throws FatalValueBettingException;
 
 	BufferedImage getBookmakerOddsImage();
 
@@ -28,5 +28,5 @@ public interface BookieHandler {
 
 	BufferedImage getBalanceStakeImage();
 
-	void checkBettingSlip() throws BetSlipException, BetNotFoundException;
+	void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException;
 }

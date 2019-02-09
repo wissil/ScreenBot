@@ -42,13 +42,13 @@ public interface InputHandler {
 
 	void clickCancelAtBettingBrowser();
 
-	void placeBet(Bookie bookie, double stake) throws BetException;
+	void placeBet(Bookie bookie, double stake) throws BetException, FatalValueBettingException;
 
 	void removeBet(Bookie bookie) throws FatalValueBettingException;
 
-	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min);
+	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalValueBettingException;
 
 	void clickNeutralArea(Bookie bookie);
 
-	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException;
+	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalValueBettingException;
 }

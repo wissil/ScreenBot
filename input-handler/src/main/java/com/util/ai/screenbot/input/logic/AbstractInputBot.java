@@ -2,20 +2,26 @@ package com.util.ai.screenbot.input.logic;
 
 import java.util.Objects;
 
+import org.sikuli.script.ImagePath;
+import org.sikuli.script.Screen;
+
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 
 public abstract class AbstractInputBot {
 
-	protected ScreenHandler screenHandler;
+	protected final ScreenHandler screenHandler;
 
-	protected KeyboardHandler keyboardHandler;
+	protected final KeyboardHandler keyboardHandler;
 
-	protected MouseHandler mouseHandler;
+	protected final MouseHandler mouseHandler;
+	
+	protected final Screen SCREEN = new Screen();
 
 	protected AbstractInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
 			MouseHandler mouseHandler) {
+		ImagePath.add(AbstractInputBot.class.getCanonicalName() + "/images");
 		this.screenHandler = Objects.requireNonNull(screenHandler);
 		this.keyboardHandler = Objects.requireNonNull(keyboardHandler);
 		this.mouseHandler = Objects.requireNonNull(mouseHandler);

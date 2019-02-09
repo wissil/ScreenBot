@@ -173,7 +173,7 @@ public class PlaceBetState extends VBState {
 
 	private boolean isBetPlacable(double oddsRight, double oddsLeft, double stake, Bookie bookie,
 			VBBalanceElement balanceElement, VBBookmakerMaxStakeElement maxStakeElement,
-			VBBookmakerMinStakeElement minStakeElement) {
+			VBBookmakerMinStakeElement minStakeElement) throws FatalValueBettingException {
 		return (oddsRight >= oddsLeft) && in.isBetPlaceable(bookie, stake, balanceElement.getBalance(),
 				maxStakeElement.getStake(), minStakeElement.getStake());
 	}

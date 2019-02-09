@@ -23,7 +23,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void placeBet(double stake) throws BetException {
+	public void placeBet(double stake) throws BetException, FatalValueBettingException {
 		marathonBot.setBetStake(String.valueOf(stake));
 		try {
 			Thread.sleep(500);
@@ -40,7 +40,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public boolean isBetCorrect() {
+	public boolean isBetCorrect() throws FatalValueBettingException {
 
 		try {
 			marathonBot.checkBettingSlip();
@@ -77,7 +77,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void checkBettingSlip() throws BetSlipException, BetNotFoundException {
+	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
 		marathonBot.checkBettingSlip();
 	}
 
