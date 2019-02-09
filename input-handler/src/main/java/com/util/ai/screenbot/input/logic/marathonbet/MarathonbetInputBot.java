@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import org.sikuli.script.FindFailed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +13,12 @@ import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetCons
 import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
+import com.util.ai.screenbot.input.utils.SikuliUtils;
 import com.util.ai.screenbot.support.colors.ColorComparator;
 
 public class MarathonbetInputBot extends AbstractInputBot {
@@ -42,16 +42,11 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		this.browserDimensions = browserDimensions;
 	}
 
-	public void clickBettingSlip() throws FatalValueBettingException {
-		try {
-			SCREEN.wait("marathon/Marathon_BetSlip.png", 5);
-			SCREEN.click("marathon/Marathon_BetSlip.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to click bet slip.", e);
-		}
+	public void clickBettingSlip() throws FatalVBException {
+		SikuliUtils.clickOnElement("marathon/Marathon_BetSlip.png");
 	}
 
-	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
+	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalVBException {
 
 		try {
 			Thread.sleep(2000);
@@ -204,13 +199,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	}
 
-	public void clickRemoveAll() throws FatalValueBettingException {
-		try {
-			SCREEN.wait("marathon/Marathon_RemoveAll.png", 5);
-			SCREEN.click("marathon/Marathon_RemoveAll.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to removeAll.", e);
-		}
+	public void clickRemoveAll() throws FatalVBException {
+		SikuliUtils.clickOnElement("marathon/Marathon_RemoveAll.png");
 	}
 
 	public void navigateToBetButton() {
@@ -220,20 +210,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
 	}
 
-	public void clickBet() throws BetException, FatalValueBettingException {
-		try {
-			SCREEN.wait("marathon/Marathon_PlaceBet.png", 10);
-			SCREEN.click("marathon/Marathon_PlaceBet.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to place bet.", e);
-		}
-
-		try {
-			SCREEN.wait("marathon/Marathon_OK.png", 10);
-			SCREEN.click("marathon/Marathon_OK.png");
-		} catch (FindFailed e) {
-			throw new BetException("Something happened - bet not placed");
-		}
+	public void clickBet() throws BetException, FatalVBException {
+		SikuliUtils.clickOnElement("marathon/Marathon_PlaceBet.png");
+		SikuliUtils.clickOnElement("marathon/Marathon_OK.png");
 	}
 
 	public void navigateToStakeInputButton() {

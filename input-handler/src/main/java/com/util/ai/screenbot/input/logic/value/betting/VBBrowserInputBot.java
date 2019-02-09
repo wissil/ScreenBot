@@ -3,16 +3,16 @@ package com.util.ai.screenbot.input.logic.value.betting;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import org.sikuli.script.FindFailed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
+import com.util.ai.screenbot.input.utils.SikuliUtils;
 
 public class VBBrowserInputBot extends VBInputBot {
 
@@ -64,31 +64,16 @@ public class VBBrowserInputBot extends VBInputBot {
 		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
 	}
 
-	public void clickCancel() throws FatalValueBettingException {
-		try {
-			SCREEN.wait("Cancel.png", 5);
-			SCREEN.click("Cancel.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to click cancel.", e);
-		}
+	public void clickCancel() throws FatalVBException {
+		SikuliUtils.clickOnElement("Cancel.png");
 	}
 
-	public void clickConfirm() throws FatalValueBettingException {
-		try {
-			SCREEN.wait("ConfirmPlacedBet.png", 5);
-			SCREEN.click("ConfirmPlacedBet.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to click confirm.", e);
-		}
+	public void clickConfirm() throws FatalVBException {
+		SikuliUtils.clickOnElement("ConfirmPlacedBet.png");
 	}
 
-	public void clickConfirmOk() throws FatalValueBettingException {
-		try {
-			SCREEN.wait("ConfirmPlacedBet_OK.png", 5);
-			SCREEN.click("ConfirmPlacedBet_OK.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Not able to click confirm.", e);
-		}
+	public void clickConfirmOk() throws FatalVBException {
+		SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
 	}
 
 	public void navigateToBrowsingStatus() {

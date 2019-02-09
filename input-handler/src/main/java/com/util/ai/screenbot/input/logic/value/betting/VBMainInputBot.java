@@ -6,16 +6,16 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import org.sikuli.script.FindFailed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
+import com.util.ai.screenbot.input.utils.SikuliUtils;
 
 public class VBMainInputBot extends VBInputBot {
 
@@ -91,20 +91,15 @@ public class VBMainInputBot extends VBInputBot {
 	/**
 	 * Place mouse cursor in the middle of top bet. Right click. Wait. Left click
 	 * 
-	 * @throws FatalValueBettingException
+	 * @throws FatalVBException
 	 */
-	public void betOnTopBet() throws FatalValueBettingException {
+	public void betOnTopBet() throws FatalVBException {
 		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
-
-		try {
-			SCREEN.wait("Bet.png", 10);
-			SCREEN.click("Bet.png");
-		} catch (FindFailed e) {
-			throw new FatalValueBettingException("Cannot bet.");
-		}
+		
+		SikuliUtils.clickOnElement("Bet.png");
 	}
 
 	/**
@@ -138,32 +133,14 @@ public class VBMainInputBot extends VBInputBot {
 		mouseHandler.leftClick();
 	}
 
-	public void removeAllBetsFromTopBetEvent() {
-
+	public void removeAllBetsFromTopBetEvent() throws FatalVBException {
 		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
-
-		mouseHandler.rightClick();
-		Point p = MouseInfo.getPointerInfo().getLocation();
-
-		int newY = p.y + (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
-
-		mouseHandler.moveMouse(p.x, newY);
-
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// Do nothing
-		}
-
-		int newX = p.x + (int) Math.round(ScreenConfig.width * vbConstants.getRemoveBetMouseMovementWidth());
-		newY += (int) Math.round(ScreenConfig.height * vbConstants.getRemoveBetMouseMovementHeight());
-
-		mouseHandler.moveMouse(newX, newY);
-
-		mouseHandler.leftClick();
+		
+		SikuliUtils.clickOnElement("Hide.png");
+		SikuliUtils.clickOnElement("AllBetsForSelectedMatch.png");
 	}
 
 	private BotCoordinates getTopBetMiddleCoordinates() {

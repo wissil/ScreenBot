@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.automata.states.InitState;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
@@ -31,7 +31,7 @@ public class VBStateMachineV2 implements VBStateMachine {
 	public void run() throws InterruptedException {
 		try {
 			new InitState(in, out, email).process();
-		} catch (FatalValueBettingException e) {
+		} catch (FatalVBException e) {
 			log.error("Fatal exception has occurred.", e);
 			log.info("Shutting down ...");
 			System.exit(-1);

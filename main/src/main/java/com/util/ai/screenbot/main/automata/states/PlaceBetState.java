@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -50,7 +50,7 @@ public class PlaceBetState extends VBState {
 	}
 
 	@Override
-	void execute() throws InterruptedException, FatalValueBettingException {
+	void execute() throws InterruptedException, FatalVBException {
 		// 1) click bet on top
 		in.clickBetOnTopEvent();
 
@@ -159,7 +159,7 @@ public class PlaceBetState extends VBState {
 	}
 
 	private Bookie parseBookie(String bookieName, String participants)
-			throws InterruptedException, FatalValueBettingException {
+			throws InterruptedException, FatalVBException {
 		try {
 			return Bookie.fromString(bookieName);
 		} catch (UnknownBookieException e) {
@@ -173,7 +173,7 @@ public class PlaceBetState extends VBState {
 
 	private boolean isBetPlacable(double oddsRight, double oddsLeft, double stake, Bookie bookie,
 			VBBalanceElement balanceElement, VBBookmakerMaxStakeElement maxStakeElement,
-			VBBookmakerMinStakeElement minStakeElement) throws FatalValueBettingException {
+			VBBookmakerMinStakeElement minStakeElement) throws FatalVBException {
 		final double EPS = 10E-3;
 		final boolean equal = Math.abs(oddsRight - oddsLeft) < EPS;
 

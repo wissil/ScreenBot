@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.input.utils.DiskUtils;
@@ -51,12 +51,12 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void placeBet(Bookie bookie, double stake) throws BetException, FatalValueBettingException {
+	public void placeBet(Bookie bookie, double stake) throws BetException, FatalVBException {
 		bookie.getHandler().placeBet(stake);
 	}
 
 	@Override
-	public void removeBet(Bookie bookie) throws FatalValueBettingException {
+	public void removeBet(Bookie bookie) throws FatalVBException {
 		bookie.getHandler().removeBet();
 	}
 
@@ -82,7 +82,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickOKAtBettingBrowser() throws FatalValueBettingException {
+	public void clickOKAtBettingBrowser() throws FatalVBException {
 		browserBot.clickConfirm();
 		try {
 			Thread.sleep(500);
@@ -93,13 +93,13 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickCancelAtBettingBrowser() throws FatalValueBettingException {
+	public void clickCancelAtBettingBrowser() throws FatalVBException {
 		browserBot.clickCancel();
 	}
 
 	@Override
 	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
-			throws FatalValueBettingException {
+			throws FatalVBException {
 		boolean stakeCorrect = (stake <= balance) && (stake >= min) && (stake <= max);
 		return stakeCorrect && bookie.getHandler().isBetCorrect();
 	}
@@ -134,19 +134,19 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public void checkBettingSlip(Bookie bookie)
-			throws BetSlipException, BetNotFoundException, FatalValueBettingException {
+			throws BetSlipException, BetNotFoundException, FatalVBException {
 		bookie.getHandler().checkBettingSlip();
 
 	}
 
 	@Override
-	public void removeAllBetsFromTopBetEvent() {
+	public void removeAllBetsFromTopBetEvent() throws FatalVBException {
 		mainBot.removeAllBetsFromTopBetEvent();
 
 	}
 
 	@Override
-	public void clickBetOnTopEvent() throws FatalValueBettingException {
+	public void clickBetOnTopEvent() throws FatalVBException {
 		mainBot.betOnTopBet();
 
 	}

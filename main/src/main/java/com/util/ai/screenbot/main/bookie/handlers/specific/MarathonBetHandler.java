@@ -7,7 +7,7 @@ import java.util.Objects;
 import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
@@ -23,7 +23,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void placeBet(double stake) throws BetException, FatalValueBettingException {
+	public void placeBet(double stake) throws BetException, FatalVBException {
 		marathonBot.setBetStake(String.valueOf(stake));
 		try {
 			Thread.sleep(500);
@@ -34,13 +34,13 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void removeBet() throws FatalValueBettingException {
+	public void removeBet() throws FatalVBException {
 		marathonBot.clickRemoveAll();
 
 	}
 
 	@Override
-	public boolean isBetCorrect() throws FatalValueBettingException {
+	public boolean isBetCorrect() throws FatalVBException {
 
 		try {
 			marathonBot.checkBettingSlip();
@@ -77,7 +77,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
+	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalVBException {
 		marathonBot.checkBettingSlip();
 	}
 

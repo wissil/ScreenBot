@@ -2,7 +2,7 @@ package com.util.ai.screenbot.main.automata.states;
 
 import java.util.Objects;
 
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.support.email.EmailSender;
@@ -31,9 +31,9 @@ public abstract class VBState {
 	
 	abstract void onExit();
 	
-	abstract void execute() throws InterruptedException, FatalValueBettingException;
+	abstract void execute() throws InterruptedException, FatalVBException;
 	
-	public void process() throws InterruptedException, FatalValueBettingException {
+	public void process() throws InterruptedException, FatalVBException {
 		onEnter();
 		execute();
 		onExit();

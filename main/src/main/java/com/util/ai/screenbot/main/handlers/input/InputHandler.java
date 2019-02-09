@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
 
 	boolean isNewBetPresent();
 
-	void clickBetOnTopEvent() throws FatalValueBettingException;
+	void clickBetOnTopEvent() throws FatalVBException;
 
 	void openBettingBrowserWindow();
 
@@ -36,20 +36,20 @@ public interface InputHandler {
 
 	void removeTopBet();
 
-	void removeAllBetsFromTopBetEvent();
+	void removeAllBetsFromTopBetEvent() throws FatalVBException;
 
-	void clickOKAtBettingBrowser() throws FatalValueBettingException;
+	void clickOKAtBettingBrowser() throws FatalVBException;
 
-	void clickCancelAtBettingBrowser() throws FatalValueBettingException;
+	void clickCancelAtBettingBrowser() throws FatalVBException;
 
-	void placeBet(Bookie bookie, double stake) throws BetException, FatalValueBettingException;
+	void placeBet(Bookie bookie, double stake) throws BetException, FatalVBException;
 
-	void removeBet(Bookie bookie) throws FatalValueBettingException;
+	void removeBet(Bookie bookie) throws FatalVBException;
 
 	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
-			throws FatalValueBettingException;
+			throws FatalVBException;
 
 	void clickNeutralArea(Bookie bookie);
 
-	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalValueBettingException;
+	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException;
 }

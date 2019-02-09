@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.utils.DiskUtils;
 import com.util.ai.screenbot.input.utils.SystemUtils;
@@ -50,22 +50,22 @@ public class VBStateMachineImpl implements VBStateMachine {
 	}
 
 	@Override
-	public void run() throws InterruptedException, FatalValueBettingException {
+	public void run() throws InterruptedException, FatalVBException {
 		init();
 	}
 
-	public void cleanBet() throws InterruptedException, FatalValueBettingException {
+	public void cleanBet() throws InterruptedException, FatalVBException {
 		log.debug("Enter state: CLEAN_BET ...");
 		idle();
 	}
 
-	public void logBet() throws InterruptedException, FatalValueBettingException {
+	public void logBet() throws InterruptedException, FatalVBException {
 		log.debug("Enter state: LOG_BET ...");
 		DiskUtils.logBetToFile(SystemUtils.getClipboardContents());
 		idle();
 	}
 
-	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException, FatalValueBettingException {
+	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException, FatalVBException {
 		log.debug("Enter state: PLACE_BET ...");
 
 		in.clickBetOnTopEvent();
@@ -180,7 +180,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 			// 1) kladionica.removeBet()
 			try {
 				in.removeBet(bookie);
-			} catch (FatalValueBettingException e1) {
+			} catch (FatalVBException e1) {
 				log.error("Can not continue", e);
 				email.send(LOG_FILE_PATH);
 				System.exit(-1);
@@ -224,7 +224,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void parseBet() throws InterruptedException, FatalValueBettingException {
+	public void parseBet() throws InterruptedException, FatalVBException {
 		log.debug("Enter state: PARSE_BET ...");
 
 		try {
@@ -241,7 +241,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void idle() throws InterruptedException, FatalValueBettingException {
+	public void idle() throws InterruptedException, FatalVBException {
 		log.debug("Enter state: IDLE ...");
 
 		while (true) {
@@ -252,7 +252,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void init() throws InterruptedException, FatalValueBettingException {
+	public void init() throws InterruptedException, FatalVBException {
 		log.debug("Enter state: INIT ...");
 		in.openMainWindow();
 		idle();

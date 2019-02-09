@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
-import com.util.ai.screenbot.input.exceptions.FatalValueBettingException;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.automata.VBStateMachine;
 
 public class RebelService {
@@ -14,7 +14,7 @@ public class RebelService {
 	@Inject
 	private VBStateMachine machine;
 
-	public void run() throws InterruptedException, FatalValueBettingException {
+	public void run() throws InterruptedException, FatalVBException {
 		log.info("Service started successfully!");
 
 		machine.run();
