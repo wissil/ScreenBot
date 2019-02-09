@@ -42,13 +42,26 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		this.browserDimensions = browserDimensions;
 	}
 
+<<<<<<< HEAD
 	public void clickBettingSlip() throws FatalValueBettingException {		
+=======
+	public void clickBettingSlip() throws FatalValueBettingException {
+//		navigateToBettingSlipButton();
+//
+//		mouseHandler.leftClick();
+
+>>>>>>> 6b298d49d5d61723242571c913ac136193b2f9f7
 		try {
 			SCREEN.wait("marathon/Marathon_BetSlip.png", 5);
 			SCREEN.click("marathon/Marathon_BetSlip.png");
 		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click bet slip.", e);
+<<<<<<< HEAD
 		}	
+=======
+		}
+
+>>>>>>> 6b298d49d5d61723242571c913ac136193b2f9f7
 	}
 
 	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
@@ -61,6 +74,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
 			// deviation
+			log.debug("Clincing betting slip ...");
 			clickBettingSlip();
 		}
 
@@ -201,6 +215,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		}
 	}
 
+<<<<<<< HEAD
 	public void navigateToBetButton() {
 
 		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
@@ -209,13 +224,16 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	}
 
 	public void clickBet() throws BetException, FatalValueBettingException {		
+=======
+	public void clickBet() throws BetException, FatalValueBettingException {
+>>>>>>> 6b298d49d5d61723242571c913ac136193b2f9f7
 		try {
 			SCREEN.wait("marathon/Marathon_PlaceBet.png", 10);
 			SCREEN.click("marathon/Marathon_PlaceBet.png");
 		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to place bet.", e);
 		}
-		
+
 		try {
 			SCREEN.wait("marathon/Marathon_OK.png", 10);
 			SCREEN.click("marathon/Marathon_OK.png");

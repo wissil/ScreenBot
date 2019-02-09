@@ -12,7 +12,7 @@ public interface InputHandler {
 
 	boolean isNewBetPresent();
 
-	void clickBetOnTopEvent();
+	void clickBetOnTopEvent() throws FatalValueBettingException;
 
 	void openBettingBrowserWindow();
 
@@ -46,7 +46,8 @@ public interface InputHandler {
 
 	void removeBet(Bookie bookie) throws FatalValueBettingException;
 
-	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalValueBettingException;
+	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
+			throws FatalValueBettingException;
 
 	void clickNeutralArea(Bookie bookie);
 

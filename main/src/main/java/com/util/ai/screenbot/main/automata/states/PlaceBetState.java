@@ -139,6 +139,7 @@ public class PlaceBetState extends VBState {
 					// added second check because of the false true that sometimes happens
 					final BufferedImage browsingStatusImage2 = in.getBrowsingStatusImage();
 					if (out.readBrowsingStatus(browsingStatusImage2).isDone()) {
+						log.debug("Betting browser successfully loaded! - second check");
 						break;
 					}
 				}
