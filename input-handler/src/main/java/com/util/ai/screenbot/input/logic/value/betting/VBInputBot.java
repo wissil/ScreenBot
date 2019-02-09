@@ -29,39 +29,6 @@ public abstract class VBInputBot extends AbstractInputBot {
 		this.vbConstants = Objects.requireNonNull(vbConstants);
 	}
 
-	protected void initialize(String windowName) {
-
-		// If Value Betting is in the foreground do nothing
-		if (!isWindowInForeground(windowName)) {
-
-			Integer numberOfHops = 1;
-
-			// While Value Betting is NOT the foreground app and number of switches is lower
-			// than max allowed, switch the active
-			// app
-			while (!isWindowInForeground(windowName) && numberOfHops <= MAX_NUMBER_OF_HOPS) {
-
-				log.info("Switching current app...");
-
-				keyboardHandler.pressSwitchApp(numberOfHops);
-				numberOfHops++;
-
-				// Otherwise it is too fast and only 'Task Switching' app is recognized
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-
-			// If Value Betting is still NOT the foreground app throw the exception
-			if (!isWindowInForeground(windowName)) {
-				throw new ValueBettingAppException("Value Betting is not started");
-			}
-
-		}
-	}
-
 	public Boolean isWindowInForeground(String windowName) {
 		String currentWindowName = screenHandler.getActiveWindow().getName();
 		log.info("Current app: " + currentWindowName);

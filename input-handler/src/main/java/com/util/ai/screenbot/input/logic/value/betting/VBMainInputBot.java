@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import org.sikuli.script.App;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,7 @@ public class VBMainInputBot extends VBInputBot {
 	}
 
 	public void initializeValueBetting() {
-		initialize(AbstractVBConstants.VALUE_BETTING_APP_PREFIX);
-
+		App.focus("ValueBetting");
 		// Initialize Value Betting screen dimensions
 		this.appDimensions = checkScreen();
 	}
@@ -98,7 +98,7 @@ public class VBMainInputBot extends VBInputBot {
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
-		
+
 		SikuliUtils.clickOnElement("Bet.png");
 	}
 
@@ -138,7 +138,8 @@ public class VBMainInputBot extends VBInputBot {
 
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
-		
+		mouseHandler.rightClick();
+
 		SikuliUtils.clickOnElement("Hide.png");
 		SikuliUtils.clickOnElement("AllBetsForSelectedMatch.png");
 	}

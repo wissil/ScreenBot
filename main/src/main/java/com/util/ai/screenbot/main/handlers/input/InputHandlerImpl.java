@@ -133,8 +133,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void checkBettingSlip(Bookie bookie)
-			throws BetSlipException, BetNotFoundException, FatalVBException {
+	public void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException {
 		bookie.getHandler().checkBettingSlip();
 
 	}

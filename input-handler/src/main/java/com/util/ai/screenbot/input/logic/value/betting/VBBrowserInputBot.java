@@ -3,6 +3,7 @@ package com.util.ai.screenbot.input.logic.value.betting;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import org.sikuli.script.App;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ public class VBBrowserInputBot extends VBInputBot {
 	}
 
 	public void initializeBettingBrowser() {
-		initialize(AbstractVBConstants.VALUE_BETTING_BROWSER_PREFIX);
+		App.focus("Betting Browser");
 
 		// Initialize Betting Browser screen dimensions
 		this.browserDimensions = checkScreen();
