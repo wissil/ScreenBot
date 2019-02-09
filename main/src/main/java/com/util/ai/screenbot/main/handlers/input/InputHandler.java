@@ -38,9 +38,9 @@ public interface InputHandler {
 
 	void removeAllBetsFromTopBetEvent();
 
-	void clickOKAtBettingBrowser();
+	void clickOKAtBettingBrowser() throws FatalValueBettingException;
 
-	void clickCancelAtBettingBrowser();
+	void clickCancelAtBettingBrowser() throws FatalValueBettingException;
 
 	void placeBet(Bookie bookie, double stake) throws BetException, FatalValueBettingException;
 

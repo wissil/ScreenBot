@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import org.sikuli.script.FindFailed;
-import org.sikuli.script.Screen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,30 +40,15 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void initialize(Rectangle browserDimensions) {
 		this.browserDimensions = browserDimensions;
-		buttonDeviation = 0;
-		stakeDeviation = 0;
 	}
 
-	public void navigateToBettingSlipButton() {
-
-		BotCoordinates bettingSlipButtonCoordinates = getBettingSlipCoordinates();
-
-		mouseHandler.moveMouse(bettingSlipButtonCoordinates.x, bettingSlipButtonCoordinates.y);
-	}
-
-	public void clickBettingSlip() throws FatalValueBettingException {
-//		navigateToBettingSlipButton();
-//
-//		mouseHandler.leftClick();
-		
+	public void clickBettingSlip() throws FatalValueBettingException {		
 		try {
 			SCREEN.wait("marathon/Marathon_BetSlip.png", 5);
 			SCREEN.click("marathon/Marathon_BetSlip.png");
-		}
-		catch (FindFailed e) {
+		} catch (FindFailed e) {
 			throw new FatalValueBettingException("Not able to click bet slip.", e);
-		}
-		
+		}	
 	}
 
 	public void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalValueBettingException {
@@ -208,13 +192,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	}
 
-	public void navigateToRemoveAllButton() {
-
-		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
-
-		mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
-	}
-
 	public void clickRemoveAll() throws FatalValueBettingException {
 		try {
 			SCREEN.wait("marathon/Marathon_RemoveAll.png", 5);
@@ -231,13 +208,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
 	}
 
-	public void navigateToBetOKButton() {
-
-		BotCoordinates betOKButtonCoordinates = getBetOKButtonCoordinates();
-
-		mouseHandler.moveMouse(betOKButtonCoordinates.x, betOKButtonCoordinates.y);
-	}
-
 	public void clickBet() throws BetException, FatalValueBettingException {		
 		try {
 			SCREEN.wait("marathon/Marathon_PlaceBet.png", 10);
@@ -250,7 +220,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 			SCREEN.wait("marathon/Marathon_OK.png", 10);
 			SCREEN.click("marathon/Marathon_OK.png");
 		} catch (FindFailed e) {
-			throw new BetException("Something happend - bet not placed");
+			throw new BetException("Something happened - bet not placed");
 		}
 	}
 
@@ -383,16 +353,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
 
 		return new BotCoordinates(betX, betY + this.buttonDeviation);
-	}
-
-	private BotCoordinates getBetOKButtonCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math
-				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetOKButtonWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getBetOKButtonHeight());
-
-		return new BotCoordinates(betX, betY);
 	}
 
 	private BotCoordinates getBetInputStakeCoordinates() {

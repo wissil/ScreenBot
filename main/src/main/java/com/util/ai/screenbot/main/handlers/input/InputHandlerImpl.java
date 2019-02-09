@@ -82,7 +82,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickOKAtBettingBrowser() {
+	public void clickOKAtBettingBrowser() throws FatalValueBettingException {
 		browserBot.clickConfirm();
 		try {
 			Thread.sleep(500);
@@ -93,7 +93,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickCancelAtBettingBrowser() {
+	public void clickCancelAtBettingBrowser() throws FatalValueBettingException {
 		browserBot.clickCancel();
 	}
 

@@ -50,22 +50,22 @@ public class VBStateMachineImpl implements VBStateMachine {
 	}
 
 	@Override
-	public void run() throws InterruptedException {
+	public void run() throws InterruptedException, FatalValueBettingException {
 		init();
 	}
 
-	public void cleanBet() throws InterruptedException {
+	public void cleanBet() throws InterruptedException, FatalValueBettingException {
 		log.debug("Enter state: CLEAN_BET ...");
 		idle();
 	}
 
-	public void logBet() throws InterruptedException {
+	public void logBet() throws InterruptedException, FatalValueBettingException {
 		log.debug("Enter state: LOG_BET ...");
 		DiskUtils.logBetToFile(SystemUtils.getClipboardContents());
 		idle();
 	}
 
-	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException {
+	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException, FatalValueBettingException {
 		log.debug("Enter state: PLACE_BET ...");
 
 		in.clickBetOnTopEvent();
@@ -224,7 +224,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void parseBet() throws InterruptedException {
+	public void parseBet() throws InterruptedException, FatalValueBettingException {
 		log.debug("Enter state: PARSE_BET ...");
 
 		try {
@@ -241,7 +241,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void idle() throws InterruptedException {
+	public void idle() throws InterruptedException, FatalValueBettingException {
 		log.debug("Enter state: IDLE ...");
 
 		while (true) {
@@ -252,7 +252,7 @@ public class VBStateMachineImpl implements VBStateMachine {
 		}
 	}
 
-	public void init() throws InterruptedException {
+	public void init() throws InterruptedException, FatalValueBettingException {
 		log.debug("Enter state: INIT ...");
 		in.openMainWindow();
 		idle();
