@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Screen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +67,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.info("Bettin slip color: " + bettingSlipButtonColor.toString());
 
 		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
-																														// deviation
+			// deviation
 			clickBettingSlip();
 		}
 
@@ -80,7 +82,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		// Check if betting slip button is green
 		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
-																														// deviation
+			// deviation
 			log.info("Slip not correct");
 			throw new BetNotFoundException("There is no bet in betting slip");
 		}
@@ -154,7 +156,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		// Check if input stake is white
 		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) {// No
-																												// deviation
+			// deviation
 			boolean foundStake = false;
 			for (int step = 1; step <= 5; step++) {
 				int deviation = step * marathonbetConstants.getDeviation();
@@ -165,7 +167,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 				log.info("Upper stake input color:" + stakeInputColor.toString());
 
 				if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) { // No
-																														// deviation
+					// deviation
 					foundStake = true;
 					this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
 					break;
@@ -205,26 +207,35 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	}
 
 	public void clickRemoveAll() throws FatalValueBettingException {
-
-		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
-
-		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
-				removeAllButtonCoordinates.y);
-
-		// Check if remove all button is red
-		if (marathonbetConstants.getMarathonbetRed().stream().anyMatch(c1 -> ColorComparator.areEqualColors(c1, removeAllButtonColor, 0.6))) {
-			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
-			mouseHandler.leftClick();
-		} else {
-			throw new FatalValueBettingException("Not able to removeAll");
+		Screen s = new Screen();
+		try {
+			s.wait("sikuli/removeAll.png", 5);
+			s.click("sikuli/removeAll.png");
 		}
-		
-//		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+		catch (FindFailed e) {
+			throw new FatalValueBettingException("Not able to removeAll.", e);
+		}
+
+//
+//		BotCoordinates removeAllButtonCoordinates = getRemoveAllButtonCoordinates();
+//
+//		Color removeAllButtonColor = screenHandler.detectColor(removeAllButtonCoordinates.x,
+//				removeAllButtonCoordinates.y);
+//
+//		// Check if remove all button is red
+//		if (marathonbetConstants.getMarathonbetRed().stream().anyMatch(c1 -> ColorComparator.areEqualColors(c1, removeAllButtonColor, 0.6))) {
 //			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
 //			mouseHandler.leftClick();
 //		} else {
 //			throw new FatalValueBettingException("Not able to removeAll");
 //		}
+
+		//		if (marathonbetConstants.getMarathonbetRed().contains(removeAllButtonColor)) {
+		//			mouseHandler.moveMouse(removeAllButtonCoordinates.x, removeAllButtonCoordinates.y);
+		//			mouseHandler.leftClick();
+		//		} else {
+		//			throw new FatalValueBettingException("Not able to removeAll");
+		//		}
 
 	}
 
