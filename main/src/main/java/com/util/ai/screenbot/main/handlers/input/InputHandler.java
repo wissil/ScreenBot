@@ -22,15 +22,15 @@ public interface InputHandler {
 
 	BufferedImage getSingleBetImage();
 
-	BufferedImage getBookmakerOddsImage(Bookie bookie);
+	BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException;
 
 	BufferedImage getOddsInputImage();
 
 	BufferedImage getBrowsingStatusImage();
 
-	BufferedImage getMinStakeImage(Bookie bookie);
+	BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException;
 
-	BufferedImage getMaxStakeImage(Bookie bookie);
+	BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException;
 
 	BufferedImage getBalanceStakeImage(Bookie bookie);
 
@@ -46,8 +46,7 @@ public interface InputHandler {
 
 	void removeBet(Bookie bookie) throws FatalVBException;
 
-	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
-			throws FatalVBException;
+	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalVBException;
 
 	void clickNeutralArea(Bookie bookie);
 

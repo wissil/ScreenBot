@@ -149,54 +149,53 @@ public class MarathonbetInputBot extends AbstractInputBot {
 //			log.info("Bet button not correct");
 //			throw new BetSlipException("Bet button is not positioned correctly");
 //		}
-
-		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
-
-		Color stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x, stakeInputCoordinates.y);
-
-		// Check if input stake is white
-		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) {// No
-			// deviation
-			boolean foundStake = false;
-			for (int step = 1; step <= 5; step++) {
-				int deviation = step * marathonbetConstants.getDeviation();
-
-				stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-						stakeInputCoordinates.y - deviation);
-
-				log.info("Upper stake input color:" + stakeInputColor.toString());
-
-				if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) { // No
-					// deviation
-					foundStake = true;
-					this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
-					break;
-				} else {
-
-					stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-							stakeInputCoordinates.y + deviation);
-
-					log.info("Upper stake input color:" + stakeInputColor.toString());
-
-					if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
-							0)) { // No deviation
-						foundStake = true;
-						this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
-						break;
-					}
-				}
-			}
-			if (!foundStake) {
-				this.buttonDeviation = 0;
-				this.stakeDeviation = 0;
-				log.info("Stake input field is not positioned correctly");
-				throw new BetSlipException("Stake input field is not positioned correctly");
-			}
-
-		}
+//
+//		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
+//
+//		Color stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x, stakeInputCoordinates.y);
+//
+//		// Check if input stake is white
+//		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) {// No
+//			// deviation
+//			boolean foundStake = false;
+//			for (int step = 1; step <= 5; step++) {
+//				int deviation = step * marathonbetConstants.getDeviation();
+//
+//				stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
+//						stakeInputCoordinates.y - deviation);
+//
+//				log.info("Upper stake input color:" + stakeInputColor.toString());
+//
+//				if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) { // No
+//					// deviation
+//					foundStake = true;
+//					this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
+//					break;
+//				} else {
+//
+//					stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
+//							stakeInputCoordinates.y + deviation);
+//
+//					log.info("Upper stake input color:" + stakeInputColor.toString());
+//
+//					if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
+//							0)) { // No deviation
+//						foundStake = true;
+//						this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
+//						break;
+//					}
+//				}
+//			}
+//			if (!foundStake) {
+//				this.buttonDeviation = 0;
+//				this.stakeDeviation = 0;
+//				log.info("Stake input field is not positioned correctly");
+//				throw new BetSlipException("Stake input field is not positioned correctly");
+//			}
+//
+//		}
 
 		log.info("Bet slip OK!");
-
 	}
 
 	public void clickRemoveAll() throws FatalVBException {
@@ -222,15 +221,20 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(stakeInputCoordinates.x, stakeInputCoordinates.y);
 	}
 
-	public void setBetStake(String stake) {
-		navigateToStakeInputButton();
-		mouseHandler.leftClick();
+	public void setBetStake(String stake) throws FatalVBException {
 		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// Do nothing
+			SikuliUtils.writeToElement("marathon/Marathon_BetInput.png", String.valueOf(stake));
+		} catch (FatalVBException e) {
+			SikuliUtils.writeToElement("marathon/Marathon_InputBetText.png", String.valueOf(stake));
 		}
-		keyboardHandler.write(stake);
+//		navigateToStakeInputButton();
+//		mouseHandler.leftClick();
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			// Do nothing
+//		}
+//		keyboardHandler.write(stake);
 	}
 
 	public void navigateToOdds() {
@@ -240,15 +244,17 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		mouseHandler.moveMouse(oddsInputCoordinates.x, oddsInputCoordinates.y);
 	}
 
-	public BufferedImage takeBookmakerOddsScreenshot() {
-		navigateToOdds();
-		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(oddsInputCoordinates.x, oddsInputCoordinates.y,
-				(int) Math.round(ScreenConfig.width * marathonbetConstants.getOddsScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * marathonbetConstants.getOddsScreenshotHeight()));
-
-		return image;
+	public BufferedImage takeBookmakerOddsScreenshot() throws FatalVBException {
+		return SikuliUtils.getImageRigtToElement("marathon/Marathon_OddsInput.png", 40);
+//
+//		navigateToOdds();
+//		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
+//
+//		BufferedImage image = screenHandler.takeScreenshot(oddsInputCoordinates.x, oddsInputCoordinates.y,
+//				(int) Math.round(ScreenConfig.width * marathonbetConstants.getOddsScreenshotWidth()),
+//				(int) Math.round(ScreenConfig.height * marathonbetConstants.getOddsScreenshotHeight()));
+//
+//		return image;
 	}
 
 	public void navigateToNeutralClick() {
@@ -296,24 +302,12 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		return image;
 	}
 
-	public BufferedImage takeMaxStakeScreenshot() {
-		BotCoordinates maxStakeCoordinates = getMaxStakeCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(maxStakeCoordinates.x, maxStakeCoordinates.y,
-				(int) Math.round(ScreenConfig.width * marathonbetConstants.getMinMaxStakeScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * marathonbetConstants.getMinMaxStakeScreenshotHeight()));
-
-		return image;
+	public BufferedImage takeMaxStakeScreenshot() throws FatalVBException {
+		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 40);
 	}
 
-	public BufferedImage takeMinStakeScreenshot() {
-		BotCoordinates minStakeCoordinates = getMinStakeCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(minStakeCoordinates.x, minStakeCoordinates.y,
-				(int) Math.round(ScreenConfig.width * marathonbetConstants.getMinMaxStakeScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * marathonbetConstants.getMinMaxStakeScreenshotHeight()));
-
-		return image;
+	public BufferedImage takeMinStakeScreenshot() throws FatalVBException {
+		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 40);
 	}
 
 	private BotCoordinates getBettingSlipCoordinates() {

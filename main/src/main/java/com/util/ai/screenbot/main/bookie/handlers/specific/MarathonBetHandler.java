@@ -24,6 +24,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 
 	@Override
 	public void placeBet(double stake) throws BetException, FatalVBException {
+
 		marathonBot.setBetStake(String.valueOf(stake));
 		try {
 			Thread.sleep(500);
@@ -52,7 +53,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getBookmakerOddsImage() {
+	public BufferedImage getBookmakerOddsImage() throws FatalVBException {
 		return marathonBot.takeBookmakerOddsScreenshot();
 	}
 
@@ -62,12 +63,12 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getMinStakeImage() {
+	public BufferedImage getMinStakeImage() throws FatalVBException {
 		return marathonBot.takeMinStakeScreenshot();
 	}
 
 	@Override
-	public BufferedImage getMaxStakeImage() {
+	public BufferedImage getMaxStakeImage() throws FatalVBException {
 		return marathonBot.takeMaxStakeScreenshot();
 	}
 

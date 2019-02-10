@@ -56,7 +56,11 @@ public class CleanBetState extends VBState {
 		if (bookieExists() && removeBet) {
 			// remove from the betting slip
 			log.debug("Bookmaker was interpeted! Removing bet from the bookmaker betting slip ...");
-			in.removeBet(bookie);
+			try {
+				in.removeBet(bookie);
+			} catch (FatalVBException e) {
+				log.warn("Bet slip empty -- no remove all button found!");
+			}
 			log.debug("Bet removed from the slip");
 		}
 
@@ -92,7 +96,7 @@ public class CleanBetState extends VBState {
 
 		new IdleState(in, out, email).process();
 	}
-	
+
 	private boolean bookieExists() {
 		return bookie != NO_BOOKIE;
 	}

@@ -18,13 +18,13 @@ public interface BookieHandler {
 
 	boolean isBetCorrect() throws FatalVBException;
 
-	BufferedImage getBookmakerOddsImage();
+	BufferedImage getBookmakerOddsImage() throws FatalVBException;
 
 	void neutralClick();
 
-	BufferedImage getMinStakeImage();
+	BufferedImage getMinStakeImage() throws FatalVBException;
 
-	BufferedImage getMaxStakeImage();
+	BufferedImage getMaxStakeImage() throws FatalVBException;
 
 	BufferedImage getBalanceStakeImage();
 

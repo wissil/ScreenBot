@@ -60,6 +60,7 @@ public class PlaceBetState extends VBState {
 
 		// 3) wait for betting browser to load
 		waitForBettingBrowserToLoad();
+		log.debug("Betting browser successfully loaded!");
 
 		// 4) parse from the element
 		final String participants = element.getParticipants();
@@ -70,14 +71,17 @@ public class PlaceBetState extends VBState {
 			in.checkBettingSlip(bookie);
 			in.clickNeutralArea(bookie);
 
+			log.debug("Betting slip successfully checked!");
+
 			Thread.sleep(500);
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
-			final BufferedImage placeBetImage = in.getBookmakerOddsImage(bookie);
+			final BufferedImage oddsImage = in.getBookmakerOddsImage(bookie);
 
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
-			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(placeBetImage, bookie);
+			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(oddsImage, bookie);
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
+
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
 			final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
 
@@ -87,35 +91,49 @@ public class PlaceBetState extends VBState {
 			double stake = oddsInput.getStake();
 			stake = 0.5;// FIXEME - testing purposes
 
+			log.debug("All the data successfully parsed!");
+			log.debug("Checking if the bet could be placed!");
 			if (isBetPlacable(oddsRight, oddsLeft, stake, bookie, balanceElement, maxStakeElement, minStakeElement)) {
+				log.debug("Bet can be placable!");
+
 				// 1) place bet
 				// in.placeBet(bookie, stake);
+				log.debug("Placing the bet ...");
 				in.placeBet(bookie, stake);
 				Thread.sleep(500);
+				log.debug("Bet successfully placed!");
 
 				// 2) click OK on the betting browser
+
+				log.debug("Clicking OK on the betting browser!");
 				in.clickOKAtBettingBrowser();
+				log.debug("OK clicked!");
 				Thread.sleep(500);
 
 				// 3) log bet
 				new LogBetState(in, out, email).process();
 
 				// 4) go to main window
+				log.debug("Opening main window ...");
 				in.openMainWindow();
+				log.debug("Main window opened!");
 			} else {
 				log.warn("Bet could not be placed!");
 				new CleanBetState(in, out, email, participants, bookie, true).process();
 			}
 		} catch (VBElementInterpretationException e) {
 			// TODO: handle exception
+			log.error("Element not interpreted!", e);
 			sendEmail();
 			new CleanBetState(in, out, email, participants, true).process();
 		} catch (BetNotFoundException e) {
+			log.warn("Bet not found!", e);
 			new CleanBetState(in, out, email, participants, false).process();
 		} catch (BetSlipException e) {
+			log.warn("Bet slip error!", e);
 			new CleanBetState(in, out, email, participants, bookie, true).process();
 		} catch (BetException e) {
-			log.error("Can not continue ...");
+			log.error("Can not continue ...", e);
 			sendEmail();
 			System.exit(-1);
 		} catch (Exception e) {
@@ -158,8 +176,7 @@ public class PlaceBetState extends VBState {
 		}
 	}
 
-	private Bookie parseBookie(String bookieName, String participants)
-			throws InterruptedException, FatalVBException {
+	private Bookie parseBookie(String bookieName, String participants) throws InterruptedException, FatalVBException {
 		try {
 			return Bookie.fromString(bookieName);
 		} catch (UnknownBookieException e) {

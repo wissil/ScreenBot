@@ -61,7 +61,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getBookmakerOddsImage(Bookie bookie) {
+	public BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException {
 		BufferedImage bookmakerOdds = bookie.getHandler().getBookmakerOddsImage();
 		DiskUtils.saveBookmakerOddsToDisk(bookmakerOdds);
 		return bookmakerOdds;
@@ -106,20 +106,20 @@ public class InputHandlerImpl implements InputHandler {
 
 	@Override
 	public void clickNeutralArea(Bookie bookie) {
+
 		bookie.getHandler().neutralClick();
 
 	}
 
 	@Override
-	public BufferedImage getMinStakeImage(Bookie bookie) {
-
+	public BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException {
 		BufferedImage minStake = bookie.getHandler().getMinStakeImage();
 		DiskUtils.saveMinStakeToDisk(minStake);
 		return minStake;
 	}
 
 	@Override
-	public BufferedImage getMaxStakeImage(Bookie bookie) {
+	public BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException {
 		BufferedImage maxStake = bookie.getHandler().getMaxStakeImage();
 		DiskUtils.saveMaxStakeToDisk(maxStake);
 		return maxStake;
