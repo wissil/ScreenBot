@@ -124,10 +124,10 @@ public class PlaceBetState extends VBState {
 			// TODO: handle exception
 			log.error("Element not interpreted!", e);
 			sendEmail();
-			new CleanBetState(in, out, email, participants, true).process();
+			new CleanBetState(in, out, email, participants, bookie, true).process();
 		} catch (BetNotFoundException e) {
 			log.warn("Bet not found!", e);
-			new CleanBetState(in, out, email, participants, false).process();
+			new CleanBetState(in, out, email, participants, bookie, true).process();
 		} catch (BetSlipException e) {
 			log.warn("Bet slip error!", e);
 			new CleanBetState(in, out, email, participants, bookie, true).process();

@@ -55,7 +55,7 @@ public class CleanBetState extends VBState {
 	void execute() throws InterruptedException, FatalVBException {
 		if (bookieExists() && removeBet) {
 			// remove from the betting slip
-			log.debug("Bookmaker was interpeted! Removing bet from the bookmaker betting slip ...");
+			log.debug("Removing bet from the bookmaker betting slip ...");
 			try {
 				in.removeBet(bookie);
 			} catch (FatalVBException e) {
