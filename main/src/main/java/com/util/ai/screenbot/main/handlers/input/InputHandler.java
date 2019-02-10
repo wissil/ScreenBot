@@ -48,7 +48,5 @@ public interface InputHandler {
 
 	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalVBException;
 
-	void clickNeutralArea(Bookie bookie);
-
 	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException;
 }

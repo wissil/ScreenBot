@@ -58,11 +58,6 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void neutralClick() {
-		marathonBot.neutralClick();
-	}
-
-	@Override
 	public BufferedImage getMinStakeImage() throws FatalVBException {
 		return marathonBot.takeMinStakeScreenshot();
 	}

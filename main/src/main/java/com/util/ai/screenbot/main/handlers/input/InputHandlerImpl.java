@@ -105,13 +105,6 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void clickNeutralArea(Bookie bookie) {
-
-		bookie.getHandler().neutralClick();
-
-	}
-
-	@Override
 	public BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException {
 		BufferedImage minStake = bookie.getHandler().getMinStakeImage();
 		DiskUtils.saveMinStakeToDisk(minStake);

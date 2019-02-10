@@ -20,8 +20,6 @@ public interface BookieHandler {
 
 	BufferedImage getBookmakerOddsImage() throws FatalVBException;
 
-	void neutralClick();
-
 	BufferedImage getMinStakeImage() throws FatalVBException;
 
 	BufferedImage getMaxStakeImage() throws FatalVBException;

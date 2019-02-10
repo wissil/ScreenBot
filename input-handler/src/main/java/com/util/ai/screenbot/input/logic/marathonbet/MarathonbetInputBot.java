@@ -30,7 +30,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	private Rectangle browserDimensions;
 
 	private Integer buttonDeviation = 0; // If bet slip is shorter because of short name
-	private Integer stakeDeviation = 0; // for some reason it can also go up
 
 	public MarathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
 			AbstractMarathonbetConstants marathonbetConstants) {
@@ -126,74 +125,11 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 			if (!foundRemoveAllButton) {
 				this.buttonDeviation = 0;
-				this.stakeDeviation = 0;
 				log.info("Remove button not correct");
 				throw new BetSlipException("RemoveAll button is not positioned correctly");
 			}
 
 		}
-//
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			// Do nothing
-//		}
-//
-//		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
-//
-//		Color betButtonColor = screenHandler.detectColor(betButtonCoordinates.x, betButtonCoordinates.y);
-//		log.info("Bet button color:" + betButtonColor.toString());
-//		// Check if betting button is green
-//		if (!ColorComparator.areEqualColors(betButtonColor, marathonbetConstants.getMarathonbetGreen(),
-//				marathonbetConstants.getColorDeviation())) {
-//			log.info("Bet button not correct");
-//			throw new BetSlipException("Bet button is not positioned correctly");
-//		}
-//
-//		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
-//
-//		Color stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x, stakeInputCoordinates.y);
-//
-//		// Check if input stake is white
-//		if (!ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) {// No
-//			// deviation
-//			boolean foundStake = false;
-//			for (int step = 1; step <= 5; step++) {
-//				int deviation = step * marathonbetConstants.getDeviation();
-//
-//				stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-//						stakeInputCoordinates.y - deviation);
-//
-//				log.info("Upper stake input color:" + stakeInputColor.toString());
-//
-//				if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(), 0)) { // No
-//					// deviation
-//					foundStake = true;
-//					this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
-//					break;
-//				} else {
-//
-//					stakeInputColor = screenHandler.detectColor(stakeInputCoordinates.x,
-//							stakeInputCoordinates.y + deviation);
-//
-//					log.info("Upper stake input color:" + stakeInputColor.toString());
-//
-//					if (ColorComparator.areEqualColors(stakeInputColor, marathonbetConstants.getMarathonbetWhite(),
-//							0)) { // No deviation
-//						foundStake = true;
-//						this.stakeDeviation = marathonbetConstants.getDeviation() * -1;
-//						break;
-//					}
-//				}
-//			}
-//			if (!foundStake) {
-//				this.buttonDeviation = 0;
-//				this.stakeDeviation = 0;
-//				log.info("Stake input field is not positioned correctly");
-//				throw new BetSlipException("Stake input field is not positioned correctly");
-//			}
-//
-//		}
 
 		log.info("Bet slip OK!");
 	}
@@ -202,23 +138,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		SikuliUtils.clickOnElement("marathon/Marathon_RemoveAll.png");
 	}
 
-	public void navigateToBetButton() {
-
-		BotCoordinates betButtonCoordinates = getBetButtonCoordinates();
-
-		mouseHandler.moveMouse(betButtonCoordinates.x, betButtonCoordinates.y);
-	}
-
 	public void clickBet() throws BetException, FatalVBException {
 		SikuliUtils.clickOnElement("marathon/Marathon_PlaceBet.png");
 		SikuliUtils.clickOnElement("marathon/Marathon_OK.png");
-	}
-
-	public void navigateToStakeInputButton() {
-
-		BotCoordinates stakeInputCoordinates = getBetInputStakeCoordinates();
-
-		mouseHandler.moveMouse(stakeInputCoordinates.x, stakeInputCoordinates.y);
 	}
 
 	public void setBetStake(String stake) throws FatalVBException {
@@ -227,62 +149,10 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		} catch (FatalVBException e) {
 			SikuliUtils.writeToElement("marathon/Marathon_InputBetText.png", String.valueOf(stake));
 		}
-//		navigateToStakeInputButton();
-//		mouseHandler.leftClick();
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			// Do nothing
-//		}
-//		keyboardHandler.write(stake);
-	}
-
-	public void navigateToOdds() {
-
-		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
-
-		mouseHandler.moveMouse(oddsInputCoordinates.x, oddsInputCoordinates.y);
 	}
 
 	public BufferedImage takeBookmakerOddsScreenshot() throws FatalVBException {
 		return SikuliUtils.getImageRigtToElement("marathon/Marathon_OddsInput.png", 40);
-//
-//		navigateToOdds();
-//		BotCoordinates oddsInputCoordinates = getBetInputOddsCoordinates();
-//
-//		BufferedImage image = screenHandler.takeScreenshot(oddsInputCoordinates.x, oddsInputCoordinates.y,
-//				(int) Math.round(ScreenConfig.width * marathonbetConstants.getOddsScreenshotWidth()),
-//				(int) Math.round(ScreenConfig.height * marathonbetConstants.getOddsScreenshotHeight()));
-//
-//		return image;
-	}
-
-	public void navigateToNeutralClick() {
-
-		BotCoordinates neutralClickCoordinates = getNeutralClickCoordinates();
-
-		mouseHandler.moveMouse(neutralClickCoordinates.x, neutralClickCoordinates.y);
-	}
-
-	public void neutralClick() {
-
-		navigateToStakeInputButton();
-
-		mouseHandler.leftClick();
-	}
-
-	public void navigateToMinStake() {
-
-		BotCoordinates minStakeCoordinates = getMinStakeCoordinates();
-
-		mouseHandler.moveMouse(minStakeCoordinates.x, minStakeCoordinates.y);
-	}
-
-	public void navigateToMaxStake() {
-
-		BotCoordinates maxStakeCoordinates = getMaxStakeCoordinates();
-
-		mouseHandler.moveMouse(maxStakeCoordinates.x, maxStakeCoordinates.y);
 	}
 
 	public void navigateToBalance() {
@@ -326,66 +196,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 		Integer betY = browserDimensions.y
 				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
-
-		return new BotCoordinates(betX, betY + this.buttonDeviation);
-	}
-
-	private BotCoordinates getBetButtonCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math
-				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetButtonWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getBettingButtonsHeight());
-
-		return new BotCoordinates(betX, betY + this.buttonDeviation);
-	}
-
-	private BotCoordinates getBetInputStakeCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math.round(
-				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetInputStakeWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputStakeHeight());
-
-		return new BotCoordinates(betX, betY + this.stakeDeviation);
-	}
-
-	private BotCoordinates getBetInputOddsCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math.round(
-				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getBetInputOddsWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getBetInputOddsHeight());
-
-		return new BotCoordinates(betX, betY + this.stakeDeviation);
-	}
-
-	private BotCoordinates getNeutralClickCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math.round(
-				ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getNeutralClickWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getNeutralClickHeight());
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getMaxStakeCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math
-				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getMaxStakeWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getMinMaxStakeHeight());
-
-		return new BotCoordinates(betX, betY + this.buttonDeviation);
-	}
-
-	private BotCoordinates getMinStakeCoordinates() {
-		Integer betX = (int) (browserDimensions.x + Math
-				.round(ScreenConfig.screenCoef * browserDimensions.width * marathonbetConstants.getMinStakeWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * marathonbetConstants.getMinMaxStakeHeight());
 
 		return new BotCoordinates(betX, betY + this.buttonDeviation);
 	}

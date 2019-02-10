@@ -69,7 +69,6 @@ public class PlaceBetState extends VBState {
 		try {
 			in.intializeBookieBot(bookie);
 			in.checkBettingSlip(bookie);
-			in.clickNeutralArea(bookie);
 
 			log.debug("Betting slip successfully checked!");
 

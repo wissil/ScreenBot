@@ -6,9 +6,9 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.utils.DiskUtils;
 import com.util.ai.screenbot.input.utils.SystemUtils;
 import com.util.ai.screenbot.main.bookie.Bookie;
@@ -65,7 +65,8 @@ public class VBStateMachineImpl implements VBStateMachine {
 		idle();
 	}
 
-	public void placeBet(VBSingleBetElement element) throws InterruptedException, VBElementInterpretationException, FatalVBException {
+	public void placeBet(VBSingleBetElement element)
+			throws InterruptedException, VBElementInterpretationException, FatalVBException {
 		log.debug("Enter state: PLACE_BET ...");
 
 		in.clickBetOnTopEvent();
@@ -111,7 +112,6 @@ public class VBStateMachineImpl implements VBStateMachine {
 			bookie = Bookie.fromString(element.getBookie());
 			in.intializeBookieBot(bookie);
 			in.checkBettingSlip(bookie);
-			in.clickNeutralArea(bookie);
 
 			Thread.sleep(500);
 
