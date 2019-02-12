@@ -75,13 +75,6 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getBrowsingStatusImage() {
-		BufferedImage browsingStatus = browserBot.takeBrowsingStatusScreenshot();
-		DiskUtils.saveBrowsingStatusToDisk(browsingStatus);
-		return browsingStatus;
-	}
-
-	@Override
 	public void clickOKAtBettingBrowser() throws FatalVBException {
 		browserBot.clickConfirm();
 		try {
@@ -147,6 +140,11 @@ public class InputHandlerImpl implements InputHandler {
 	public void intializeBookieBot(Bookie bookie) {
 		bookie.getHandler().initialize(browserBot.getBrowserDimensions());
 
+	}
+
+	@Override
+	public void waitForBettingBrowserToLoad() throws FatalVBException {
+		browserBot.waitForBettingBrowser();
 	}
 
 }

@@ -46,6 +46,14 @@ public class SikuliUtils {
 		}
 	}
 
+	public static void waitForElement(String elementPath, int timeoutMs) throws FatalVBException {
+		try {
+			SCREEN.wait(elementPath, timeoutMs);
+		} catch (FindFailed e) {
+			throw new FatalVBException(String.format("Couldn't find element %s.", elementPath), e);
+		}
+	}
+
 	public static boolean writeToElement(String elementPath, String text) throws FatalVBException {
 		try {
 			SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT);

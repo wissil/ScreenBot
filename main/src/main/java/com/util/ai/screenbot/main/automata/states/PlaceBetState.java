@@ -28,10 +28,6 @@ public class PlaceBetState extends VBState {
 
 	private static final Logger log = LoggerFactory.getLogger(PlaceBetState.class);
 
-	private static final int BET_BROWSER_LOAD_TIMEOUT_SEC = 30;
-
-	private static final int BET_BROWSER_LOAD_PERIOD_MS = 1_000;
-
 	private final VBSingleBetElement element;
 
 	public PlaceBetState(InputHandler in, OutputHandler out, EmailSender email, VBSingleBetElement element) {
@@ -59,7 +55,7 @@ public class PlaceBetState extends VBState {
 		Thread.sleep(1000);
 
 		// 3) wait for betting browser to load
-		waitForBettingBrowserToLoad();
+		in.waitForBettingBrowserToLoad();
 		log.debug("Betting browser successfully loaded!");
 
 		// 4) parse from the element
@@ -141,37 +137,6 @@ public class PlaceBetState extends VBState {
 			log.error("Shutting down ...");
 			sendEmail();
 			System.exit(-1);
-		}
-	}
-
-	private void waitForBettingBrowserToLoad() throws InterruptedException {
-		try {
-			int waitingTime = 0;
-			while (true) {
-				final BufferedImage browsingStatusImage = in.getBrowsingStatusImage();
-				if (out.readBrowsingStatus(browsingStatusImage).isDone()) {
-					log.debug("Betting browser successfully loaded! - first check");
-					Thread.sleep(2000);
-
-					// added second check because of the false true that sometimes happens
-					final BufferedImage browsingStatusImage2 = in.getBrowsingStatusImage();
-					if (out.readBrowsingStatus(browsingStatusImage2).isDone()) {
-						break;
-					}
-				}
-
-				if (waitingTime == BET_BROWSER_LOAD_TIMEOUT_SEC) {
-					log.warn(String.format("Betting browser didn't load in %d seconds.", BET_BROWSER_LOAD_TIMEOUT_SEC));
-					log.warn("Timeout!");
-					// clean bets
-				}
-
-				Thread.sleep(BET_BROWSER_LOAD_PERIOD_MS);
-				waitingTime += 1;
-			}
-		} catch (VBElementInterpretationException e) {
-			log.error("Couldn't interpret browsing status image.", e);
-			sendEmail();
 		}
 	}
 

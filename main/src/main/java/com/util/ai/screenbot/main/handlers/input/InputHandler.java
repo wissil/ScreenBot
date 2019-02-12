@@ -26,8 +26,6 @@ public interface InputHandler {
 
 	BufferedImage getOddsInputImage();
 
-	BufferedImage getBrowsingStatusImage();
-
 	BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException;
 
 	BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException;
@@ -49,4 +47,6 @@ public interface InputHandler {
 	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalVBException;
 
 	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException;
+
+	void waitForBettingBrowserToLoad() throws FatalVBException;
 }

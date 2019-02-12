@@ -121,5 +121,4 @@ public class VBMainInputBot extends VBInputBot {
 
 		return new BotCoordinates(betX, betY);
 	}
-
 }

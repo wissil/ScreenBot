@@ -77,23 +77,6 @@ public class VBBrowserInputBot extends VBInputBot {
 		SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
 	}
 
-	public void navigateToBrowsingStatus() {
-
-		BotCoordinates browsingStatusCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
-
-		mouseHandler.moveMouse(browsingStatusCoordinates.x, browsingStatusCoordinates.y);
-	}
-
-	public BufferedImage takeBrowsingStatusScreenshot() {
-		BotCoordinates valueCoordinates = getBrowsingStatusUpperLeftCornerCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(valueCoordinates.x, valueCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBrowsingStatusScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBrowsingStatusScreenshotHeight()));
-
-		return image;
-	}
-
 	private BotCoordinates getOddsUpperLeftCoordinates() {
 		Integer betX = (int) (browserDimensions.x
 				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
@@ -121,17 +104,17 @@ public class VBBrowserInputBot extends VBInputBot {
 		return new BotCoordinates(betX, betY);
 	}
 
-	private BotCoordinates getBrowsingStatusUpperLeftCornerCoordinates() {
-		Integer betX = (int) (browserDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getBrowsingStatusWidth()));
-
-		Integer betY = browserDimensions.y
-				+ Math.round(browserDimensions.height * vbConstants.getBrowsingStatusHeight());
-
-		return new BotCoordinates(betX, betY);
-	}
-
 	public Rectangle getBrowserDimensions() {
 		return this.browserDimensions;
+	}
+
+	public void waitForBettingBrowser() throws FatalVBException {
+		SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		SikuliUtils.clickOnElement("BettingBrowser_Done", 5);
 	}
 }

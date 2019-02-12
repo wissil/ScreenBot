@@ -60,6 +60,12 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		if (!ColorComparator.areEqualColors(bettingSlipButtonColor, marathonbetConstants.getMarathonbetGreen(), 0)) { // No
 			// deviation
 			clickBettingSlip();
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		log.info("Bet slip OK!");
@@ -106,11 +112,11 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	}
 
 	public BufferedImage takeMaxStakeScreenshot() throws FatalVBException {
-		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 44);
+		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 46);
 	}
 
 	public BufferedImage takeMinStakeScreenshot() throws FatalVBException {
-		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 44);
+		return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 46);
 	}
 
 	private BotCoordinates getBettingSlipCoordinates() {
