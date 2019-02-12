@@ -10,7 +10,7 @@ import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
 public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleBetElement> {
 	
 	private static final Pattern PATTERN_SINGLE_BET = Pattern.compile(
-			"([0-9]+(?:\\.|,)*[0-9]+)%"
+			"([0-9]+\\s*(?:\\.|,)*\\s*[0-9]+)\\s*%"
 			+ "[ \\t]*"
 			+ "([0-9]+)"
 			+ "[ \\t]+"
