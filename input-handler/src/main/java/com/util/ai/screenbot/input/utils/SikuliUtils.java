@@ -46,7 +46,7 @@ public class SikuliUtils {
 		}
 	}
 
-	public static void writeToElement(String elementPath, String text) throws FatalVBException {
+	public static boolean writeToElement(String elementPath, String text) throws FatalVBException {
 		try {
 			SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT);
 			Thread.sleep(HOLD_BEFORE_CLICK);
@@ -54,8 +54,10 @@ public class SikuliUtils {
 			SCREEN.click(elementPath);
 			SCREEN.write(text);
 			Thread.sleep(HOLD_AFTER_CLICK);
+
+			return true;
 		} catch (FindFailed | InterruptedException e) {
-			throw new FatalVBException(String.format("Couldn't find element %s.", elementPath), e);
+			return false;
 		}
 	}
 
@@ -63,6 +65,15 @@ public class SikuliUtils {
 		try {
 			Thread.sleep(HOLD_BEFORE_CLICK);
 			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).right(pixels)).getImage();
+		} catch (FindFailed | InterruptedException e) {
+			throw new FatalVBException(String.format("Couldn't find element %s.", elementPath), e);
+		}
+	}
+
+	public static BufferedImage getImageBelowElement(String elementPath, int pixels) throws FatalVBException {
+		try {
+			Thread.sleep(HOLD_BEFORE_CLICK);
+			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).below(pixels)).getImage();
 		} catch (FindFailed | InterruptedException e) {
 			throw new FatalVBException(String.format("Couldn't find element %s.", elementPath), e);
 		}

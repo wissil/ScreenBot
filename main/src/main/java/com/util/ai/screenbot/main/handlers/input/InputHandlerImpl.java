@@ -29,7 +29,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getSingleBetImage() {
+	public BufferedImage getSingleBetImage() throws FatalVBException {
 		BufferedImage singleBet = mainBot.takeTopBetScreenshot();
 		DiskUtils.saveBetToDisk(singleBet);
 		return singleBet;

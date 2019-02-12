@@ -20,7 +20,7 @@ public interface InputHandler {
 
 	void intializeBookieBot(Bookie bookie);
 
-	BufferedImage getSingleBetImage();
+	BufferedImage getSingleBetImage() throws FatalVBException;
 
 	BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException;
 

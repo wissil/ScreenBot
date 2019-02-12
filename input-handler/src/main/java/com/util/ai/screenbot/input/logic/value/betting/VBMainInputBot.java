@@ -35,27 +35,6 @@ public class VBMainInputBot extends VBInputBot {
 		this.appDimensions = checkScreen();
 	}
 
-	public void navigateToTopBetUpperLeft() {
-
-		BotCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-	}
-
-	public void navigateToTopBetLowerLeft() {
-
-		BotCoordinates betCoordinates = getTopBetLowerLeftCornerCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-	}
-
-	public void navigateToTopBetMiddle() {
-
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-	}
-
 	public Boolean checkTopBet() {
 
 		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
@@ -71,21 +50,8 @@ public class VBMainInputBot extends VBInputBot {
 		return topBetExists;
 	}
 
-	public BufferedImage takeTopBetScreenshot() {
-
-		BotCoordinates clickCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(clickCoordinates.x, clickCoordinates.y);
-		mouseHandler.leftClick();
-
-		BotCoordinates betCoordinates = getTopBetTopLeftCornerCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(betCoordinates.x, betCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBetScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBetScreenshotHeight()));
-
-		return image;
-
+	public BufferedImage takeTopBetScreenshot() throws FatalVBException {
+		return SikuliUtils.getImageBelowElement("SingleBet_Header.png", 20);
 	}
 
 	/**
@@ -152,30 +118,6 @@ public class VBMainInputBot extends VBInputBot {
 
 		log.debug("topBetMiddleX: " + betX);
 		log.debug("topBetMiddleY: " + betY);
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getTopBetTopLeftCornerCoordinates() {
-		Integer betX = (int) (appDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
-
-		Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetUpperCornerHeight());
-
-		log.debug("topBetLeftUpperCornerX: " + betX);
-		log.debug("topBetLeftUpperCornerY: " + betY);
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getTopBetLowerLeftCornerCoordinates() {
-		Integer betX = (int) (appDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * appDimensions.width * vbConstants.getTopBetCornerWidth()));
-
-		Integer betY = appDimensions.y + Math.round(appDimensions.height * vbConstants.getTopBetLowerCornerHeight());
-
-		log.debug("topBetLeftLowerCornerX: " + betX);
-		log.debug("topBetLeftLowerCornerY: " + betY);
 
 		return new BotCoordinates(betX, betY);
 	}
