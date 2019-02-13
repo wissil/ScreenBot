@@ -1,6 +1,5 @@
 package com.util.ai.screenbot.main.bookie.handlers.specific;
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -42,13 +41,6 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 
 	@Override
 	public boolean isBetCorrect() throws FatalVBException {
-
-		try {
-			marathonBot.checkBettingSlip();
-		} catch (BetSlipException | BetNotFoundException e) {
-			return false;
-		}
-
 		return true;
 	}
 
@@ -68,7 +60,7 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public BufferedImage getBalanceStakeImage() {
+	public BufferedImage getBalanceStakeImage() throws FatalVBException {
 		return marathonBot.takeBalanceScreenshot();
 	}
 
@@ -77,9 +69,4 @@ public class MarathonBetHandler extends AbstractBookieHandler {
 		marathonBot.checkBettingSlip();
 	}
 
-	@Override
-	public void initialize(Rectangle browserDimensions) {
-		marathonBot.initialize(browserDimensions);
-
-	}
 }

@@ -63,7 +63,6 @@ public class PlaceBetState extends VBState {
 		final Bookie bookie = parseBookie(element.getBookie(), participants);
 
 		try {
-			in.intializeBookieBot(bookie);
 			in.checkBettingSlip(bookie);
 
 			log.debug("Betting slip successfully checked!");

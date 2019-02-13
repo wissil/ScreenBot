@@ -18,8 +18,6 @@ public interface InputHandler {
 
 	void openMainWindow();
 
-	void intializeBookieBot(Bookie bookie);
-
 	BufferedImage getSingleBetImage() throws FatalVBException;
 
 	BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException;
@@ -30,7 +28,7 @@ public interface InputHandler {
 
 	BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException;
 
-	BufferedImage getBalanceStakeImage(Bookie bookie);
+	BufferedImage getBalanceStakeImage(Bookie bookie) throws FatalVBException;
 
 	void removeTopBet();
 

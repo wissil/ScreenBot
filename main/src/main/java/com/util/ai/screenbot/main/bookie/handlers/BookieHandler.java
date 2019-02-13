@@ -1,6 +1,5 @@
 package com.util.ai.screenbot.main.bookie.handlers;
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.input.exceptions.BetException;
@@ -9,8 +8,6 @@ import com.util.ai.screenbot.input.exceptions.BetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 
 public interface BookieHandler {
-
-	void initialize(Rectangle browserDimensions);
 
 	void placeBet(double stake) throws BetException, FatalVBException;
 
@@ -24,7 +21,7 @@ public interface BookieHandler {
 
 	BufferedImage getMaxStakeImage() throws FatalVBException;
 
-	BufferedImage getBalanceStakeImage();
+	BufferedImage getBalanceStakeImage() throws FatalVBException;
 
 	void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalVBException;
 }

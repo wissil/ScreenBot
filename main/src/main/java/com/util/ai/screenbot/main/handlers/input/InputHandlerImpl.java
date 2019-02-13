@@ -112,7 +112,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getBalanceStakeImage(Bookie bookie) {
+	public BufferedImage getBalanceStakeImage(Bookie bookie) throws FatalVBException {
 		BufferedImage balance = bookie.getHandler().getBalanceStakeImage();
 		DiskUtils.saveBalanceToDisk(balance);
 		return balance;
@@ -133,12 +133,6 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public void clickBetOnTopEvent() throws FatalVBException {
 		mainBot.betOnTopBet();
-
-	}
-
-	@Override
-	public void intializeBookieBot(Bookie bookie) {
-		bookie.getHandler().initialize(browserBot.getBrowserDimensions());
 
 	}
 
