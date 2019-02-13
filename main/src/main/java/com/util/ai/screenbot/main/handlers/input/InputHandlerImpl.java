@@ -3,9 +3,9 @@ package com.util.ai.screenbot.main.handlers.input;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
-import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
@@ -51,17 +51,17 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void placeBet(Bookie bookie, double stake) throws BetException, FatalVBException {
+	public void placeBet(Bookie bookie, double stake) throws InvalidBetSlipException {
 		bookie.getHandler().placeBet(stake);
 	}
 
 	@Override
-	public void removeBet(Bookie bookie) throws FatalVBException {
+	public void removeBet(Bookie bookie) throws InvalidBetSlipException {
 		bookie.getHandler().removeBet();
 	}
 
 	@Override
-	public BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException {
+	public BufferedImage getBookmakerOddsImage(Bookie bookie) throws InvalidBetSlipException {
 		BufferedImage bookmakerOdds = bookie.getHandler().getBookmakerOddsImage();
 		DiskUtils.saveBookmakerOddsToDisk(bookmakerOdds);
 		return bookmakerOdds;
@@ -77,11 +77,6 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public void clickOKAtBettingBrowser() throws FatalVBException {
 		browserBot.clickConfirm();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// Do nothing
-		}
 		browserBot.clickConfirmOk();
 	}
 
@@ -94,18 +89,18 @@ public class InputHandlerImpl implements InputHandler {
 	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
 			throws FatalVBException {
 		boolean stakeCorrect = (stake <= balance) && (stake >= min) && (stake <= max);
-		return stakeCorrect && bookie.getHandler().isBetCorrect();
+		return stakeCorrect;
 	}
 
 	@Override
-	public BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException {
+	public BufferedImage getMinStakeImage(Bookie bookie) throws InvalidBetSlipException {
 		BufferedImage minStake = bookie.getHandler().getMinStakeImage();
 		DiskUtils.saveMinStakeToDisk(minStake);
 		return minStake;
 	}
 
 	@Override
-	public BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException {
+	public BufferedImage getMaxStakeImage(Bookie bookie) throws InvalidBetSlipException {
 		BufferedImage maxStake = bookie.getHandler().getMaxStakeImage();
 		DiskUtils.saveMaxStakeToDisk(maxStake);
 		return maxStake;
@@ -119,7 +114,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException {
+	public void checkBettingSlip(Bookie bookie) throws InvalidBetSlipException, BetNotFoundException, FatalVBException {
 		bookie.getHandler().checkBettingSlip();
 
 	}
@@ -137,7 +132,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public void waitForBettingBrowserToLoad() throws FatalVBException {
+	public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
 		browserBot.waitForBettingBrowser();
 	}
 

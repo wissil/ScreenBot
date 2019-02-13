@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -34,9 +36,7 @@ public class VBBrowserInputBot extends VBInputBot {
 	}
 
 	public void navigateToOddsUpperLeftCorner() {
-
 		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
-
 		mouseHandler.moveMouse(oddsCoordinates.x, oddsCoordinates.y);
 	}
 
@@ -48,33 +48,46 @@ public class VBBrowserInputBot extends VBInputBot {
 				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
 
 		return image;
-
 	}
 
 	public void navigateToStakeUpperLeftCorner() {
-
 		BotCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
-
 		mouseHandler.moveMouse(stakeCoordinates.x, stakeCoordinates.y);
 	}
 
 	public void navigateToValueUpperLeftCorner() {
-
 		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
-
 		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
 	}
 
 	public void clickCancel() throws FatalVBException {
-		SikuliUtils.clickOnElement("Cancel.png");
+		log.debug("Clicking cancel button ...");
+		
+		try {
+			SikuliUtils.clickOnElement("Cancel.png");
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Cancel button not found.", e);
+		}
 	}
 
 	public void clickConfirm() throws FatalVBException {
-		SikuliUtils.clickOnElement("ConfirmPlacedBet.png");
+		log.debug("Clicking confirm placed bet ...");
+		
+		try {
+			SikuliUtils.clickOnElement("ConfirmPlacedBet.png");
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Confirm placed bet button not found.", e);
+		}
 	}
 
 	public void clickConfirmOk() throws FatalVBException {
-		SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
+		log.debug("Clicking confirm OK ...");
+		
+		try {
+			SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Confirm OK button not found.", e);
+		}
 	}
 
 	private BotCoordinates getOddsUpperLeftCoordinates() {
@@ -108,13 +121,14 @@ public class VBBrowserInputBot extends VBInputBot {
 		return this.browserDimensions;
 	}
 
-	public void waitForBettingBrowser() throws FatalVBException {
-		SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+	public void waitForBettingBrowser() throws BettingBrowserTimeoutException {
+		log.debug("Waiting for the betting browser to load ...");
+		
 		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+			SikuliUtils.waitForElement("BettingBrowser_Done", 5);
+		} catch (GuiElementNotFoundException e) {
+			throw new BettingBrowserTimeoutException("Betting browser done element not found.", e);
 		}
-		SikuliUtils.clickOnElement("BettingBrowser_Done", 5);
 	}
 }

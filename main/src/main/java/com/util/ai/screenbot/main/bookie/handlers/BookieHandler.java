@@ -2,26 +2,22 @@ package com.util.ai.screenbot.main.bookie.handlers;
 
 import java.awt.image.BufferedImage;
 
-import com.util.ai.screenbot.input.exceptions.BetException;
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
-import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 
 public interface BookieHandler {
 
-	void placeBet(double stake) throws BetException, FatalVBException;
+	void placeBet(double stake) throws InvalidBetSlipException;
 
-	void removeBet() throws FatalVBException;
+	void removeBet() throws InvalidBetSlipException;
 
-	boolean isBetCorrect() throws FatalVBException;
+	BufferedImage getBookmakerOddsImage() throws InvalidBetSlipException;
 
-	BufferedImage getBookmakerOddsImage() throws FatalVBException;
+	BufferedImage getMinStakeImage() throws InvalidBetSlipException;
 
-	BufferedImage getMinStakeImage() throws FatalVBException;
-
-	BufferedImage getMaxStakeImage() throws FatalVBException;
+	BufferedImage getMaxStakeImage() throws InvalidBetSlipException;
 
 	BufferedImage getBalanceStakeImage() throws FatalVBException;
 
-	void checkBettingSlip() throws BetSlipException, BetNotFoundException, FatalVBException;
+	void checkBettingSlip() throws InvalidBetSlipException;
 }

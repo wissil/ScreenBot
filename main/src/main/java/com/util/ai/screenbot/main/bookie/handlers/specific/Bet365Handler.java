@@ -2,8 +2,7 @@ package com.util.ai.screenbot.main.bookie.handlers.specific;
 
 import java.awt.image.BufferedImage;
 
-import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
-import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.main.bookie.handlers.AbstractBookieHandler;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 
@@ -23,12 +22,6 @@ public class Bet365Handler extends AbstractBookieHandler {
 	public void removeBet() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public boolean isBetCorrect() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -56,7 +49,7 @@ public class Bet365Handler extends AbstractBookieHandler {
 	}
 
 	@Override
-	public void checkBettingSlip() throws BetSlipException, BetNotFoundException {
+	public void checkBettingSlip() throws InvalidBetSlipException {
 		// TODO Auto-generated method stub
 
 	}

@@ -2,9 +2,9 @@ package com.util.ai.screenbot.main.handlers.input;
 
 import java.awt.image.BufferedImage;
 
-import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
-import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
@@ -20,13 +20,13 @@ public interface InputHandler {
 
 	BufferedImage getSingleBetImage() throws FatalVBException;
 
-	BufferedImage getBookmakerOddsImage(Bookie bookie) throws FatalVBException;
+	BufferedImage getBookmakerOddsImage(Bookie bookie) throws InvalidBetSlipException;
 
 	BufferedImage getOddsInputImage();
 
-	BufferedImage getMinStakeImage(Bookie bookie) throws FatalVBException;
+	BufferedImage getMinStakeImage(Bookie bookie) throws InvalidBetSlipException;
 
-	BufferedImage getMaxStakeImage(Bookie bookie) throws FatalVBException;
+	BufferedImage getMaxStakeImage(Bookie bookie) throws InvalidBetSlipException;
 
 	BufferedImage getBalanceStakeImage(Bookie bookie) throws FatalVBException;
 
@@ -38,13 +38,13 @@ public interface InputHandler {
 
 	void clickCancelAtBettingBrowser() throws FatalVBException;
 
-	void placeBet(Bookie bookie, double stake) throws BetException, FatalVBException;
+	void placeBet(Bookie bookie, double stake) throws InvalidBetSlipException;
 
-	void removeBet(Bookie bookie) throws FatalVBException;
+	void removeBet(Bookie bookie) throws InvalidBetSlipException;
 
 	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalVBException;
 
-	void checkBettingSlip(Bookie bookie) throws BetSlipException, BetNotFoundException, FatalVBException;
+	void checkBettingSlip(Bookie bookie) throws InvalidBetSlipException, BetNotFoundException, FatalVBException;
 
-	void waitForBettingBrowserToLoad() throws FatalVBException;
+	void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException;
 }

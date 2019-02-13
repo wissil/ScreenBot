@@ -57,7 +57,7 @@ public class CleanBetState extends VBState {
 			// remove from the betting slip
 			log.debug("Removing bet from the bookmaker betting slip ...");
 			try {
-				in.removeBet(bookie);
+				in.removeAllBetsFromTopBetEvent();
 			} catch (FatalVBException e) {
 				log.warn("Bet slip empty -- no remove all button found!");
 			}

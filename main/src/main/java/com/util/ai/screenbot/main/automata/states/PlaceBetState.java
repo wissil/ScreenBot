@@ -6,9 +6,9 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.util.ai.screenbot.input.exceptions.BetException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
-import com.util.ai.screenbot.input.exceptions.BetSlipException;
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
@@ -54,15 +54,14 @@ public class PlaceBetState extends VBState {
 		in.openBettingBrowserWindow();
 		Thread.sleep(1000);
 
-		// 3) wait for betting browser to load
-		in.waitForBettingBrowserToLoad();
-		log.debug("Betting browser successfully loaded!");
-
-		// 4) parse from the element
+		// 3) parse from the element
 		final String participants = element.getParticipants();
 		final Bookie bookie = parseBookie(element.getBookie(), participants);
 
 		try {
+			in.waitForBettingBrowserToLoad();
+			log.debug("Betting browser successfully loaded!");
+			
 			in.checkBettingSlip(bookie);
 
 			log.debug("Betting slip successfully checked!");
@@ -123,13 +122,12 @@ public class PlaceBetState extends VBState {
 		} catch (BetNotFoundException e) {
 			log.warn("Bet not found!", e);
 			new CleanBetState(in, out, email, participants, bookie, true).process();
-		} catch (BetSlipException e) {
+		} catch (InvalidBetSlipException e) {
 			log.warn("Bet slip error!", e);
 			new CleanBetState(in, out, email, participants, bookie, true).process();
-		} catch (BetException e) {
-			log.error("Can not continue ...", e);
-			sendEmail();
-			System.exit(-1);
+		} catch (BettingBrowserTimeoutException e) {
+			log.warn("Betting browser timeout!", e);
+			new CleanBetState(in, out, email, participants, bookie, true).process();
 		} catch (Exception e) {
 			// any other exception
 			log.error("Unknown exception has occurred.", e);

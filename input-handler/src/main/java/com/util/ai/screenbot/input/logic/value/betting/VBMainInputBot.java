@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -51,7 +52,13 @@ public class VBMainInputBot extends VBInputBot {
 	}
 
 	public BufferedImage takeTopBetScreenshot() throws FatalVBException {
-		return SikuliUtils.getImageBelowElement("SingleBet_Header.png", 20);
+		log.debug("Taking top bet screenshot ...");
+		
+		try {
+			return SikuliUtils.getImageBelowElement("SingleBet_Header.png", 20);
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Top bet image not found.", e);
+		}
 	}
 
 	/**
@@ -65,7 +72,13 @@ public class VBMainInputBot extends VBInputBot {
 		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
 		mouseHandler.leftClick();
 
-		SikuliUtils.clickOnElement("Bet.png");
+		log.debug("Clicking the bet on top ...");
+		
+		try {
+			SikuliUtils.clickOnElement("Bet.png");
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Bet on top not found.", e);
+		}
 	}
 
 	/**
@@ -100,14 +113,17 @@ public class VBMainInputBot extends VBInputBot {
 	}
 
 	public void removeAllBetsFromTopBetEvent() throws FatalVBException {
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
+		log.debug("Removing bets from the top event ...");
+		
+		try {
+			SikuliUtils.clickOnElement("Bet.png");
+			mouseHandler.rightClick();
 
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-		mouseHandler.leftClick();
-		mouseHandler.rightClick();
-
-		SikuliUtils.clickOnElement("Hide.png");
-		SikuliUtils.clickOnElement("AllBetsForSelectedMatch.png");
+			SikuliUtils.clickOnElement("Hide.png");
+			SikuliUtils.clickOnElement("AllBetsForSelectedMatch.png");
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Could not remove bets from the top event ...", e);
+		}
 	}
 
 	private BotCoordinates getTopBetMiddleCoordinates() {
