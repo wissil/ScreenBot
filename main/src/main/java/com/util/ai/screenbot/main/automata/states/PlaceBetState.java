@@ -12,6 +12,7 @@ import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
+import com.util.ai.screenbot.main.eval.BetEvaluator;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
@@ -72,21 +73,24 @@ public class PlaceBetState extends VBState {
 			final BufferedImage oddsImage = in.getBookmakerOddsImage(bookie);
 
 			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
-			final VBBookmakerOddsElement placeBet = out.readBookmakerOdds(oddsImage, bookie);
+			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(oddsImage, bookie);
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
 
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
 			final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
 
-			final double oddsLeft = oddsInput.getOdds();
-			final double oddsRight = CustomNumberFormat.parseDouble(placeBet.getOdds());
+			final double oddsLimit = oddsInput.getOdds();
+			final double oddsActual = CustomNumberFormat.parseDouble(bookmakerOdds.getOdds());
 
 			double stake = oddsInput.getStake();
 			stake = 0.5;// FIXEME - testing purposes
 
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
-			if (isBetPlacable(oddsRight, oddsLeft, stake, bookie, balanceElement, maxStakeElement, minStakeElement)) {
+			
+			final boolean shouldPlaceBet = BetEvaluator.shouldPlaceBet(oddsLimit, oddsActual, 
+					stake, balanceElement.getBalance(), maxStakeElement.getStake(), minStakeElement.getStake());
+			if (shouldPlaceBet) {
 				log.debug("Bet can be placable!");
 
 				// 1) place bet
@@ -148,15 +152,4 @@ public class PlaceBetState extends VBState {
 
 		return null;
 	}
-
-	private boolean isBetPlacable(double oddsRight, double oddsLeft, double stake, Bookie bookie,
-			VBBalanceElement balanceElement, VBBookmakerMaxStakeElement maxStakeElement,
-			VBBookmakerMinStakeElement minStakeElement) throws FatalVBException {
-		final double EPS = 10E-3;
-		final boolean equal = Math.abs(oddsRight - oddsLeft) < EPS;
-
-		return (equal || oddsRight > oddsLeft) && in.isBetPlaceable(bookie, stake, balanceElement.getBalance(),
-				maxStakeElement.getStake(), minStakeElement.getStake());
-	}
-
 }

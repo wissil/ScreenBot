@@ -86,13 +86,6 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min)
-			throws FatalVBException {
-		boolean stakeCorrect = (stake <= balance) && (stake >= min) && (stake <= max);
-		return stakeCorrect;
-	}
-
-	@Override
 	public BufferedImage getMinStakeImage(Bookie bookie) throws InvalidBetSlipException {
 		BufferedImage minStake = bookie.getHandler().getMinStakeImage();
 		DiskUtils.saveMinStakeToDisk(minStake);

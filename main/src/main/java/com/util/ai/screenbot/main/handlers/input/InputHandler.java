@@ -42,8 +42,6 @@ public interface InputHandler {
 
 	void removeBet(Bookie bookie) throws InvalidBetSlipException;
 
-	boolean isBetPlaceable(Bookie bookie, double stake, double balance, double max, double min) throws FatalVBException;
-
 	void checkBettingSlip(Bookie bookie) throws InvalidBetSlipException, BetNotFoundException, FatalVBException;
 
 	void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException;
