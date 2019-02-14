@@ -69,7 +69,8 @@ public class SikuliUtils {
 		}
 	}
 
-	public static BufferedImage getImageRigtToElement(String elementPath, int pixels) throws GuiElementNotFoundException {
+	public static BufferedImage getImageRigtToElement(String elementPath, int pixels)
+			throws GuiElementNotFoundException {
 		try {
 			Thread.sleep(HOLD_BEFORE_CLICK);
 			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).right(pixels)).getImage();
@@ -78,10 +79,22 @@ public class SikuliUtils {
 		}
 	}
 
-	public static BufferedImage getImageBelowElement(String elementPath, int pixels) throws GuiElementNotFoundException {
+	public static BufferedImage getImageBelowElement(String elementPath, int pixels)
+			throws GuiElementNotFoundException {
 		try {
 			Thread.sleep(HOLD_BEFORE_CLICK);
 			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).below(pixels)).getImage();
+		} catch (FindFailed | InterruptedException e) {
+			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
+		}
+	}
+
+	public static void clickBelowElement(String elementPath, int pixels) throws GuiElementNotFoundException {
+		try {
+			Thread.sleep(HOLD_BEFORE_CLICK);
+			SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).below(pixels).click();
+
+			Thread.sleep(HOLD_AFTER_CLICK);
 		} catch (FindFailed | InterruptedException e) {
 			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}

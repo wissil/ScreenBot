@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.inject.Inject;
-import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonMinStakeOcrConf;
+import com.util.ai.screenbot.output.elements.ocr.conf.marathon.VBMarathonMaxStakeOcrConf;
 import com.util.ai.screenbot.output.ocr.OCR;
 import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 import com.util.ai.screenbot.output.ocr.OcrImageProcessor;
@@ -22,17 +22,17 @@ public class MarathonMaxStakeOcrTest extends OutputHandlerTestBase {
 
 	@Inject
 	private OcrImageProcessor imageProcessor;
-	
+
 	private static OcrImageProcessingConf conf;
-	
+
 	@BeforeClass
 	public static void setup() {
-		conf = new VBMarathonMinStakeOcrConf();
+		conf = new VBMarathonMaxStakeOcrConf();
 	}
 
 	@Test
 	public void ocrTest() throws Exception {
-		final File root = new File("./external/minStake/");
+		final File root = new File("./external/maxStake/");
 
 		for (File f : root.listFiles()) {
 			BufferedImage image = ImageIO.read(f);

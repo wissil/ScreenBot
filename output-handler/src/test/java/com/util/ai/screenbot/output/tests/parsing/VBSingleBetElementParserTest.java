@@ -63,7 +63,7 @@ public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 
 	@Test
 	public void parseExampleSevenTest() throws ScreenElementParseException {
-		final String s = "2.4 % 10 1hour Kabilye vs AS Ain Mlila U(1) 2.33 @ Marathonbet";
+		final String s = "4.3% 2  3hoursemin Beijing Beikong Fly Dragons vs Beijing U(193.5) 1,93 @ Marathonbet |";
 		final VBSingleBetElement element = parser.parse(s);
 
 		System.out.println(element);

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
@@ -57,8 +58,8 @@ public class CleanBetState extends VBState {
 			// remove from the betting slip
 			log.debug("Removing bet from the bookmaker betting slip ...");
 			try {
-				in.removeAllBetsFromTopBetEvent();
-			} catch (FatalVBException e) {
+				in.removeBet(bookie);
+			} catch (InvalidBetSlipException e) {
 				log.warn("Bet slip empty -- no remove all button found!");
 			}
 			log.debug("Bet removed from the slip");
@@ -74,7 +75,7 @@ public class CleanBetState extends VBState {
 		log.debug("Opening main betting window ...");
 		in.openMainWindow();
 
-		Thread.sleep(500);
+		Thread.sleep(800);
 
 		// click and remove all events on the main screen
 		// if the top event is the same as the failed event (input event)
@@ -89,6 +90,7 @@ public class CleanBetState extends VBState {
 			}
 		} catch (VBElementInterpretationException e) {
 			log.warn("Interpretation failed. Possibly no single bet left to clean.", e);
+			new IdleState(in, out, email).process();
 		} catch (Exception e) {
 			log.error("Unexpected error occurred", e);
 			sendEmail();

@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
-import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
@@ -40,20 +40,20 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void checkBettingSlip() throws InvalidBetSlipException {
 		log.debug("Waiting for the bet slip to load ...");
-		
+
 		try {
 			SikuliUtils.waitForElement("marathon/Marathon_BetSlip_Loaded.png", 5);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
 		}
-		
+
 		clickBettingSlip();
 		log.debug("Bet slip successfully loaded!");
 	}
 
 	public void clickRemoveAll() throws InvalidBetSlipException {
 		log.debug("Clicking remove all button ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("marathon/Marathon_RemoveAll.png");
 		} catch (GuiElementNotFoundException e) {
@@ -63,7 +63,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void clickBet() throws InvalidBetSlipException {
 		log.debug("Clicking the bet button ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("marathon/Marathon_PlaceBet.png");
 			SikuliUtils.clickOnElement("marathon/Marathon_OK.png");
@@ -74,16 +74,19 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void setBetStake(String stake) throws InvalidBetSlipException {
 		log.debug("Setting the bet stake ...");
-		
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_ActiveCursor.png", String.valueOf(stake))) return;
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_InactiveCursor.png", String.valueOf(stake))) return;
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_Text.png", String.valueOf(stake))) return;
+
+		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_ActiveCursor.png", String.valueOf(stake)))
+			return;
+		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_InactiveCursor.png", String.valueOf(stake)))
+			return;
+		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_Text.png", String.valueOf(stake)))
+			return;
 		throw new InvalidBetSlipException("Could not find input stake element.");
 	}
 
 	public BufferedImage takeBookmakerOddsScreenshot() throws InvalidBetSlipException {
 		log.debug("Taking bookmaker odds screenshot ...");
-		
+
 		try {
 			return SikuliUtils.getImageRigtToElement("marathon/Marathon_OddsInput.png", 40);
 		} catch (GuiElementNotFoundException e) {
@@ -93,7 +96,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public BufferedImage takeBalanceScreenshot() throws FatalVBException {
 		log.debug("Taking bookmaker balance screenshot ...");
-		
+
 		try {
 			return SikuliUtils.getImageRigtToElement("marathon/Marathon_Balance.png", 70);
 		} catch (GuiElementNotFoundException e) {
@@ -103,9 +106,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public BufferedImage takeMaxStakeScreenshot() throws InvalidBetSlipException {
 		log.debug("Taking max stake screenshot ...");
-		
+
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 46);
+			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 48);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Max stake element is missing.", e);
 		}
@@ -113,9 +116,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public BufferedImage takeMinStakeScreenshot() throws InvalidBetSlipException {
 		log.debug("Taking min stake screenshot ...");
-		
+
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 46);
+			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 48);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Min stake element is missing.", e);
 		}

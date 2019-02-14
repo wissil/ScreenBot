@@ -62,7 +62,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void clickCancel() throws FatalVBException {
 		log.debug("Clicking cancel button ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("Cancel.png");
 		} catch (GuiElementNotFoundException e) {
@@ -72,7 +72,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void clickConfirm() throws FatalVBException {
 		log.debug("Clicking confirm placed bet ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("ConfirmPlacedBet.png");
 		} catch (GuiElementNotFoundException e) {
@@ -82,7 +82,7 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void clickConfirmOk() throws FatalVBException {
 		log.debug("Clicking confirm OK ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
 		} catch (GuiElementNotFoundException e) {
@@ -123,9 +123,14 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void waitForBettingBrowser() throws BettingBrowserTimeoutException {
 		log.debug("Waiting for the betting browser to load ...");
-		
+
 		try {
 			SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			SikuliUtils.waitForElement("BettingBrowser_Done", 5);
 		} catch (GuiElementNotFoundException e) {
 			throw new BettingBrowserTimeoutException("Betting browser done element not found.", e);

@@ -53,7 +53,7 @@ public class VBMainInputBot extends VBInputBot {
 
 	public BufferedImage takeTopBetScreenshot() throws FatalVBException {
 		log.debug("Taking top bet screenshot ...");
-		
+
 		try {
 			return SikuliUtils.getImageBelowElement("SingleBet_Header.png", 20);
 		} catch (GuiElementNotFoundException e) {
@@ -73,7 +73,7 @@ public class VBMainInputBot extends VBInputBot {
 		mouseHandler.leftClick();
 
 		log.debug("Clicking the bet on top ...");
-		
+
 		try {
 			SikuliUtils.clickOnElement("Bet.png");
 		} catch (GuiElementNotFoundException e) {
@@ -114,9 +114,9 @@ public class VBMainInputBot extends VBInputBot {
 
 	public void removeAllBetsFromTopBetEvent() throws FatalVBException {
 		log.debug("Removing bets from the top event ...");
-		
+
 		try {
-			SikuliUtils.clickOnElement("Bet.png");
+			SikuliUtils.clickBelowElement("SingleBet_Header.png", 20);
 			mouseHandler.rightClick();
 
 			SikuliUtils.clickOnElement("Hide.png");
