@@ -1,6 +1,5 @@
 package com.util.ai.screenbot.main.automata.states;
 
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.eval.BetEvaluator;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
+import com.util.ai.screenbot.main.reports.BetReport;
 import com.util.ai.screenbot.output.elements.VBBalanceElement;
 import com.util.ai.screenbot.output.elements.VBBetInfoElement;
 import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
@@ -57,6 +57,7 @@ public class PlaceBetState extends VBState {
 		// 3) parse from the element
 		final String participants = element.getParticipants();
 		final Bookie bookie = parseBookie(element.getBookie(), participants);
+		final double value = element.getValue();
 
 		try {
 			in.waitForBettingBrowserToLoad();
@@ -66,11 +67,8 @@ public class PlaceBetState extends VBState {
 
 			log.debug("Betting slip successfully checked!");
 
-			final BufferedImage oddsInputImage = in.getOddsInputImage();
-			final BufferedImage oddsImage = in.getBookmakerOddsImage(bookie);
-
-			final VBBetInfoElement oddsInput = out.readBetInfo(oddsInputImage);
-			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(oddsImage, bookie);
+			final VBBetInfoElement oddsInput = out.readBetInfo(in.getOddsInputImage());
+			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(in.getBookmakerOddsImage(bookie), bookie);
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
 
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
@@ -78,6 +76,9 @@ public class PlaceBetState extends VBState {
 
 			final double oddsLimit = oddsInput.getOdds();
 			final double oddsActual = CustomNumberFormat.parseDouble(bookmakerOdds.getOdds());
+			final double balance = balanceElement.getBalance();
+			final double min = minStakeElement.getStake();
+			final double max = maxStakeElement.getStake();
 
 			double stake = oddsInput.getStake();
 			stake = 0.5;// FIXEME - testing purposes
@@ -85,8 +86,10 @@ public class PlaceBetState extends VBState {
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
 
-			final boolean shouldPlaceBet = BetEvaluator.shouldPlaceBet(oddsLimit, oddsActual, stake,
-					balanceElement.getBalance(), maxStakeElement.getStake(), minStakeElement.getStake());
+			final boolean shouldPlaceBet = BetEvaluator.shouldPlaceBet(
+					oddsLimit, oddsActual, stake,
+					balance, max, min);
+			
 			if (shouldPlaceBet) {
 				log.debug("Bet can be placable!");
 
@@ -110,9 +113,16 @@ public class PlaceBetState extends VBState {
 				in.openMainWindow();
 				log.debug("Main window opened!");
 			} else {
-				log.warn("Bet could not be placed!");
+				log.info("Bet could not be placed!");
 				new CleanBetState(in, out, email, participants, bookie, true).process();
 			}
+			final BetReport report = new BetReport(bookie.toString(), 
+					value, oddsLimit, oddsActual, 
+					stake, balance, max, min, shouldPlaceBet);
+			
+			log.debug("Generating the report ...");
+			log.info(report.toString());
+			
 		} catch (VBElementInterpretationException e) {
 			// TODO: handle exception
 			log.error("Element not interpreted!", e);
@@ -142,7 +152,7 @@ public class PlaceBetState extends VBState {
 		} catch (UnknownBookieException e) {
 			log.error("Bookmaker couldn't be recognized.", e);
 			sendEmail();
-			new CleanBetState(in, out, email, participants, false).process();
+			new CleanBetState(in, out, email, participants, true).process();
 		}
 
 		return null;

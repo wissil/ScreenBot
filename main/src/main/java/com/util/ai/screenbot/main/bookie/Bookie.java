@@ -54,4 +54,9 @@ public enum Bookie {
 				.orElseThrow(
 						() -> new UnknownBookieException(String.format("No bookie similar to '%s' was found.", s)));
 	}
+	
+	@Override
+	public String toString() {
+		return bookieName;
+	}
 }
