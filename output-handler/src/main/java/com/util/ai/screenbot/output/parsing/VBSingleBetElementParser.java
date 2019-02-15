@@ -9,10 +9,22 @@ import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
 
 public class VBSingleBetElementParser implements VBScreenElementParser<VBSingleBetElement> {
 
-	private static final Pattern PATTERN_SINGLE_BET = Pattern.compile("([0-9]+\\s*(?:\\.|,)*\\s*[0-9]+)\\s*%"
-			+ "[ \\t]*" + "([0-9]+)" + "[ \\t]+" + "(.+[ \\t]*(?:hour|hours|min|sec)[ \\t]*(?:[.]+[ \\t]*min)?)"
-			+ "[ \\t]+" + "([a-zA-Z].*)" + "[ \\t]+" + "((?:[A-Z]+[^\\s\\\\]*)|(?:[0-9]+)|(?:\\(.+\\)))"
-			+ "(?:[ \\t]+[a-zA-Z0-9]*[ \\t]*)" + "([0-9]+(?:(?:\\.|,)[0-9]+)?)" + "[ \\t]*" + "@" + "[ \\t]*" + "(.+)");
+	private static final Pattern PATTERN_SINGLE_BET = Pattern.compile(
+			"([0-9]+\\s*(?:\\.|,)*\\s*[0-9]+)\\s*%" + 
+			"[ \\t]*" + 
+			"([0-9]+)" + 
+			"[ \\t]+" + 
+			"(.+[ \\t]*(?:hour|hours|min|sec)[ \\t]*(?:[.]+[ \\t]*min)?)" + 
+			"[ \\t]+" + 
+			"([a-zA-Z0-9].*)" + 
+			"[ \\t]+" + 
+			"((?:[A-Z]+[^\\s\\\\]*)|(?:[0-9]+)|(?:\\(.+\\)))" + 
+			"(?:[ \\t]+[a-zA-Z0-9]*[ \\t]*)" + 
+			"([0-9]+(?:(?:\\.|,)[0-9]+)?)" + 
+			"[ \\t]*" + 
+			"@" + 
+			"[ \\t]*" + 
+			"(.+)");
 
 	@Override
 	public VBSingleBetElement parse(String input) throws ScreenElementParseException {
