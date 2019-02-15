@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
-import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 import com.util.ai.screenbot.main.bookie.UnknownBookieException;
 import com.util.ai.screenbot.main.eval.BetEvaluator;
@@ -53,7 +53,6 @@ public class PlaceBetState extends VBState {
 
 		// 2) go to betting browser
 		in.openBettingBrowserWindow();
-		Thread.sleep(1000);
 
 		// 3) parse from the element
 		final String participants = element.getParticipants();
@@ -62,12 +61,10 @@ public class PlaceBetState extends VBState {
 		try {
 			in.waitForBettingBrowserToLoad();
 			log.debug("Betting browser successfully loaded!");
-			
+
 			in.checkBettingSlip(bookie);
 
 			log.debug("Betting slip successfully checked!");
-
-			Thread.sleep(500);
 
 			final BufferedImage oddsInputImage = in.getOddsInputImage();
 			final BufferedImage oddsImage = in.getBookmakerOddsImage(bookie);
@@ -87,9 +84,9 @@ public class PlaceBetState extends VBState {
 
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
-			
-			final boolean shouldPlaceBet = BetEvaluator.shouldPlaceBet(oddsLimit, oddsActual, 
-					stake, balanceElement.getBalance(), maxStakeElement.getStake(), minStakeElement.getStake());
+
+			final boolean shouldPlaceBet = BetEvaluator.shouldPlaceBet(oddsLimit, oddsActual, stake,
+					balanceElement.getBalance(), maxStakeElement.getStake(), minStakeElement.getStake());
 			if (shouldPlaceBet) {
 				log.debug("Bet can be placable!");
 
@@ -97,7 +94,6 @@ public class PlaceBetState extends VBState {
 				// in.placeBet(bookie, stake);
 				log.debug("Placing the bet ...");
 				in.placeBet(bookie, stake);
-				Thread.sleep(500);
 				log.debug("Bet successfully placed!");
 
 				// 2) click OK on the betting browser
@@ -105,7 +101,6 @@ public class PlaceBetState extends VBState {
 				log.debug("Clicking OK on the betting browser!");
 				in.clickOKAtBettingBrowser();
 				log.debug("OK clicked!");
-				Thread.sleep(500);
 
 				// 3) log bet
 				new LogBetState(in, out, email).process();
