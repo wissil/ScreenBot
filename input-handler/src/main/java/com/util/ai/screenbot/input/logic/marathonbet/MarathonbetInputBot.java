@@ -16,6 +16,19 @@ import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_BET_SLIP_LOADED;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_REMOVE_ALL;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_PLACE_BET;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_OK;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_ACTIVE_CURSOR;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_INACTIVE_CURSOR;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_TEXT;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_ODDS_INPUT;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_BALANCE;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_MAX_STAKE;
+import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_MIN_STAKE;
+
+
 public class MarathonbetInputBot extends AbstractInputBot {
 
 	protected static final Logger log = LoggerFactory.getLogger(MarathonbetInputBot.class);
@@ -32,7 +45,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Clicking on bet slip header element ...");
 
 		try {
-			SikuliUtils.clickOnElement("marathon/Marathon_BetSlip_Loaded.png");
+			SikuliUtils.clickOnElement(MARATHON_BET_SLIP_LOADED);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
 		}
@@ -42,7 +55,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Waiting for the bet slip to load ...");
 
 		try {
-			SikuliUtils.waitForElement("marathon/Marathon_BetSlip_Loaded.png", 5);
+			SikuliUtils.waitForElement(MARATHON_BET_SLIP_LOADED, 5);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
 		}
@@ -55,7 +68,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Clicking remove all button ...");
 
 		try {
-			SikuliUtils.clickOnElement("marathon/Marathon_RemoveAll.png");
+			SikuliUtils.clickOnElement(MARATHON_REMOVE_ALL);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Remove all element is missing.", e);
 		}
@@ -65,8 +78,8 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Clicking the bet button ...");
 
 		try {
-			SikuliUtils.clickOnElement("marathon/Marathon_PlaceBet.png");
-			SikuliUtils.clickOnElement("marathon/Marathon_OK.png");
+			SikuliUtils.clickOnElement(MARATHON_PLACE_BET);
+			SikuliUtils.clickOnElement(MARATHON_OK);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Place bet element is missing.", e);
 		}
@@ -75,11 +88,11 @@ public class MarathonbetInputBot extends AbstractInputBot {
 	public void setBetStake(String stake) throws InvalidBetSlipException {
 		log.debug("Setting the bet stake ...");
 
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_ActiveCursor.png", String.valueOf(stake)))
+		if (SikuliUtils.writeToElement(MARATHON_INPUT_STAKE_ACTIVE_CURSOR, String.valueOf(stake)))
 			return;
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_InactiveCursor.png", String.valueOf(stake)))
+		if (SikuliUtils.writeToElement(MARATHON_INPUT_STAKE_INACTIVE_CURSOR, String.valueOf(stake)))
 			return;
-		if (SikuliUtils.writeToElement("marathon/Marathon_InputStake_Text.png", String.valueOf(stake)))
+		if (SikuliUtils.writeToElement(MARATHON_INPUT_STAKE_TEXT, String.valueOf(stake)))
 			return;
 		throw new InvalidBetSlipException("Could not find input stake element.");
 	}
@@ -88,7 +101,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Taking bookmaker odds screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_OddsInput.png", 40);
+			return SikuliUtils.getImageRigtToElement(MARATHON_ODDS_INPUT, 40);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Odds input element is missing.", e);
 		}
@@ -98,7 +111,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Taking bookmaker balance screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_Balance.png", 70);
+			return SikuliUtils.getImageRigtToElement(MARATHON_BALANCE, 70);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Balance could not be read.");
 		}
@@ -108,7 +121,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Taking max stake screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MaxStake", 48);
+			return SikuliUtils.getImageRigtToElement(MARATHON_MAX_STAKE, 48);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Max stake element is missing.", e);
 		}
@@ -118,7 +131,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Taking min stake screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement("marathon/Marathon_MinStake", 48);
+			return SikuliUtils.getImageRigtToElement(MARATHON_MIN_STAKE, 48);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Min stake element is missing.", e);
 		}
