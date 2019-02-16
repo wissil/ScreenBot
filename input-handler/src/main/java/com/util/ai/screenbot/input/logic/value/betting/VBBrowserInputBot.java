@@ -125,15 +125,57 @@ public class VBBrowserInputBot extends VBInputBot {
 		log.debug("Waiting for the betting browser to load ...");
 
 		try {
-			SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+			final long start = System.currentTimeMillis();
+			SikuliUtils.waitForElement("BettingBrowser_Done", 35);
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			SikuliUtils.waitForElement("BettingBrowser_Done", 5);
+			SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+			final long end = System.currentTimeMillis();
+			final long duration = end - start;
+
+			log.debug(String.format("Betting browser waited for %d ms!", duration));
 		} catch (GuiElementNotFoundException e) {
-			throw new BettingBrowserTimeoutException("Betting browser done element not found.", e);
+			try {
+				final long start = System.currentTimeMillis();
+				SikuliUtils.waitForElement("BettingBrowser_Done", 35);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e2) {
+
+				}
+				SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+				final long end = System.currentTimeMillis();
+				final long duration = end - start;
+
+				log.debug(String.format("Betting browser waited for %d ms!", duration));
+			} catch (GuiElementNotFoundException e1) {
+				final long start = System.currentTimeMillis();
+				try {
+					SikuliUtils.waitForElement("BettingBrowser_Done", 35);
+				} catch (GuiElementNotFoundException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e2) {
+
+				}
+				try {
+					SikuliUtils.waitForElement("BettingBrowser_Done", 30);
+				} catch (GuiElementNotFoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+					throw new BettingBrowserTimeoutException("Betting browser done element not found.", e);
+				}
+				final long end = System.currentTimeMillis();
+				final long duration = end - start;
+
+				log.debug(String.format("Betting browser waited for %d ms!", duration));
+			}
 		}
 	}
 }
