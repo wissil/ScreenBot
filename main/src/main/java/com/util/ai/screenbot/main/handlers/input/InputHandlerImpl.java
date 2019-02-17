@@ -68,7 +68,7 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public BufferedImage getOddsInputImage() {
+	public BufferedImage getOddsInputImage() throws FatalVBException {
 		BufferedImage betInfo = browserBot.takeBetInfoScreenshot();
 		DiskUtils.saveBetInfoToDisk(betInfo);
 		return betInfo;

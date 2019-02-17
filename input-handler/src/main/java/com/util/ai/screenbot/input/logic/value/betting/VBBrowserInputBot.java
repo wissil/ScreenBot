@@ -7,7 +7,6 @@ import org.sikuli.script.App;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.util.ai.screenbot.input.config.ScreenConfig;
 import com.util.ai.screenbot.input.constants.value.betting.AbstractVBConstants;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
@@ -21,6 +20,7 @@ import static com.util.ai.screenbot.input.constants.VBGuiConstants.CANCEL;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET_OK;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_DONE;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET_INFO;
 
 
 public class VBBrowserInputBot extends VBInputBot {
@@ -41,29 +41,14 @@ public class VBBrowserInputBot extends VBInputBot {
 		this.browserDimensions = checkScreen();
 	}
 
-	public void navigateToOddsUpperLeftCorner() {
-		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
-		mouseHandler.moveMouse(oddsCoordinates.x, oddsCoordinates.y);
-	}
-
-	public BufferedImage takeBetInfoScreenshot() {
-		BotCoordinates oddsCoordinates = getOddsUpperLeftCoordinates();
-
-		BufferedImage image = screenHandler.takeScreenshot(oddsCoordinates.x, oddsCoordinates.y,
-				(int) Math.round(ScreenConfig.width * vbConstants.getBetInfoScreenshotWidth()),
-				(int) Math.round(ScreenConfig.height * vbConstants.getBetInfoScreenshotHeight()));
-
-		return image;
-	}
-
-	public void navigateToStakeUpperLeftCorner() {
-		BotCoordinates stakeCoordinates = getStakeUpperLeftCoordinates();
-		mouseHandler.moveMouse(stakeCoordinates.x, stakeCoordinates.y);
-	}
-
-	public void navigateToValueUpperLeftCorner() {
-		BotCoordinates valueCoordinates = getValueUpperLeftCoordinates();
-		mouseHandler.moveMouse(valueCoordinates.x, valueCoordinates.y);
+	public BufferedImage takeBetInfoScreenshot() throws FatalVBException {
+		log.debug("Taking bet info screenshot ...");
+		
+		try {
+			return SikuliUtils.getImageRigtToElement(BET_INFO, 55);
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Bet Info region not found.", e);
+		}
 	}
 
 	public void clickCancel() throws FatalVBException {
@@ -94,33 +79,6 @@ public class VBBrowserInputBot extends VBInputBot {
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Confirm OK button not found.", e);
 		}
-	}
-
-	private BotCoordinates getOddsUpperLeftCoordinates() {
-		Integer betX = (int) (browserDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
-
-		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getOddsInfoHeight());
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getStakeUpperLeftCoordinates() {
-		Integer betX = (int) (browserDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
-
-		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getStakeInfoHeight());
-
-		return new BotCoordinates(betX, betY);
-	}
-
-	private BotCoordinates getValueUpperLeftCoordinates() {
-		Integer betX = (int) (browserDimensions.x
-				+ Math.round(ScreenConfig.screenCoef * browserDimensions.width * vbConstants.getInfoWidth()));
-
-		Integer betY = browserDimensions.y + Math.round(browserDimensions.height * vbConstants.getValueInfoHeight());
-
-		return new BotCoordinates(betX, betY);
 	}
 
 	public Rectangle getBrowserDimensions() {

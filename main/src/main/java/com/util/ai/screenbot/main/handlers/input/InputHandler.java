@@ -22,7 +22,7 @@ public interface InputHandler {
 
 	BufferedImage getBookmakerOddsImage(Bookie bookie) throws InvalidBetSlipException;
 
-	BufferedImage getOddsInputImage();
+	BufferedImage getOddsInputImage() throws FatalVBException;
 
 	BufferedImage getMinStakeImage(Bookie bookie) throws InvalidBetSlipException;
 
