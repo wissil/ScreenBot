@@ -1,4 +1,4 @@
-package com.util.ai.screenbot.input.logic.marathonbet;
+package com.util.ai.screenbot.input.constants.marathonbet;
 
 public class MarathonbetGuiConstants {
 

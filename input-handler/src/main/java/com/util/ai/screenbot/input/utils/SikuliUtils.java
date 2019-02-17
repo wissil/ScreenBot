@@ -46,11 +46,13 @@ public class SikuliUtils {
 		}
 	}
 
-	public static void waitForElement(String elementPath, int timeoutMs) throws GuiElementNotFoundException {
+	public static boolean waitForElement(String elementPath, int timeoutMs) {
 		try {
 			SCREEN.wait(elementPath, timeoutMs);
+			return true;
 		} catch (FindFailed e) {
-			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
+			return false;
+//			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}
 	}
 

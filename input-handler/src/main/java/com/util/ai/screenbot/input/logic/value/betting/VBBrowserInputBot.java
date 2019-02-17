@@ -17,6 +17,12 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CANCEL;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET_OK;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_DONE;
+
+
 public class VBBrowserInputBot extends VBInputBot {
 
 	protected static final Logger log = LoggerFactory.getLogger(VBBrowserInputBot.class);
@@ -64,7 +70,7 @@ public class VBBrowserInputBot extends VBInputBot {
 		log.debug("Clicking cancel button ...");
 
 		try {
-			SikuliUtils.clickOnElement("Cancel.png");
+			SikuliUtils.clickOnElement(CANCEL);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Cancel button not found.", e);
 		}
@@ -74,7 +80,7 @@ public class VBBrowserInputBot extends VBInputBot {
 		log.debug("Clicking confirm placed bet ...");
 
 		try {
-			SikuliUtils.clickOnElement("ConfirmPlacedBet.png");
+			SikuliUtils.clickOnElement(CONFIRM_PLACED_BET);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Confirm placed bet button not found.", e);
 		}
@@ -84,7 +90,7 @@ public class VBBrowserInputBot extends VBInputBot {
 		log.debug("Clicking confirm OK ...");
 
 		try {
-			SikuliUtils.clickOnElement("ConfirmPlacedBet_OK.png");
+			SikuliUtils.clickOnElement(CONFIRM_PLACED_BET_OK);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Confirm OK button not found.", e);
 		}
@@ -123,59 +129,22 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void waitForBettingBrowser() throws BettingBrowserTimeoutException {
 		log.debug("Waiting for the betting browser to load ...");
-
+		
+		// wait for max 40 seconds for the first appearance
+		SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40);
+		
+		// wait 2 seconds
 		try {
-			final long start = System.currentTimeMillis();
-			SikuliUtils.waitForElement("BettingBrowser_Done", 35);
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			SikuliUtils.waitForElement("BettingBrowser_Done", 30);
-			final long end = System.currentTimeMillis();
-			final long duration = end - start;
-
-			log.debug(String.format("Betting browser waited for %d ms!", duration));
-		} catch (GuiElementNotFoundException e) {
-			try {
-				final long start = System.currentTimeMillis();
-				SikuliUtils.waitForElement("BettingBrowser_Done", 35);
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e2) {
-
-				}
-				SikuliUtils.waitForElement("BettingBrowser_Done", 30);
-				final long end = System.currentTimeMillis();
-				final long duration = end - start;
-
-				log.debug(String.format("Betting browser waited for %d ms!", duration));
-			} catch (GuiElementNotFoundException e1) {
-				final long start = System.currentTimeMillis();
-				try {
-					SikuliUtils.waitForElement("BettingBrowser_Done", 35);
-				} catch (GuiElementNotFoundException e3) {
-					// TODO Auto-generated catch block
-					e3.printStackTrace();
-				}
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e2) {
-
-				}
-				try {
-					SikuliUtils.waitForElement("BettingBrowser_Done", 30);
-				} catch (GuiElementNotFoundException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-					throw new BettingBrowserTimeoutException("Betting browser done element not found.", e);
-				}
-				final long end = System.currentTimeMillis();
-				final long duration = end - start;
-
-				log.debug(String.format("Betting browser waited for %d ms!", duration));
-			}
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		
+		// wait for max 40 seconds for the second appearance
+		if (!SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40)) {
+			throw new BettingBrowserTimeoutException("Betting browser done element not found.");
+		}
+		
+		log.debug("Betting browser successfully loaded!");
 	}
 }

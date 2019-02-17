@@ -1,5 +1,17 @@
 package com.util.ai.screenbot.input.logic.marathonbet;
 
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_BALANCE;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_BET_SLIP_LOADED;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_ACTIVE_CURSOR;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_INACTIVE_CURSOR;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_TEXT;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_MAX_STAKE;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_MIN_STAKE;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_ODDS_INPUT;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_OK;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_PLACE_BET;
+import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_REMOVE_ALL;
+
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -15,18 +27,6 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
-
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_BET_SLIP_LOADED;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_REMOVE_ALL;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_PLACE_BET;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_OK;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_ACTIVE_CURSOR;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_INACTIVE_CURSOR;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_INPUT_STAKE_TEXT;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_ODDS_INPUT;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_BALANCE;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_MAX_STAKE;
-import static com.util.ai.screenbot.input.logic.marathonbet.MarathonbetGuiConstants.MARATHON_MIN_STAKE;
 
 
 public class MarathonbetInputBot extends AbstractInputBot {
@@ -53,11 +53,9 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void checkBettingSlip() throws InvalidBetSlipException {
 		log.debug("Waiting for the bet slip to load ...");
-
-		try {
-			SikuliUtils.waitForElement(MARATHON_BET_SLIP_LOADED, 5);
-		} catch (GuiElementNotFoundException e) {
-			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
+		
+		if (!SikuliUtils.waitForElement(MARATHON_BET_SLIP_LOADED, 5)) {
+			throw new InvalidBetSlipException("Bet slip header element is missing.");
 		}
 
 		clickBettingSlip();

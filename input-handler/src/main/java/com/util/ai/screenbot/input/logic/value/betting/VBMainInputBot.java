@@ -19,6 +19,13 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.ALL_BETS_FOR_SELECTED_MATCH;
+
+
+
 public class VBMainInputBot extends VBInputBot {
 
 	protected static final Logger log = LoggerFactory.getLogger(VBMainInputBot.class);
@@ -55,7 +62,7 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("Taking top bet screenshot ...");
 
 		try {
-			return SikuliUtils.getImageBelowElement("SingleBet_Header.png", 20);
+			return SikuliUtils.getImageBelowElement(SINGLE_BET_HEADER, 20);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Top bet image not found.", e);
 		}
@@ -75,7 +82,7 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("Clicking the bet on top ...");
 
 		try {
-			SikuliUtils.clickOnElement("Bet.png");
+			SikuliUtils.clickOnElement(BET);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Bet on top not found.", e);
 		}
@@ -116,11 +123,11 @@ public class VBMainInputBot extends VBInputBot {
 		log.debug("Removing bets from the top event ...");
 
 		try {
-			SikuliUtils.clickBelowElement("SingleBet_Header.png", 20);
+			SikuliUtils.clickBelowElement(SINGLE_BET_HEADER, 20);
 			mouseHandler.rightClick();
 
-			SikuliUtils.clickOnElement("Hide.png");
-			SikuliUtils.clickOnElement("AllBetsForSelectedMatch.png");
+			SikuliUtils.clickOnElement(HIDE);
+			SikuliUtils.clickOnElement(ALL_BETS_FOR_SELECTED_MATCH);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Could not remove bets from the top event ...", e);
 		}
