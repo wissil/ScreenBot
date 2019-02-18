@@ -1,5 +1,11 @@
 package com.util.ai.screenbot.input.logic.value.betting;
 
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_DONE;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET_INFO;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CANCEL;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET_OK;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -15,13 +21,6 @@ import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
-
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.CANCEL;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.CONFIRM_PLACED_BET_OK;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_DONE;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET_INFO;
-
 
 public class VBBrowserInputBot extends VBInputBot {
 
@@ -43,9 +42,9 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public BufferedImage takeBetInfoScreenshot() throws FatalVBException {
 		log.debug("Taking bet info screenshot ...");
-		
+
 		try {
-			return SikuliUtils.getImageRigtToElement(BET_INFO, 55);
+			return SikuliUtils.getImageRigtToElement(BET_INFO, 50);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Bet Info region not found.", e);
 		}
@@ -87,22 +86,22 @@ public class VBBrowserInputBot extends VBInputBot {
 
 	public void waitForBettingBrowser() throws BettingBrowserTimeoutException {
 		log.debug("Waiting for the betting browser to load ...");
-		
+
 		// wait for max 40 seconds for the first appearance
 		SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40);
-		
+
 		// wait 2 seconds
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		// wait for max 40 seconds for the second appearance
 		if (!SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40)) {
 			throw new BettingBrowserTimeoutException("Betting browser done element not found.");
 		}
-		
+
 		log.debug("Betting browser successfully loaded!");
 	}
 }
