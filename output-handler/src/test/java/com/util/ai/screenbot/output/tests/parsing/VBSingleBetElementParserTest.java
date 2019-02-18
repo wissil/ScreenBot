@@ -60,8 +60,7 @@ public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 
 		System.out.println(element);
 	}
-	
-	
+
 	@Test
 	public void parseExampleSevenTest() throws ScreenElementParseException {
 		final String s = "4.3% 2  3hoursemin Beijing Beikong Fly Dragons vs Beijing U(193.5) 1,93 @ Marathonbet |";
@@ -69,10 +68,18 @@ public class VBSingleBetElementParserTest extends OutputHandlerTestBase {
 
 		System.out.println(element);
 	}
-	
+
 	@Test
 	public void parseExampleEightTest() throws ScreenElementParseException {
 		final String s = "3.5% 2 23 hours 5G Wattenscheid 09 vs Bonner SC Q(2.5) 1.94 @ Marathonbet";
+		final VBSingleBetElement element = parser.parse(s);
+
+		System.out.println(element);
+	}
+
+	@Test
+	public void parseExampleNineTest() throws ScreenElementParseException {
+		final String s = "3.5% 2 23 hours 5G Wattenscheid 09 vs Bonner SC aH(2.5) 1.94 @ Marathonbet";
 		final VBSingleBetElement element = parser.parse(s);
 
 		System.out.println(element);
