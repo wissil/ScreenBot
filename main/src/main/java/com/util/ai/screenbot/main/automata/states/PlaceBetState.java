@@ -57,7 +57,6 @@ public class PlaceBetState extends VBState {
 		// 3) parse from the element
 		final String participants = element.getParticipants();
 		final Bookie bookie = parseBookie(element.getBookie(), participants);
-		final double value = element.getValue();
 
 		try {
 			in.waitForBettingBrowserToLoad();
@@ -67,20 +66,21 @@ public class PlaceBetState extends VBState {
 
 			log.debug("Betting slip successfully checked!");
 
-			final VBBetInfoElement oddsInput = out.readBetInfo(in.getOddsInputImage());
+			final VBBetInfoElement betInfo = out.readBetInfo(in.getOddsInputImage());
 			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(in.getBookmakerOddsImage(bookie), bookie);
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
 
 			final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
 			final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
 
-			final double oddsLimit = oddsInput.getOdds();
+			final double oddsLimit = betInfo.getOdds();
 			final double oddsActual = CustomNumberFormat.parseDouble(bookmakerOdds.getOdds());
 			final double balance = balanceElement.getBalance();
 			final double min = minStakeElement.getStake();
 			final double max = maxStakeElement.getStake();
+			final double value = betInfo.getValue();
 
-			double stake = oddsInput.getStake();
+			double stake = betInfo.getStake();
 			stake = 0.5;// FIXEME - testing purposes
 
 			log.debug("All the data successfully parsed!");
