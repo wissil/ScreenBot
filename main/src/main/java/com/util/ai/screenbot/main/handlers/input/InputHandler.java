@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
-import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
@@ -45,4 +45,6 @@ public interface InputHandler {
 	void checkBettingSlip(Bookie bookie) throws InvalidBetSlipException, BetNotFoundException, FatalVBException;
 
 	void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException;
+
+	void logBet();
 }
