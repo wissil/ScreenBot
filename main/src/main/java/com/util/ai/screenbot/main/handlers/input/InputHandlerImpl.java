@@ -5,11 +5,12 @@ import java.util.Objects;
 
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
-import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
+import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
 import com.util.ai.screenbot.input.utils.DiskUtils;
+import com.util.ai.screenbot.input.utils.SystemUtils;
 import com.util.ai.screenbot.main.bookie.Bookie;
 
 public class InputHandlerImpl implements InputHandler {
@@ -21,6 +22,7 @@ public class InputHandlerImpl implements InputHandler {
 	public InputHandlerImpl(VBMainInputBot mainBot, VBBrowserInputBot browserBot) {
 		this.mainBot = Objects.requireNonNull(mainBot);
 		this.browserBot = Objects.requireNonNull(browserBot);
+
 	}
 
 	@Override
@@ -127,6 +129,12 @@ public class InputHandlerImpl implements InputHandler {
 	@Override
 	public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
 		browserBot.waitForBettingBrowser();
+	}
+
+	@Override
+	public void logBet() {
+		DiskUtils.logBetToFile(SystemUtils.getClipboardContents());
+
 	}
 
 }
