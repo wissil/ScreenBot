@@ -4,10 +4,10 @@ import com.util.ai.screenbot.output.ocr.OcrImageProcessingConf;
 import com.util.ai.screenbot.output.ocr.OcrReadMode;
 
 public class VBMarathonOddsOcrConf implements OcrImageProcessingConf {
-	
+
 	private static final int SCALE = 5;
-	
-	private static final int WHITE_TRESHOLD = 210;
+
+	private static final int WHITE_TRESHOLD = 170;
 
 	@Override
 	public int SCALE() {
