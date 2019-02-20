@@ -5,6 +5,13 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBalanceElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBetInfoElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerMinStakeElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerOddsElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBSingleBetElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.interpret.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.input.exceptions.BetNotFoundException;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
@@ -15,13 +22,6 @@ import com.util.ai.screenbot.main.eval.BetEvaluator;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
 import com.util.ai.screenbot.main.reports.BetReport;
-import com.util.ai.screenbot.output.elements.VBBalanceElement;
-import com.util.ai.screenbot.output.elements.VBBetInfoElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBSingleBetElement;
-import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.email.EmailSender;
 import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
 

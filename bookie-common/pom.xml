@@ -15,7 +15,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<artifactId>ocr-handler</artifactId>
+			<groupId>com.util.ai.screenbot</groupId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<modules>
 		<module>marathonbet</module>
+		<module>bookie-core</module>
 	</modules>
 </project>

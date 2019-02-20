@@ -4,8 +4,8 @@ import org.junit.Before;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.util.ai.screenbot.bookie.core.config.BookieCoreModule;
 import com.util.ai.screenbot.input.config.InputHandlerModule;
-import com.util.ai.screenbot.output.config.OutputHandlerModule;
 import com.util.ai.screenbot.support.config.SupportModule;
 
 public class MainTestBase {
@@ -14,7 +14,7 @@ public class MainTestBase {
 			Guice.createInjector(
 					new MainModule(), 
 					new SupportModule(), 
-					new OutputHandlerModule(),
+					new BookieCoreModule(),
 					new InputHandlerModule());
 
 	@Before

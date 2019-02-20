@@ -2,16 +2,15 @@ package com.util.ai.screenbot.main.handlers.output;
 
 import java.awt.image.BufferedImage;
 
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBalanceElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBetInfoElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerMaxStakeElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerMinStakeElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBookmakerOddsElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBBrowsingStatusElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.VBSingleBetElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.interpret.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.main.bookie.Bookie;
-import com.util.ai.screenbot.output.elements.VBBalanceElement;
-import com.util.ai.screenbot.output.elements.VBBetInfoElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
-import com.util.ai.screenbot.output.elements.VBBookmakerMinStakeElement;
-import com.util.ai.screenbot.output.elements.VBBrowsingStatusElement;
-import com.util.ai.screenbot.output.elements.VBSingleBetElement;
-import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
-
 public interface OutputHandler {
 
 	VBSingleBetElement readSingleBet(BufferedImage image) 

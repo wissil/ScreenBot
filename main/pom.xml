@@ -13,13 +13,13 @@
 
 	<dependencies>
 		<dependency>
-			<artifactId>input-handler</artifactId>
+			<artifactId>bookie-core</artifactId>
 			<groupId>com.util.ai.screenbot</groupId>
 			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
-			<artifactId>output-handler</artifactId>
+			<artifactId>marathonbet</artifactId>
 			<groupId>com.util.ai.screenbot</groupId>
 			<version>${project.version}</version>
 		</dependency>

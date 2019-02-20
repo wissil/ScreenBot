@@ -8,9 +8,9 @@ import static com.util.ai.screenbot.support.strings.StringComparator.consideredE
 import java.util.Arrays;
 import java.util.Objects;
 
+import com.util.ai.screenbot.bookie.core.gui.specific.BookieGraphics;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
-import com.util.ai.screenbot.output.elements.gui.bookie.BookieGraphics;
-import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
+import com.util.ai.screenbot.marathonbet.ocr.config.MarathonGraphics;
 
 
 public enum Bookie {

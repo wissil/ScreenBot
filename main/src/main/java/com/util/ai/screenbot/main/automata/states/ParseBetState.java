@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.util.ai.screenbot.bookie.core.gui.elements.VBSingleBetElement;
+import com.util.ai.screenbot.bookie.core.gui.elements.interpret.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.handlers.input.InputHandler;
 import com.util.ai.screenbot.main.handlers.output.OutputHandler;
-import com.util.ai.screenbot.output.elements.VBSingleBetElement;
-import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.email.EmailSender;
 
 public class ParseBetState extends VBState {

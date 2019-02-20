@@ -21,6 +21,12 @@
 			<artifactId>support</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.util.ai.screenbot</groupId>
+			<artifactId>bookie-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

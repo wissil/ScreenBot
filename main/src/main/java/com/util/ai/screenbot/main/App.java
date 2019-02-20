@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.util.ai.screenbot.bookie.core.config.BookieCoreModule;
 import com.util.ai.screenbot.input.config.InputHandlerModule;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.main.config.MainModule;
-import com.util.ai.screenbot.output.config.OutputHandlerModule;
 import com.util.ai.screenbot.support.config.SupportModule;
 
 public class App {
@@ -21,7 +21,7 @@ public class App {
         		new MainModule(),
         		new SupportModule(), 
         		new InputHandlerModule(), 
-        		new OutputHandlerModule());
+        		new BookieCoreModule());
 
         final RebelService rebel = injector.getInstance(RebelService.class);
 
