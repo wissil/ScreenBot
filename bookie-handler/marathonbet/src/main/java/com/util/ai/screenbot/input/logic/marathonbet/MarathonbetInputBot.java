@@ -13,12 +13,10 @@ import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiCo
 import static com.util.ai.screenbot.input.constants.marathonbet.MarathonbetGuiConstants.MARATHON_REMOVE_ALL;
 
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.util.ai.screenbot.input.constants.marathonbet.AbstractMarathonbetConstants;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
@@ -31,14 +29,10 @@ import com.util.ai.screenbot.input.utils.SikuliUtils;
 
 public class MarathonbetInputBot extends AbstractInputBot {
 
-	protected static final Logger log = LoggerFactory.getLogger(MarathonbetInputBot.class);
+	private static final Logger log = LoggerFactory.getLogger(MarathonbetInputBot.class);
 
-	protected AbstractMarathonbetConstants marathonbetConstants;
-
-	public MarathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
-			AbstractMarathonbetConstants marathonbetConstants) {
+	public MarathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
 		super(keyboardHandler, screenHandler, mouseHandler);
-		this.marathonbetConstants = Objects.requireNonNull(marathonbetConstants);
 	}
 
 	private static void clickBettingSlip() throws InvalidBetSlipException {

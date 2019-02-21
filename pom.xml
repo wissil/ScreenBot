@@ -78,7 +78,6 @@
 		<module>output-handler</module>
 		<module>support</module>
 		<module>main</module>
-		<module>bookie-common</module>
-		<module>ocr-handler</module>
+		<module>bookie-handler</module>
 	</modules>
 </project>
