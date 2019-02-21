@@ -14,6 +14,7 @@ public class VBBookmakerMinStakeElementParser implements VBScreenElementParser<V
 	
 	@Override
 	public VBBookmakerMinStakeElement parse(String input) throws ScreenElementParseException {
+		input = input.replaceAll("\\s+", "");
 		final Matcher matcher = PATTERN_MIN_STAKE.matcher(input.trim());
 		if (!matcher.matches()) {
 			throw new ScreenElementParseException(

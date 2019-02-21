@@ -15,6 +15,7 @@ public class VBBookmakerOddsElementParser
 
 	@Override
 	public VBBookmakerOddsElement parse(String input) throws ScreenElementParseException {
+		input = input.replaceAll("\\s+", "");
 		final Matcher matcher = PATTERN_ODDS.matcher(input.trim());
 		if (!matcher.matches()) {
 			throw new ScreenElementParseException(
