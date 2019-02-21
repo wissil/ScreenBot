@@ -20,8 +20,15 @@ public class VBBookmakerMinStakeElementParser implements VBScreenElementParser<V
 					String.format("Input %s doesn't correspond to the MIN_STAKE pattern.", input.trim()));
 		}
 		
-		final double stake = CustomNumberFormat.parseDouble(matcher.group(1));
-		return new VBBookmakerMinStakeElement(stake);
+		final String minStakeText = matcher.group(1);
+		
+		try {
+			final double odds = CustomNumberFormat.parseDouble(minStakeText);
+			return new VBBookmakerMinStakeElement(odds);
+		} catch (Exception e) {
+			throw new ScreenElementParseException(
+					String.format("Couldn't parse input %s to min stake.", minStakeText));
+		}
 	}
 
 }
