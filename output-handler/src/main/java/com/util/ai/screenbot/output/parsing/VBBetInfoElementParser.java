@@ -26,9 +26,34 @@ public class VBBetInfoElementParser
 					String.format("Input %s doesn't correspond to the BET_INFO pattern.", input.trim()));
 		}
 		
-		final double odds = CustomNumberFormat.parseDouble(matcher.group(1));
-		final double stake = CustomNumberFormat.parseDouble(matcher.group(2));
-		final double value = CustomNumberFormat.parseDouble(matcher.group(3));
+		final String oddsText = matcher.group(1);
+		final String stakeText = matcher.group(2);
+		final String valueText = matcher.group(3);
+		
+		double odds = 0.;
+		double stake = 0.;
+		double value = 0.;
+		
+		try {
+			odds = CustomNumberFormat.parseDouble(oddsText);
+		} catch (Exception e) {
+			throw new ScreenElementParseException(
+					String.format("Couldn't parse input %s to VB odds.", oddsText));
+		}
+		
+		try {
+			stake = CustomNumberFormat.parseDouble(stakeText);
+		} catch (Exception e) {
+			throw new ScreenElementParseException(
+					String.format("Couldn't parse input %s to VB stake.", stakeText));
+		}
+		
+		try {
+			value = CustomNumberFormat.parseDouble(valueText);
+		} catch (Exception e) {
+			throw new ScreenElementParseException(
+					String.format("Couldn't parse input %s to VB value.", valueText));
+		}
 		
 		return new VBBetInfoElement(odds, stake, value);
 	}

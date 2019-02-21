@@ -23,7 +23,7 @@ import com.util.ai.screenbot.output.elements.VBBookmakerOddsElement;
 import com.util.ai.screenbot.output.elements.VBSingleBetElement;
 import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationException;
 import com.util.ai.screenbot.support.email.EmailSender;
-import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
+
 
 public class PlaceBetState extends VBState {
 
@@ -74,7 +74,7 @@ public class PlaceBetState extends VBState {
             final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
 
             final double oddsLimit = betInfo.getOdds();
-            final double oddsActual = CustomNumberFormat.parseDouble(bookmakerOdds.getOdds());
+            final double oddsActual = bookmakerOdds.getOdds();
             final double balance = balanceElement.getBalance();
             final double min = minStakeElement.getStake();
             final double max = maxStakeElement.getStake();

@@ -2,13 +2,13 @@ package com.util.ai.screenbot.output.elements;
 
 public class VBBookmakerOddsElement implements VBScreenElement {
 
-	private final String odds;
+	private final double odds;
 	
-	public VBBookmakerOddsElement(String odds) {
+	public VBBookmakerOddsElement(double odds) {
 		this.odds = odds;
 	}
 	
-	public String getOdds() {
+	public double getOdds() {
 		return odds;
 	}
 

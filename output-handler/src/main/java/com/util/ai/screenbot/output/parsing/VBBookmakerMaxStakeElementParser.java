@@ -20,8 +20,15 @@ public class VBBookmakerMaxStakeElementParser implements VBScreenElementParser<V
 					String.format("Input %s doesn't correspond to the MAX_STAKE pattern.", input.trim()));
 		}
 		
-		final double stake = CustomNumberFormat.parseDouble(matcher.group(1));
-		return new VBBookmakerMaxStakeElement(stake);
+		final String maxStakeText = matcher.group(1);
+		
+		try {
+			final double odds = CustomNumberFormat.parseDouble(maxStakeText);
+			return new VBBookmakerMaxStakeElement(odds);
+		} catch (Exception e) {
+			throw new ScreenElementParseException(
+					String.format("Couldn't parse input %s to max stake.", maxStakeText));
+		}
 	}
 
 }
