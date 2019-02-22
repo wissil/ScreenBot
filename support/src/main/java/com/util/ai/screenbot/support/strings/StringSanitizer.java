@@ -39,7 +39,7 @@ public class StringSanitizer {
 		
 		// remove potential separators from the end of the string
 		int i = sb.length();
-		for (; isDecimalSeparator(sb.charAt(i-1)); i--);
+		for (; i >= 0 && isDecimalSeparator(sb.charAt(i-1)); i--);
 		sb.delete(i, sb.length());
 		
 		return this;
