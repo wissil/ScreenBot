@@ -32,4 +32,17 @@ public class StringSanitizerTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void testLastCharSeparator() {
+		final String s1 = "1.73 4.";
+		
+		final String expected = "1.734";
+		final String actual = StringSanitizer.forString(s1)
+				.fromAllWhitespaces()
+				.fromAllNonNumeric()
+				.sanitize();
+		
+		assertEquals(expected, actual);
+	}
 }

@@ -36,6 +36,12 @@ public class StringSanitizer {
 			}
 		}
 		sb.delete(j, sb.length());
+		
+		// remove potential separators from the end of the string
+		int i = sb.length();
+		for (; isDecimalSeparator(sb.charAt(i-1)); i--);
+		sb.delete(i, sb.length());
+		
 		return this;
 	}
 
