@@ -27,6 +27,7 @@ public class StringSanitizer {
 	}
 
 	public StringSanitizer fromAllNonNumeric() {
+		checkString(sb);
 		int j = 0;
 		for(int i=0, n = sb.length(); i<n; i++) {
 			final char c = sb.charAt(i);
