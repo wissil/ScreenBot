@@ -16,7 +16,7 @@ public class WilliamHillInputBot extends AbstractInputBot {
 
     protected static final Logger log = LoggerFactory.getLogger(WilliamHillInputBot.class);
 
-    protected WilliamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
+    public WilliamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
         super(keyboardHandler, screenHandler, mouseHandler);
 
     }

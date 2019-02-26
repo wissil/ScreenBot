@@ -21,94 +21,100 @@ import com.util.ai.screenbot.input.handlers.screen.WinScreenHandler;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
+import com.util.ai.screenbot.input.logic.williamhill.WilliamHillInputBot;
 import com.util.ai.screenbot.support.platform.Platform;
 import com.util.ai.screenbot.support.platform.PlatformResolver;
 
 public class InputHandlerModule extends AbstractModule {
 
-	private static final Platform PLATFORM = PlatformResolver.resolveCurrentPlatform();
+    private static final Platform PLATFORM = PlatformResolver.resolveCurrentPlatform();
 
-	@Provides
-	@Singleton
-	KeyboardHandler keyboardHandler() {
-		return new KeyboardHandler();
-	}
+    @Provides
+    @Singleton
+    KeyboardHandler keyboardHandler() {
+        return new KeyboardHandler();
+    }
 
-	@Provides
-	@Singleton
-	MouseHandler mouseHandler() {
-		return new MouseHandler();
-	}
+    @Provides
+    @Singleton
+    MouseHandler mouseHandler() {
+        return new MouseHandler();
+    }
 
-	@Provides
-	@Singleton
-	ScreenHandler screenHandler() {
-		switch (PLATFORM) {
-		case WINDOWS:
-			return new WinScreenHandler();
-		case MAC:
-			return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
-		default:
-			throw new IllegalArgumentException(String.format("Platform %s is not known.", PLATFORM));
-		}
-	}
+    @Provides
+    @Singleton
+    ScreenHandler screenHandler() {
+        switch (PLATFORM) {
+        case WINDOWS:
+            return new WinScreenHandler();
+        case MAC:
+            return new MacScreenHandler(new ScriptEngineManager().getEngineByName("AppleScriptEngine"));
+        default:
+            throw new IllegalArgumentException(String.format("Platform %s is not known.", PLATFORM));
+        }
+    }
 
-	@Provides
-	@Singleton
-	AbstractVBConstants vbConstants() {
-		if (PLATFORM.equals(Platform.MAC))
-			return new DefaultVBConstants();
+    @Provides
+    @Singleton
+    AbstractVBConstants vbConstants() {
+        if (PLATFORM.equals(Platform.MAC))
+            return new DefaultVBConstants();
 
-		final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
+        final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 
-		switch (resolution) {
-		case RESOLUTION_1366x768:
-			return new VBConstants_1366x768();
-		default:
-			throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
-		}
+        switch (resolution) {
+        case RESOLUTION_1366x768:
+            return new VBConstants_1366x768();
+        default:
+            throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
+        }
 
-	}
+    }
 
-	@Provides
-	@Singleton
-	AbstractMarathonbetConstants marathonbetConstants() {
-		if (PLATFORM.equals(Platform.MAC))
-			return new DefaultMarathonbetConstants();
+    @Provides
+    @Singleton
+    AbstractMarathonbetConstants marathonbetConstants() {
+        if (PLATFORM.equals(Platform.MAC))
+            return new DefaultMarathonbetConstants();
 
-		final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
+        final SupportedScreenResolution resolution = ScreenConfig.getScreenResolution();
 
-		switch (resolution) {
-		case RESOLUTION_1366x768:
-			return new MarathonbetConstants_1366x768();
-		default:
-			throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
-		}
+        switch (resolution) {
+        case RESOLUTION_1366x768:
+            return new MarathonbetConstants_1366x768();
+        default:
+            throw new IllegalArgumentException(String.format("Not supported resolution %s", resolution));
+        }
 
-	}
+    }
 
-	@Inject
-	@Provides
-	@Singleton
-	VBMainInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
-			MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-		return new VBMainInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-	}
+    @Inject
+    @Provides
+    @Singleton
+    VBMainInputBot valueBettingBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
+        return new VBMainInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+    }
 
-	@Inject
-	@Provides
-	@Singleton
-	VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
-			MouseHandler mouseHandler, AbstractVBConstants vbConstants) {
-		return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
-	}
+    @Inject
+    @Provides
+    @Singleton
+    VBBrowserInputBot valueBettingBrowserBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
+            AbstractVBConstants vbConstants) {
+        return new VBBrowserInputBot(keyboardHandler, screenHandler, mouseHandler, vbConstants);
+    }
 
-	@Inject
-	@Provides
-	@Singleton
-	MarathonbetInputBot marathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
-			MouseHandler mouseHandler, AbstractMarathonbetConstants marathonbetConstants) {
-		return new MarathonbetInputBot(keyboardHandler, screenHandler, mouseHandler, marathonbetConstants);
-	}
+    @Inject
+    @Provides
+    @Singleton
+    MarathonbetInputBot marathonbetInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler,
+            AbstractMarathonbetConstants marathonbetConstants) {
+        return new MarathonbetInputBot(keyboardHandler, screenHandler, mouseHandler, marathonbetConstants);
+    }
 
+    @Inject
+    @Provides
+    @Singleton
+    WilliamHillInputBot williamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
+        return new WilliamHillInputBot(keyboardHandler, screenHandler, mouseHandler);
+    }
 }
