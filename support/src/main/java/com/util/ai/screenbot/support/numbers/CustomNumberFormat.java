@@ -45,6 +45,15 @@ public class CustomNumberFormat {
 		return Double.parseDouble(s);
 	}
 	
+	public static int parseInt(String s) {
+		s = s
+				.replaceAll(ANY_WHITESPACE_REGEX, EMPTY_STRING)
+				.replaceAll("\\.", EMPTY_STRING)
+				.replaceAll(",", EMPTY_STRING);
+		
+		return Integer.parseInt(s);
+	}
+	
 	private static boolean isSeparator(char c) {
 		return SEPARATORS.contains(c);
 	}

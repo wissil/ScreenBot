@@ -65,4 +65,13 @@ public class CustomNumberFormatTest extends SupportTestBase {
 		assertEquals(expected, CustomNumberFormat.parseDouble(s2), PRECISION);
 		assertEquals(expected, CustomNumberFormat.parseDouble(s3), PRECISION);
 	}
+	
+	@Test
+	public void intNumberTest() {
+		final String s1 = "17 .,. ";
+		
+		final int expected = 17;
+		
+		assertEquals(expected, CustomNumberFormat.parseInt(s1));
+	}
 }

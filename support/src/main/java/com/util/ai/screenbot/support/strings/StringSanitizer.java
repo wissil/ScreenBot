@@ -56,6 +56,6 @@ public class StringSanitizer {
 	}
 
 	private static boolean isDecimalSeparator(char c) {
-		return c == '.' || c == ',';
+		return c == '.' || c == ',' || c == '/';
 	}
 }
