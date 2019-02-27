@@ -1,9 +1,12 @@
 package com.util.ai.screenbot.input.logic.williamhill;
 
+import java.awt.image.BufferedImage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.constants.williamhill.WilliamHillGuiConstants;
+import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
@@ -57,5 +60,15 @@ public class WilliamHillInputBot extends AbstractInputBot {
         if (SikuliUtils.writeToElement(WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT, String.valueOf(stake)))
             return;
         throw new InvalidBetSlipException("Could not find input stake element.");
+    }
+
+    public BufferedImage takeBalanceScreenshot() throws FatalVBException {
+        log.debug("Taking bookmaker balance screenshot ...");
+
+        try {
+            return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_BALANCE, 70);
+        } catch (GuiElementNotFoundException e) {
+            throw new FatalVBException("Balance could not be read.");
+        }
     }
 }

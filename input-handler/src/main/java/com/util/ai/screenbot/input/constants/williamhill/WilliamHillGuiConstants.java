@@ -13,4 +13,6 @@ public class WilliamHillGuiConstants {
     public static final String WILLIAM_HILL_PLACE_BET = WILLIAM_HILL_PREFIX + "WilliamHill_PlaceBet" + MIME_TYPE;
 
     public static final String WILLIAM_HILL_REMOVE_ALL = WILLIAM_HILL_PREFIX + "WilliamHill_ClearSlip" + MIME_TYPE;
+
+    public static final String WILLIAM_HILL_BALANCE = WILLIAM_HILL_PREFIX + "WilliamHill_Balance" + MIME_TYPE;
 }
