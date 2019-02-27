@@ -15,7 +15,7 @@ public class VBBookmakerOddsElementParser
 	implements VBScreenElementParser<VBBookmakerOddsElement> {
 	
 	private static final Pattern PATTERN_ODDS_DECIMAL = Pattern.compile(
-			"(?:[^\\d]*)(\\d+\\s*((?:\\.|,)\\s*\\d)?\\s*\\d*)");
+			"(?:[^\\d]*)(\\d+\\s*((?:\\.|,)\\s*\\d)\\s*\\d*)");
 	
 	private static final Pattern PATTERN_ODDS_FRACTION = Pattern.compile(
 			"(\\s*\\d*\\s*\\/\\s*\\d*\\s*)");
