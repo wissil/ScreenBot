@@ -71,4 +71,14 @@ public class WilliamHillInputBot extends AbstractInputBot {
             throw new FatalVBException("Balance could not be read.");
         }
     }
+
+    public BufferedImage takeBookmakerOddsScreenshot() throws InvalidBetSlipException {
+        log.debug("Taking bookmaker odds screenshot ...");
+
+        try {
+            return SikuliUtils.getImageLeftToElement(WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT, 50);
+        } catch (GuiElementNotFoundException e) {
+            throw new InvalidBetSlipException("Odds input element is missing.", e);
+        }
+    }
 }
