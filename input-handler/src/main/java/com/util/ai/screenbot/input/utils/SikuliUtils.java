@@ -30,6 +30,15 @@ public class SikuliUtils {
 
 	private static final Screen SCREEN = new Screen();
 
+	public static void clickOnElementFast(String elementPath) throws GuiElementNotFoundException {
+		try {
+			SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT);
+			SCREEN.click(elementPath);
+		} catch (FindFailed e) {
+			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
+		}
+	}
+
 	public static void clickOnElement(String elementPath) throws GuiElementNotFoundException {
 		clickOnElement(elementPath, DEFAULT_WAIT_TIMEOUT);
 	}
@@ -52,7 +61,6 @@ public class SikuliUtils {
 			return true;
 		} catch (FindFailed e) {
 			return false;
-//			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}
 	}
 
@@ -101,4 +109,9 @@ public class SikuliUtils {
 			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}
 	}
+
+	public static boolean waitForElementToVanish(String elementPath, int timeoutMs) {
+		return SCREEN.waitVanish(elementPath, timeoutMs);
+	}
+
 }

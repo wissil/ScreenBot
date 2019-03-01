@@ -1,5 +1,6 @@
 package com.util.ai.screenbot.input.logic.value.betting;
 
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_BUSY;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETTING_BROWSER_DONE;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET_INFO;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.CANCEL;
@@ -87,21 +88,24 @@ public class VBBrowserInputBot extends VBInputBot {
 	public void waitForBettingBrowser() throws BettingBrowserTimeoutException {
 		log.debug("Waiting for the betting browser to load ...");
 
+		while (!SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 30)
+				&& SikuliUtils.waitForElementToVanish(BETTING_BROWSER_BUSY, 2))
+			;
+
 		// wait for max 40 seconds for the first appearance
-		SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40);
-
-		// wait 2 seconds
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// wait for max 40 seconds for the second appearance
-		if (!SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40)) {
+//		SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 40);
+//		log.debug("first done!");
+//		if (SikuliUtils.waitForElement(BETTING_BROWSER_BUSY, 2)) {
+//			log.debug("first busy");
+//			SikuliUtils.waitForElementToVanish(BETTING_BROWSER_BUSY, 20);
+//			log.debug("busy vanish");
+//		}
+//
+//		// wait for max 40 seconds for the second appearance
+		if (!SikuliUtils.waitForElement(BETTING_BROWSER_DONE, 20)) {
 			throw new BettingBrowserTimeoutException("Betting browser done element not found.");
 		}
-
-		log.debug("Betting browser successfully loaded!");
+//
+//		log.debug("Betting browser successfully loaded!");
 	}
 }

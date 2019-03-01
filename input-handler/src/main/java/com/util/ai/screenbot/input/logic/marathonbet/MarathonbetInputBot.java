@@ -28,7 +28,6 @@ import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
-
 public class MarathonbetInputBot extends AbstractInputBot {
 
 	protected static final Logger log = LoggerFactory.getLogger(MarathonbetInputBot.class);
@@ -45,7 +44,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Clicking on bet slip header element ...");
 
 		try {
-			SikuliUtils.clickOnElement(MARATHON_BET_SLIP_LOADED);
+			SikuliUtils.clickOnElementFast(MARATHON_BET_SLIP_LOADED);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
 		}
@@ -53,12 +52,12 @@ public class MarathonbetInputBot extends AbstractInputBot {
 
 	public void checkBettingSlip() throws InvalidBetSlipException {
 		log.debug("Waiting for the bet slip to load ...");
-		
-		if (!SikuliUtils.waitForElement(MARATHON_BET_SLIP_LOADED, 5)) {
-			throw new InvalidBetSlipException("Bet slip header element is missing.");
-		}
 
-		clickBettingSlip();
+		try {
+			SikuliUtils.clickOnElementFast(MARATHON_BET_SLIP_LOADED);
+		} catch (GuiElementNotFoundException e) {
+			throw new InvalidBetSlipException("");
+		}
 		log.debug("Bet slip successfully loaded!");
 	}
 
