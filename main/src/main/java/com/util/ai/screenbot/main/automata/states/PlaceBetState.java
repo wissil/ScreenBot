@@ -73,7 +73,7 @@ public class PlaceBetState extends VBState {
 			final double balance = balanceElement.getBalance();
 			final double value = betInfo.getValue();
 
-			final double stake = betInfo.getStake();
+			final double stake = 0.2;
 
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
@@ -133,6 +133,8 @@ public class PlaceBetState extends VBState {
 			sendEmail();
 			System.exit(-1);
 		}
+
+		new IdleState(in, out, email).process();
 	}
 
 	private Bookie parseBookie(String bookieName, String participants) throws InterruptedException, FatalVBException {

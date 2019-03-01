@@ -8,6 +8,8 @@ public class VBGuiConstants {
 
 	public static final String BET = "Bet" + MIME_TYPE;
 
+	public static final String BLANK = "Blank" + MIME_TYPE;
+
 	public static final String BETTING_BROWSER_DONE = "BettingBrowser_Done" + MIME_TYPE;
 
 	public static final String BETTING_BROWSER_BUSY = "BettingBrowser_Busy" + MIME_TYPE;

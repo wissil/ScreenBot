@@ -4,12 +4,18 @@ import java.awt.image.BufferedImage;
 
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.ImagePath;
+import org.sikuli.script.Match;
+import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 
 public class SikuliUtils {
+
+	private static final Logger log = LoggerFactory.getLogger(SikuliUtils.class);
 
 	private SikuliUtils() {
 	}
@@ -63,7 +69,7 @@ public class SikuliUtils {
 			return false;
 		}
 	}
-	
+
 	public static boolean waitForElement(String elementPath, double timeoutMs) {
 		try {
 			SCREEN.wait(elementPath, timeoutMs);
@@ -122,11 +128,21 @@ public class SikuliUtils {
 	public static boolean waitForElementToVanish(String elementPath, int timeoutMs) {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
 	}
-	
-	public static boolean waitForElementToAppearBelow(String elementPath, int pixels, double timeout) {
+
+	public static boolean waitForElementToAppearBelow(String elementPath, String se, int pixels, double timeout) {
 		try {
-			SCREEN.wait(elementPath, timeout).below(pixels);
-			return true;
+			Match p = SCREEN.wait(elementPath);
+			log.debug("Found first");
+
+			Region r = p.below(pixels);
+			log.debug("Found region");
+
+			if (r.find(se).getScore() < 0.92)
+				return true;
+
+			log.debug("waiting to vanish...");
+
+			return r.waitVanish(se, timeout);
 		} catch (FindFailed e) {
 			return false;
 		}
