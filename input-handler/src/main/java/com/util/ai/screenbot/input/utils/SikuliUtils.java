@@ -4,18 +4,13 @@ import java.awt.image.BufferedImage;
 
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.ImagePath;
-import org.sikuli.script.Match;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 
 public class SikuliUtils {
-
-	private static final Logger log = LoggerFactory.getLogger(SikuliUtils.class);
 
 	private SikuliUtils() {
 	}
@@ -24,6 +19,9 @@ public class SikuliUtils {
 		// initialize
 		ImagePath.add(AbstractInputBot.class.getCanonicalName() + "/images");
 	}
+	
+	/** Percentage indicating similarity that is considered as exact. */
+	private static final double EXACT_SIMILARITY = 0.92;
 
 	/** In seconds. */
 	private static final int DEFAULT_WAIT_TIMEOUT = 5;
@@ -62,15 +60,6 @@ public class SikuliUtils {
 	}
 
 	public static boolean waitForElement(String elementPath, int timeoutMs) {
-		try {
-			SCREEN.wait(elementPath, timeoutMs);
-			return true;
-		} catch (FindFailed e) {
-			return false;
-		}
-	}
-
-	public static boolean waitForElement(String elementPath, double timeoutMs) {
 		try {
 			SCREEN.wait(elementPath, timeoutMs);
 			return true;
@@ -129,20 +118,11 @@ public class SikuliUtils {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
 	}
 
-	public static boolean waitForElementToAppearBelow(String elementPath, String se, int pixels, double timeout) {
+	public static boolean waitForTargetToVanishBelowBase(String basePath, String targetPath, int pixels, double timeout) {
 		try {
-			Match p = SCREEN.wait(elementPath);
-			log.debug("Found first");
-
-			Region r = p.below(pixels);
-			log.debug("Found region");
-
-			if (r.find(se).getScore() < 0.92)
-				return true;
-
-			log.debug("waiting to vanish...");
-
-			return r.waitVanish(se, timeout);
+			final Region region = SCREEN.wait(basePath).below(pixels);
+			if (region.find(targetPath).getScore() < EXACT_SIMILARITY) return true;
+			return region.waitVanish(targetPath, timeout);
 		} catch (FindFailed e) {
 			return false;
 		}
