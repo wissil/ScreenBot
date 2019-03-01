@@ -73,7 +73,7 @@ public class PlaceBetState extends VBState {
 			final double balance = balanceElement.getBalance();
 			final double value = betInfo.getValue();
 
-			final double stake = 0.2;
+			final double stake = betInfo.getStake();
 
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
