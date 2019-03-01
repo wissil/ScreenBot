@@ -63,6 +63,15 @@ public class SikuliUtils {
 			return false;
 		}
 	}
+	
+	public static boolean waitForElement(String elementPath, double timeoutMs) {
+		try {
+			SCREEN.wait(elementPath, timeoutMs);
+			return true;
+		} catch (FindFailed e) {
+			return false;
+		}
+	}
 
 	public static boolean writeToElement(String elementPath, String text) {
 		try {
@@ -112,6 +121,15 @@ public class SikuliUtils {
 
 	public static boolean waitForElementToVanish(String elementPath, int timeoutMs) {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
+	}
+	
+	public static boolean waitForElementToAppearBelow(String elementPath, int pixels, double timeout) {
+		try {
+			SCREEN.wait(elementPath, timeout).below(pixels);
+			return true;
+		} catch (FindFailed e) {
+			return false;
+		}
 	}
 
 }
