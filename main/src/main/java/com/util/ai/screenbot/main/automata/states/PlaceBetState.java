@@ -68,17 +68,12 @@ public class PlaceBetState extends VBState {
 					bookie);
 			final VBBalanceElement balanceElement = out.readBalance(in.getBalanceStakeImage(bookie), bookie);
 
-//            final VBBookmakerMaxStakeElement maxStakeElement = out.readMaxStake(in.getMaxStakeImage(bookie), bookie);
-//            final VBBookmakerMinStakeElement minStakeElement = out.readMinStake(in.getMinStakeImage(bookie), bookie);
-
 			final double oddsLimit = betInfo.getOdds();
 			final double oddsActual = bookmakerOdds.getOdds();
 			final double balance = balanceElement.getBalance();
-//            final double min = minStakeElement.getStake();
-//            final double max = maxStakeElement.getStake();
 			final double value = betInfo.getValue();
 
-			double stake = betInfo.getStake();
+			final double stake = betInfo.getStake();
 
 			log.debug("All the data successfully parsed!");
 			log.debug("Checking if the bet could be placed!");
