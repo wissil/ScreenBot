@@ -40,15 +40,6 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		this.marathonbetConstants = Objects.requireNonNull(marathonbetConstants);
 	}
 
-	private static void clickBettingSlip() throws InvalidBetSlipException {
-		log.debug("Clicking on bet slip header element ...");
-
-		try {
-			SikuliUtils.clickOnElementFast(MARATHON_BET_SLIP_LOADED);
-		} catch (GuiElementNotFoundException e) {
-			throw new InvalidBetSlipException("Bet slip header element is missing.", e);
-		}
-	}
 
 	public void checkBettingSlip() throws InvalidBetSlipException {
 		log.debug("Waiting for the bet slip to load ...");
@@ -56,7 +47,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		try {
 			SikuliUtils.clickOnElementFast(MARATHON_BET_SLIP_LOADED);
 		} catch (GuiElementNotFoundException e) {
-			throw new InvalidBetSlipException("");
+			throw new InvalidBetSlipException("Bet slip loaded element missing.");
 		}
 		log.debug("Bet slip successfully loaded!");
 	}
