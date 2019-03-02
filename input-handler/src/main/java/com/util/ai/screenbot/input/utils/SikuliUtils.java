@@ -6,11 +6,15 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.ImagePath;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 
 public class SikuliUtils {
+
+	private static final Logger log = LoggerFactory.getLogger(SikuliUtils.class);
 
 	private SikuliUtils() {
 	}
@@ -19,18 +23,18 @@ public class SikuliUtils {
 		// initialize
 		ImagePath.add(AbstractInputBot.class.getCanonicalName() + "/images");
 	}
-	
+
 	/** Percentage indicating similarity that is considered as exact. */
-	private static final double EXACT_SIMILARITY = 0.92;
+	private static final double EXACT_SIMILARITY = 0.97;
 
 	/** In seconds. */
 	private static final int DEFAULT_WAIT_TIMEOUT = 5;
 
 	/** Hold after click, in millis. */
-	private static final int HOLD_AFTER_CLICK = 200;
+	private static final int HOLD_AFTER_CLICK = 50;
 
 	/** Hold before click, in millis. */
-	private static final int HOLD_BEFORE_CLICK = 200;
+	private static final int HOLD_BEFORE_CLICK = 50;
 
 	private static final Screen SCREEN = new Screen();
 
@@ -118,10 +122,16 @@ public class SikuliUtils {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
 	}
 
-	public static boolean waitForTargetToVanishBelowBase(String basePath, String targetPath, int pixels, double timeout) {
+	public static boolean waitForTargetToVanishBelowBase(String basePath, String targetPath, int pixels,
+			double timeout) {
 		try {
 			final Region region = SCREEN.wait(basePath).below(pixels);
-			if (region.find(targetPath).getScore() < EXACT_SIMILARITY) return true;
+			region.click();
+
+			log.info("SIM: " + region.find(targetPath).getScore());
+
+			if (region.find(targetPath).getScore() < EXACT_SIMILARITY)
+				return true;
 			return region.waitVanish(targetPath, timeout);
 		} catch (FindFailed e) {
 			return false;

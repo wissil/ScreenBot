@@ -1,5 +1,10 @@
 package com.util.ai.screenbot.input.logic.value.betting;
 
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.ALL_BETS_FOR_SELECTED_MATCH;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
+
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -18,13 +23,6 @@ import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
-
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.ALL_BETS_FOR_SELECTED_MATCH;
-
-
 
 public class VBMainInputBot extends VBInputBot {
 
@@ -74,12 +72,12 @@ public class VBMainInputBot extends VBInputBot {
 	 * @throws FatalVBException
 	 */
 	public void betOnTopBet() throws FatalVBException {
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-		mouseHandler.leftClick();
-
-		log.debug("Clicking the bet on top ...");
+//		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
+//
+//		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
+//		mouseHandler.leftClick();
+//
+//		log.debug("Clicking the bet on top ...");
 
 		try {
 			SikuliUtils.clickOnElement(BET);
