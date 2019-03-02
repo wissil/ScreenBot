@@ -44,13 +44,7 @@ public class MarathonbetInputBot extends AbstractInputBot {
 		log.debug("Waiting for the bet slip to load ...");
 
 		try {
-			try {
-				Thread.sleep(150);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			SikuliUtils.clickOnElementFast(MARATHON_BET_SLIP_LOADED);
+			SikuliUtils.clickOnElement(MARATHON_BET_SLIP_LOADED);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Bet slip loaded element missing.");
 		}

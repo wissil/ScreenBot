@@ -53,8 +53,8 @@ public class SikuliUtils {
 
 	public static void clickOnElement(String elementPath, int timeoutMs) throws GuiElementNotFoundException {
 		try {
-			SCREEN.wait(elementPath, timeoutMs);
 			Thread.sleep(HOLD_BEFORE_CLICK);
+			SCREEN.wait(elementPath, timeoutMs);
 
 			SCREEN.click(elementPath);
 			Thread.sleep(HOLD_AFTER_CLICK);

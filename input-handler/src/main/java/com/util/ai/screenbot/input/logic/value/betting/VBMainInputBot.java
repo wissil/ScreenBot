@@ -5,7 +5,6 @@ import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
 import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
 
-import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -41,21 +40,6 @@ public class VBMainInputBot extends VBInputBot {
 		this.appDimensions = checkScreen();
 	}
 
-	public Boolean checkTopBet() {
-
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-		mouseHandler.leftClick();
-
-		Color color = screenHandler.detectColor(betCoordinates.x, betCoordinates.y);
-
-		Boolean topBetExists = !color.equals(Color.WHITE);
-
-		log.debug("Top bet exists? --> " + topBetExists);
-		return topBetExists;
-	}
-
 	public BufferedImage takeTopBetScreenshot() throws FatalVBException {
 		log.debug("Taking top bet screenshot ...");
 
@@ -72,13 +56,6 @@ public class VBMainInputBot extends VBInputBot {
 	 * @throws FatalVBException
 	 */
 	public void betOnTopBet() throws FatalVBException {
-//		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-//
-//		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-//		mouseHandler.leftClick();
-//
-//		log.debug("Clicking the bet on top ...");
-
 		try {
 			SikuliUtils.clickOnElement(BET);
 		} catch (GuiElementNotFoundException e) {
