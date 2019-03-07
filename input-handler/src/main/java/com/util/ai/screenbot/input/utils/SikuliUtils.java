@@ -6,15 +6,11 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.ImagePath;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
 
 public class SikuliUtils {
-
-	private static final Logger log = LoggerFactory.getLogger(SikuliUtils.class);
 
 	private SikuliUtils() {
 	}
@@ -31,10 +27,10 @@ public class SikuliUtils {
 	private static final int DEFAULT_WAIT_TIMEOUT = 5;
 
 	/** Hold after click, in millis. */
-	private static final int HOLD_AFTER_CLICK = 50;
+	private static final int HOLD_AFTER_CLICK = 150;
 
 	/** Hold before click, in millis. */
-	private static final int HOLD_BEFORE_CLICK = 50;
+	private static final int HOLD_BEFORE_CLICK = 150;
 
 	private static final Screen SCREEN = new Screen();
 
@@ -53,9 +49,9 @@ public class SikuliUtils {
 
 	public static void clickOnElement(String elementPath, int timeoutMs) throws GuiElementNotFoundException {
 		try {
-			Thread.sleep(HOLD_BEFORE_CLICK);
 			SCREEN.wait(elementPath, timeoutMs);
 
+			Thread.sleep(HOLD_BEFORE_CLICK);
 			SCREEN.click(elementPath);
 			Thread.sleep(HOLD_AFTER_CLICK);
 		} catch (FindFailed | InterruptedException e) {
@@ -90,9 +86,8 @@ public class SikuliUtils {
 	public static BufferedImage getImageRigtToElement(String elementPath, int pixels)
 			throws GuiElementNotFoundException {
 		try {
-			Thread.sleep(HOLD_BEFORE_CLICK);
 			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).right(pixels)).getImage();
-		} catch (FindFailed | InterruptedException e) {
+		} catch (FindFailed e) {
 			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}
 	}
@@ -100,16 +95,14 @@ public class SikuliUtils {
 	public static BufferedImage getImageBelowElement(String elementPath, int pixels)
 			throws GuiElementNotFoundException {
 		try {
-			Thread.sleep(HOLD_BEFORE_CLICK);
 			return SCREEN.capture(SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).below(pixels)).getImage();
-		} catch (FindFailed | InterruptedException e) {
+		} catch (FindFailed e) {
 			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", elementPath), e);
 		}
 	}
 
 	public static void clickBelowElement(String elementPath, int pixels) throws GuiElementNotFoundException {
 		try {
-			Thread.sleep(HOLD_BEFORE_CLICK);
 			SCREEN.wait(elementPath, DEFAULT_WAIT_TIMEOUT).below(pixels).click();
 
 			Thread.sleep(HOLD_AFTER_CLICK);
@@ -127,9 +120,6 @@ public class SikuliUtils {
 		try {
 			final Region region = SCREEN.wait(basePath).below(pixels);
 			region.click();
-
-			log.info("SIM: " + region.find(targetPath).getScore());
-
 			if (region.find(targetPath).getScore() < EXACT_SIMILARITY)
 				return true;
 			return region.waitVanish(targetPath, timeout);

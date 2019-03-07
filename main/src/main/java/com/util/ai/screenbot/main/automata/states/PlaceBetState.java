@@ -63,6 +63,7 @@ public class PlaceBetState extends VBState {
 
 			log.debug("Betting slip successfully checked!");
 
+			Thread.sleep(200);
 			final VBBetInfoElement betInfo = out.readBetInfo(in.getOddsInputImage());
 			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(in.getBookmakerOddsImage(bookie),
 					bookie);
