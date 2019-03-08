@@ -10,8 +10,6 @@ import com.util.ai.screenbot.main.bookie.Bookie;
 
 public interface InputHandler {
 
-	boolean isNewBetPresent();
-
 	void clickBetOnTopEvent() throws FatalVBException;
 
 	void openBettingBrowserWindow();

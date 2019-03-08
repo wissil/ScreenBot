@@ -66,16 +66,12 @@ public class CleanBetState extends VBState {
 		}
 
 		// 2) click Cancel
-		Thread.sleep(1000);
 		log.debug("Clicking cancel at the betting browser ...");
 		in.clickCancelAtBettingBrowser();
 
 		// 3) go to main screen
-		Thread.sleep(1000);
 		log.debug("Opening main betting window ...");
 		in.openMainWindow();
-
-		Thread.sleep(800);
 
 		// click and remove all events on the main screen
 		// if the top event is the same as the failed event (input event)

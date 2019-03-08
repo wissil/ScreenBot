@@ -26,11 +26,6 @@ public class InputHandlerImpl implements InputHandler {
 	}
 
 	@Override
-	public boolean isNewBetPresent() {
-		return mainBot.checkTopBet();
-	}
-
-	@Override
 	public BufferedImage getSingleBetImage() throws FatalVBException {
 		BufferedImage singleBet = mainBot.takeTopBetScreenshot();
 		DiskUtils.saveBetToDisk(singleBet);
