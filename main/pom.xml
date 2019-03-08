@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>ScreenBot</artifactId>
 		<groupId>com.util.ai.screenbot</groupId>
-		<version>1.0.4-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>main</artifactId>
