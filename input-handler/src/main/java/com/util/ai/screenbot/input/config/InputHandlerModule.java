@@ -18,6 +18,7 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.MacScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.handlers.screen.WinScreenHandler;
+import com.util.ai.screenbot.input.logic.expert.ExpertInputBot;
 import com.util.ai.screenbot.input.logic.marathonbet.MarathonbetInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBBrowserInputBot;
 import com.util.ai.screenbot.input.logic.value.betting.VBMainInputBot;
@@ -116,5 +117,12 @@ public class InputHandlerModule extends AbstractModule {
     @Singleton
     WilliamHillInputBot williamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
         return new WilliamHillInputBot(keyboardHandler, screenHandler, mouseHandler);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    ExpertInputBot expertInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
+        return new ExpertInputBot(keyboardHandler, screenHandler, mouseHandler);
     }
 }

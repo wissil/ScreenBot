@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.util.ai.screenbot.input.constants.expert.ExpertGuiConstants;
+import com.util.ai.screenbot.input.constants.williamhill.WilliamHillGuiConstants;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.GuiElementNotFoundException;
 import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
@@ -25,10 +26,12 @@ public class ExpertInputBot extends AbstractInputBot {
 
     }
 
-    public void checkBettingSlip() throws InvalidBetSlipException {
+    public void checkBettingSlip(int timeout) throws InvalidBetSlipException {
         log.debug("Waiting for the bet slip to load ...");
 
-        // TODO
+        if (!SikuliUtils.waitForElement(WilliamHillGuiConstants.WILLIAM_HILL_BET_SLIP_LOADED, timeout)) {
+            throw new InvalidBetSlipException("Bet slip header element is missing.");
+        }
 
         log.debug("Bet slip successfully loaded!");
     }

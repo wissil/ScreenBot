@@ -18,4 +18,6 @@ public class ExpertGuiConstants {
 
     public static final String EXPERT_REMOVE_ALL = EXPERT_PREFIX + "Expert_RemoveAll" + MIME_TYPE;
 
+    public static final String EXPERT_BET_SLIP = EXPERT_PREFIX + "Expert_BetSlip" + MIME_TYPE;
+
 }
