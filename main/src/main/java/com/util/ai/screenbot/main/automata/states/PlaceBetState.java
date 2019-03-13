@@ -63,7 +63,7 @@ public class PlaceBetState extends VBState {
 
 			log.debug("Betting slip successfully checked!");
 
-			Thread.sleep(200);
+			Thread.sleep(1000); // TODO increased for testing purposes. 200 ms was not preventing "Policy" bug
 			final VBBetInfoElement betInfo = out.readBetInfo(in.getOddsInputImage());
 			final VBBookmakerOddsElement bookmakerOdds = out.readBookmakerOdds(in.getBookmakerOddsImage(bookie),
 					bookie);
@@ -135,7 +135,7 @@ public class PlaceBetState extends VBState {
 			System.exit(-1);
 		}
 
-		new IdleState(in, out, email).process();
+		return;
 	}
 
 	private Bookie parseBookie(String bookieName, String participants) throws InterruptedException, FatalVBException {
