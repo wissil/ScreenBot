@@ -86,13 +86,13 @@ public class CleanBetState extends VBState {
 			}
 		} catch (VBElementInterpretationException e) {
 			log.warn("Interpretation failed. Possibly no single bet left to clean.", e);
-			new IdleState(in, out, email).process();
+			return;
 		} catch (Exception e) {
 			log.error("Unexpected error occurred", e);
 			sendEmail();
 		}
 
-		new IdleState(in, out, email).process();
+		return;
 	}
 
 	private boolean bookieExists() {

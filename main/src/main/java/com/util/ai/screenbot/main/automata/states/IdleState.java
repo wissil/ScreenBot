@@ -32,13 +32,18 @@ public class IdleState extends VBState {
 
 	@Override
 	void execute() throws InterruptedException, FatalVBException {
-		/*
-		 * This will run indefinitely, or as long as the 
-		 * Blank element doesn't vanish below the Single Bet header.
-		 */
-		if (SikuliUtils.waitForTargetToVanishBelowBase(SINGLE_BET_HEADER, BLANK, 20, Double.POSITIVE_INFINITY)) {
-			new ParseBetState(in, out, email).process();
+
+		while (true) {
+
+			/*
+			 * This will run indefinitely, or as long as the Blank element doesn't vanish
+			 * below the Single Bet header.
+			 */
+			if (SikuliUtils.waitForTargetToVanishBelowBase(SINGLE_BET_HEADER, BLANK, 20, Double.POSITIVE_INFINITY)) {
+				new ParseBetState(in, out, email).process();
+			}
 		}
+
 	}
 
 }
