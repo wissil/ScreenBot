@@ -32,7 +32,6 @@ import net.sourceforge.tess4j.Tesseract;
 
 import com.util.ai.screenbot.output.parsing.VBBalanceElementParser;
 import com.util.ai.screenbot.output.parsing.VBBetInfoElementParser;
-import com.util.ai.screenbot.output.parsing.VBBetInfoValueElementParser;
 import com.util.ai.screenbot.output.parsing.VBBookmakerMaxStakeElementParser;
 import com.util.ai.screenbot.output.parsing.VBBookmakerOddsElementParser;
 import com.util.ai.screenbot.output.parsing.VBBookmakerMinStakeElementParser;
@@ -80,12 +79,6 @@ public class OutputHandlerModule extends AbstractModule {
 	@Singleton
 	VBBookmakerOddsElementParser placeBetParser() {
 		return new VBBookmakerOddsElementParser();
-	}
-
-	@Provides
-	@Singleton
-	VBBetInfoValueElementParser betInfoValueParser() {
-		return new VBBetInfoValueElementParser();
 	}
 
 	@Inject

@@ -13,7 +13,7 @@ import com.util.ai.screenbot.output.parsing.exceptions.VBElementInterpretationEx
 import com.util.ai.screenbot.support.email.EmailSender;
 
 public class ParseBetState extends VBState {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ParseBetState.class);
 
 	public ParseBetState(InputHandler in, OutputHandler out, EmailSender email) {
@@ -44,8 +44,8 @@ public class ParseBetState extends VBState {
 
 			// remove top bet --> idle()
 			in.removeTopBet();
-			new IdleState(in, out, email).process();
-		}		
+			return;
+		}
 	}
 
 }

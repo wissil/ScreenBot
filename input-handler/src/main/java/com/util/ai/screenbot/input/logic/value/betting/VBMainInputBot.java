@@ -1,6 +1,10 @@
 package com.util.ai.screenbot.input.logic.value.betting;
 
-import java.awt.Color;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.ALL_BETS_FOR_SELECTED_MATCH;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
+
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -19,13 +23,6 @@ import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.BET;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.HIDE;
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.ALL_BETS_FOR_SELECTED_MATCH;
-
-
-
 public class VBMainInputBot extends VBInputBot {
 
 	protected static final Logger log = LoggerFactory.getLogger(VBMainInputBot.class);
@@ -41,21 +38,6 @@ public class VBMainInputBot extends VBInputBot {
 		App.focus("ValueBetting");
 		// Initialize Value Betting screen dimensions
 		this.appDimensions = checkScreen();
-	}
-
-	public Boolean checkTopBet() {
-
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-		mouseHandler.leftClick();
-
-		Color color = screenHandler.detectColor(betCoordinates.x, betCoordinates.y);
-
-		Boolean topBetExists = !color.equals(Color.WHITE);
-
-		log.debug("Top bet exists? --> " + topBetExists);
-		return topBetExists;
 	}
 
 	public BufferedImage takeTopBetScreenshot() throws FatalVBException {
@@ -74,13 +56,6 @@ public class VBMainInputBot extends VBInputBot {
 	 * @throws FatalVBException
 	 */
 	public void betOnTopBet() throws FatalVBException {
-		BotCoordinates betCoordinates = getTopBetMiddleCoordinates();
-
-		mouseHandler.moveMouse(betCoordinates.x, betCoordinates.y);
-		mouseHandler.leftClick();
-
-		log.debug("Clicking the bet on top ...");
-
 		try {
 			SikuliUtils.clickOnElement(BET);
 		} catch (GuiElementNotFoundException e) {

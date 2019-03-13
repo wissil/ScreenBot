@@ -66,16 +66,12 @@ public class CleanBetState extends VBState {
 		}
 
 		// 2) click Cancel
-		Thread.sleep(1000);
 		log.debug("Clicking cancel at the betting browser ...");
 		in.clickCancelAtBettingBrowser();
 
 		// 3) go to main screen
-		Thread.sleep(1000);
 		log.debug("Opening main betting window ...");
 		in.openMainWindow();
-
-		Thread.sleep(800);
 
 		// click and remove all events on the main screen
 		// if the top event is the same as the failed event (input event)
@@ -90,13 +86,13 @@ public class CleanBetState extends VBState {
 			}
 		} catch (VBElementInterpretationException e) {
 			log.warn("Interpretation failed. Possibly no single bet left to clean.", e);
-			new IdleState(in, out, email).process();
+			return;
 		} catch (Exception e) {
 			log.error("Unexpected error occurred", e);
 			sendEmail();
 		}
 
-		new IdleState(in, out, email).process();
+		return;
 	}
 
 	private boolean bookieExists() {

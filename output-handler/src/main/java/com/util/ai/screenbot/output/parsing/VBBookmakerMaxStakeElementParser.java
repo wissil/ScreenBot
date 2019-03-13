@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import com.util.ai.screenbot.output.elements.VBBookmakerMaxStakeElement;
 import com.util.ai.screenbot.output.parsing.exceptions.ScreenElementParseException;
 import com.util.ai.screenbot.support.numbers.CustomNumberFormat;
+import com.util.ai.screenbot.support.strings.StringSanitizer;
 
 public class VBBookmakerMaxStakeElementParser implements VBScreenElementParser<VBBookmakerMaxStakeElement> {
 
@@ -14,6 +15,7 @@ public class VBBookmakerMaxStakeElementParser implements VBScreenElementParser<V
 	
 	@Override
 	public VBBookmakerMaxStakeElement parse(String input) throws ScreenElementParseException {
+		input = StringSanitizer.forString(input).fromAllWhitespaces().fromAllNonNumeric().sanitize();
 		final Matcher matcher = PATTERN_MAX_STAKE.matcher(input.trim());
 		if (!matcher.matches()) {
 			throw new ScreenElementParseException(
