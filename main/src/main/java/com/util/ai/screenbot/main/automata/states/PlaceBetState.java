@@ -135,7 +135,7 @@ public class PlaceBetState extends VBState {
 			System.exit(-1);
 		}
 
-		new IdleState(in, out, email).process();
+		return;
 	}
 
 	private Bookie parseBookie(String bookieName, String participants) throws InterruptedException, FatalVBException {
