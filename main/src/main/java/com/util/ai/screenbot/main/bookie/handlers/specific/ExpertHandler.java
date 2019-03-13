@@ -3,6 +3,7 @@ package com.util.ai.screenbot.main.bookie.handlers.specific;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.logic.expert.ExpertInputBot;
@@ -55,6 +56,17 @@ public class ExpertHandler extends AbstractBookieHandler {
     @Override
     public void checkBettingSlip() throws InvalidBetSlipException {
         expertBot.checkBettingSlip(5);
+
+    }
+
+    @Override
+    public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
+        try {
+            // Wait for 30 seconds to load
+            expertBot.checkBettingSlip(30 * 1000);
+        } catch (InvalidBetSlipException e) {
+            throw new BettingBrowserTimeoutException("Timeout 30s!");
+        }
 
     }
 

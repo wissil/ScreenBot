@@ -1,6 +1,7 @@
 package com.util.ai.screenbot.main.bookie;
 
 import static com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider.bet365Handler;
+import static com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider.expertHandler;
 import static com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider.marathonBetHandler;
 import static com.util.ai.screenbot.main.bookie.handlers.BookieHandlerProvider.williamHillHandler;
 import static com.util.ai.screenbot.support.strings.StringComparator.consideredEqual;
@@ -8,55 +9,67 @@ import static com.util.ai.screenbot.support.strings.StringComparator.consideredE
 import java.util.Arrays;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
 import com.util.ai.screenbot.output.elements.gui.bookie.BookieGraphics;
 import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
 
-
 public enum Bookie {
 
-	MARATHON_BET("Marathonbet", marathonBetHandler()) {
-		
-		@Override
-		public BookieGraphics getGraphics() {
-			return new MarathonGraphics();
-		}
-	},
+    MARATHON_BET("Marathonbet", marathonBetHandler(), true) {
 
-	WILLIAM_HILL("WilliamHill", williamHillHandler()),
+        @Override
+        public BookieGraphics getGraphics() {
+            return new MarathonGraphics();
+        }
+    },
 
-	BET_365("Bet365", bet365Handler());
+    WILLIAM_HILL("WilliamHill", williamHillHandler(), true),
 
-	final String bookieName;
+    BET_365("Bet365", bet365Handler(), true),
 
-	final BookieHandler handler;
-	
-	Bookie(String bookieName, BookieHandler handler) {
-		this.bookieName = Objects.requireNonNull(bookieName);
-		this.handler = Objects.requireNonNull(handler);
-	}
+    EXPERT("Expert", expertHandler(), false);
 
-	public String getBookieName() {
-		return bookieName;
-	}
+    final String bookieName;
 
-	public BookieHandler getHandler() {
-		return handler;
-	}
-	
-	public BookieGraphics getGraphics() {
-		// implement for each bookie 
-		return null;
-	}
+    final BookieHandler handler;
 
-	public static Bookie fromString(String s) throws UnknownBookieException {
-		return Arrays.stream(Bookie.values()).filter(b -> consideredEqual(b.getBookieName(), s)).findFirst()
-				.orElseThrow(
-						() -> new UnknownBookieException(String.format("No bookie similar to '%s' was found.", s)));
-	}
-	
-	@Override
-	public String toString() {
-		return bookieName;
-	}
+    final boolean rebelReady;
+
+    Bookie(String bookieName, BookieHandler handler, boolean rebelReady) {
+        this.bookieName = Objects.requireNonNull(bookieName);
+        this.handler = Objects.requireNonNull(handler);
+        this.rebelReady = rebelReady;
+    }
+
+    public String getBookieName() {
+        return bookieName;
+    }
+
+    public BookieHandler getHandler() {
+        return handler;
+    }
+
+    public BookieGraphics getGraphics() {
+        // implement for each bookie
+        return null;
+    }
+
+    public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
+        this.handler.waitForBettingBrowserToLoad();
+    }
+
+    public boolean isRebelReady() {
+        return this.rebelReady;
+    }
+
+    public static Bookie fromString(String s) throws UnknownBookieException {
+        return Arrays.stream(Bookie.values()).filter(b -> consideredEqual(b.getBookieName(), s)).findFirst()
+                .orElseThrow(() -> new UnknownBookieException(String.format("No bookie similar to '%s' was found.", s)));
+    }
+
+    @Override
+    public String toString() {
+        return bookieName;
+    }
 }

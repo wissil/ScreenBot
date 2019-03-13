@@ -3,6 +3,7 @@ package com.util.ai.screenbot.main.bookie.handlers.specific;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.input.exceptions.FatalVBException;
 import com.util.ai.screenbot.input.exceptions.InvalidBetSlipException;
 import com.util.ai.screenbot.input.logic.williamhill.WilliamHillInputBot;
@@ -55,6 +56,12 @@ public class WilliamHillHandler extends AbstractBookieHandler {
     @Override
     public void checkBettingSlip() throws InvalidBetSlipException {
         williamHillBot.checkBettingSlip();
+
+    }
+
+    @Override
+    public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
+        // Do nothing
 
     }
 
