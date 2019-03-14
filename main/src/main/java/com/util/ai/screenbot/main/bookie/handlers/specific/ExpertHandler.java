@@ -12,62 +12,63 @@ import com.util.ai.screenbot.main.handlers.input.InputHandler;
 
 public class ExpertHandler extends AbstractBookieHandler {
 
-    private final ExpertInputBot expertBot;
+	private final ExpertInputBot expertBot;
 
-    public ExpertHandler(InputHandler in, ExpertInputBot expertBot) {
-        super(in);
-        this.expertBot = Objects.requireNonNull(expertBot);
-    }
+	public ExpertHandler(InputHandler in, ExpertInputBot expertBot) {
+		super(in);
+		this.expertBot = Objects.requireNonNull(expertBot);
+	}
 
-    @Override
-    public void placeBet(double stake) throws InvalidBetSlipException {
-        expertBot.setBetStake(String.valueOf(stake));
-        expertBot.clickBet();
-    }
+	@Override
+	public void placeBet(double stake) throws InvalidBetSlipException {
+		expertBot.setBetStake(String.valueOf(stake));
+		expertBot.clickBet();
+	}
 
-    @Override
-    public void removeBet() throws InvalidBetSlipException {
-        expertBot.clickRemoveAll();
+	@Override
+	public void removeBet() throws InvalidBetSlipException {
+		expertBot.clickRemoveAll();
 
-    }
+	}
 
-    @Override
-    public BufferedImage getBookmakerOddsImage() throws InvalidBetSlipException {
-        return expertBot.takeBookmakerOddsScreenshot();
-    }
+	@Override
+	public BufferedImage getBookmakerOddsImage() throws InvalidBetSlipException {
+		return expertBot.takeBookmakerOddsScreenshot();
+	}
 
-    @Override
-    public BufferedImage getMinStakeImage() {
-        // Does not exists in Expert
-        return null;
-    }
+	@Override
+	public BufferedImage getMinStakeImage() {
+		// Does not exists in Expert
+		return null;
+	}
 
-    @Override
-    public BufferedImage getMaxStakeImage() {
-        // Does not exists in Expert
-        return null;
-    }
+	@Override
+	public BufferedImage getMaxStakeImage() {
+		// Does not exists in Expert
+		return null;
+	}
 
-    @Override
-    public BufferedImage getBalanceStakeImage() throws FatalVBException {
-        return expertBot.takeBalanceScreenshot();
-    }
+	@Override
+	public BufferedImage getBalanceStakeImage() throws FatalVBException {
+		return expertBot.takeBalanceScreenshot();
+	}
 
-    @Override
-    public void checkBettingSlip() throws InvalidBetSlipException {
-        expertBot.checkBettingSlip(5);
+	@Override
+	public void checkBettingSlip() throws InvalidBetSlipException {
+		expertBot.checkBettingSlip(5);
+		expertBot.neutralClick();
 
-    }
+	}
 
-    @Override
-    public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
-        try {
-            // Wait for 30 seconds to load
-            expertBot.checkBettingSlip(30 * 1000);
-        } catch (InvalidBetSlipException e) {
-            throw new BettingBrowserTimeoutException("Timeout 30s!");
-        }
+	@Override
+	public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
+		try {
+			// Wait for 30 seconds to load
+			expertBot.checkBettingSlip(30 * 1000);
+		} catch (InvalidBetSlipException e) {
+			throw new BettingBrowserTimeoutException("Timeout 30s!");
+		}
 
-    }
+	}
 
 }
