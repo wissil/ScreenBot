@@ -43,7 +43,7 @@ public abstract class VBInputBot extends AbstractInputBot {
 		log.debug("VB screen height: " + screen.height);
 
 		// App works only if Value Betting window is full screened
-		checkIsWindowFullScreen(screen);
+		// checkIsWindowFullScreen(screen);
 
 		return screen;
 	}
