@@ -13,12 +13,11 @@ import com.util.ai.screenbot.input.handlers.keyboard.KeyboardHandler;
 import com.util.ai.screenbot.input.handlers.mouse.MouseHandler;
 import com.util.ai.screenbot.input.handlers.screen.ScreenHandler;
 import com.util.ai.screenbot.input.logic.AbstractInputBot;
-import com.util.ai.screenbot.input.logic.williamhill.WilliamHillInputBot;
 import com.util.ai.screenbot.input.utils.SikuliUtils;
 
 public class ExpertInputBot extends AbstractInputBot {
 
-	protected static final Logger log = LoggerFactory.getLogger(WilliamHillInputBot.class);
+	protected static final Logger log = LoggerFactory.getLogger(ExpertInputBot.class);
 
 	public ExpertInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
 		super(keyboardHandler, screenHandler, mouseHandler);
