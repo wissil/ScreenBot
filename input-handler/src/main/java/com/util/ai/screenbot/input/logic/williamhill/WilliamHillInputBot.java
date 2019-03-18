@@ -17,68 +17,69 @@ import com.util.ai.screenbot.input.utils.SikuliUtils;
 
 public class WilliamHillInputBot extends AbstractInputBot {
 
-    protected static final Logger log = LoggerFactory.getLogger(WilliamHillInputBot.class);
+	protected static final Logger log = LoggerFactory.getLogger(WilliamHillInputBot.class);
 
-    public WilliamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler, MouseHandler mouseHandler) {
-        super(keyboardHandler, screenHandler, mouseHandler);
+	public WilliamHillInputBot(KeyboardHandler keyboardHandler, ScreenHandler screenHandler,
+			MouseHandler mouseHandler) {
+		super(keyboardHandler, screenHandler, mouseHandler);
 
-    }
+	}
 
-    public void checkBettingSlip() throws InvalidBetSlipException {
-        log.debug("Waiting for the bet slip to load ...");
+	public void checkBettingSlip() throws InvalidBetSlipException {
+		log.debug("Waiting for the bet slip to load ...");
 
-        if (!SikuliUtils.waitForElement(WilliamHillGuiConstants.WILLIAM_HILL_BET_SLIP_LOADED, 5)) {
-            throw new InvalidBetSlipException("Bet slip header element is missing.");
-        }
+		if (!SikuliUtils.waitForElement(WilliamHillGuiConstants.WILLIAM_HILL_BET_SLIP_LOADED, 5)) {
+			throw new InvalidBetSlipException("Bet slip header element is missing.");
+		}
 
-        log.debug("Bet slip successfully loaded!");
-    }
+		log.debug("Bet slip successfully loaded!");
+	}
 
-    public void clickRemoveAll() throws InvalidBetSlipException {
-        log.debug("Clicking remove all button ...");
+	public void clickRemoveAll() throws InvalidBetSlipException {
+		log.debug("Clicking remove all button ...");
 
-        try {
-            SikuliUtils.clickOnElement(WilliamHillGuiConstants.WILLIAM_HILL_REMOVE_ALL);
-        } catch (GuiElementNotFoundException e) {
-            throw new InvalidBetSlipException("Remove all element is missing.", e);
-        }
-    }
+		try {
+			SikuliUtils.clickOnElement(WilliamHillGuiConstants.WILLIAM_HILL_REMOVE_ALL);
+		} catch (GuiElementNotFoundException e) {
+			throw new InvalidBetSlipException("Remove all element is missing.", e);
+		}
+	}
 
-    public void clickBet() throws InvalidBetSlipException {
-        log.debug("Clicking the bet button ...");
+	public void clickBet() throws InvalidBetSlipException {
+		log.debug("Clicking the bet button ...");
 
-        try {
-            SikuliUtils.clickOnElement(WilliamHillGuiConstants.WILLIAM_HILL_PLACE_BET);
-        } catch (GuiElementNotFoundException e) {
-            throw new InvalidBetSlipException("Place bet element is missing.", e);
-        }
-    }
+		try {
+			SikuliUtils.clickOnElement(WilliamHillGuiConstants.WILLIAM_HILL_PLACE_BET);
+		} catch (GuiElementNotFoundException e) {
+			throw new InvalidBetSlipException("Place bet element is missing.", e);
+		}
+	}
 
-    public void setBetStake(String stake) throws InvalidBetSlipException {
-        log.debug("Setting the bet stake ...");
+	public void setBetStake(String stake) throws InvalidBetSlipException {
+		log.debug("Setting the bet stake ...");
 
-        if (SikuliUtils.writeToElement(WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT, String.valueOf(stake)))
-            return;
-        throw new InvalidBetSlipException("Could not find input stake element.");
-    }
+		if (SikuliUtils.writeToElement(WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT, String.valueOf(stake)))
+			return;
+		throw new InvalidBetSlipException("Could not find input stake element.");
+	}
 
-    public BufferedImage takeBalanceScreenshot() throws FatalVBException {
-        log.debug("Taking bookmaker balance screenshot ...");
+	public BufferedImage takeBalanceScreenshot() throws FatalVBException {
+		log.debug("Taking bookmaker balance screenshot ...");
 
-        try {
-            return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_BALANCE, 70);
-        } catch (GuiElementNotFoundException e) {
-            throw new FatalVBException("Balance could not be read.");
-        }
-    }
+		try {
+			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_BALANCE, 70);
+		} catch (GuiElementNotFoundException e) {
+			throw new FatalVBException("Balance could not be read.");
+		}
+	}
 
-    public BufferedImage takeBookmakerOddsScreenshot() throws InvalidBetSlipException {
-        log.debug("Taking bookmaker odds screenshot ...");
+	public BufferedImage takeBookmakerOddsScreenshot() throws InvalidBetSlipException {
+		log.debug("Taking bookmaker odds screenshot ...");
 
-        try {
-            return SikuliUtils.getImageLeftToElement(WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT, 50);
-        } catch (GuiElementNotFoundException e) {
-            throw new InvalidBetSlipException("Odds input element is missing.", e);
-        }
-    }
+		try {
+			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_ODDS, 25);
+		} catch (GuiElementNotFoundException e) {
+			throw new InvalidBetSlipException("Odds input element is missing.", e);
+		}
+	}
 }
