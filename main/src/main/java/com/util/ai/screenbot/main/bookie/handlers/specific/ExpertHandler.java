@@ -64,7 +64,7 @@ public class ExpertHandler extends AbstractBookieHandler {
 	public void waitForBettingBrowserToLoad() throws BettingBrowserTimeoutException {
 		try {
 			// Wait for 30 seconds to load
-			expertBot.checkBettingSlip(30 * 1000);
+			expertBot.checkBettingSlip(30);
 		} catch (InvalidBetSlipException e) {
 			throw new BettingBrowserTimeoutException("Timeout 30s!");
 		}
