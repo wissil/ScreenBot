@@ -56,8 +56,6 @@ public class ExpertHandler extends AbstractBookieHandler {
 	@Override
 	public void checkBettingSlip() throws InvalidBetSlipException {
 		expertBot.checkBettingSlip(5);
-		expertBot.neutralClick();
-
 	}
 
 	@Override
@@ -69,6 +67,11 @@ public class ExpertHandler extends AbstractBookieHandler {
 			throw new BettingBrowserTimeoutException("Timeout 30s!");
 		}
 
+	}
+
+	@Override
+	public void neutralClick() throws InvalidBetSlipException {
+		expertBot.neutralClick();
 	}
 
 }

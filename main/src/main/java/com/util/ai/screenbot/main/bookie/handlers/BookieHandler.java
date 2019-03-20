@@ -12,6 +12,8 @@ public interface BookieHandler {
 
 	void removeBet() throws InvalidBetSlipException;
 
+	void neutralClick() throws InvalidBetSlipException;
+
 	BufferedImage getBookmakerOddsImage() throws InvalidBetSlipException;
 
 	BufferedImage getMinStakeImage() throws InvalidBetSlipException;

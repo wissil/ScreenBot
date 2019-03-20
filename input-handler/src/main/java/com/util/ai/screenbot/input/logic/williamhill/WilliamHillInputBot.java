@@ -63,6 +63,14 @@ public class WilliamHillInputBot extends AbstractInputBot {
 		throw new InvalidBetSlipException("Could not find input stake element.");
 	}
 
+	public void neutralClick() throws InvalidBetSlipException {
+		try {
+			SikuliUtils.clickOnElement((WilliamHillGuiConstants.WILLIAM_HILL_INPUT_STAKE_TEXT));
+		} catch (GuiElementNotFoundException e) {
+			throw new InvalidBetSlipException("Bet slip header element is missing.");
+		}
+	}
+
 	public BufferedImage takeBalanceScreenshot() throws FatalVBException {
 		log.debug("Taking bookmaker balance screenshot ...");
 

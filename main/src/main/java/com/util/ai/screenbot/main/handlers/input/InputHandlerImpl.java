@@ -132,4 +132,9 @@ public class InputHandlerImpl implements InputHandler {
 
 	}
 
+	@Override
+	public void neutralClick(Bookie bookie) throws InvalidBetSlipException {
+		bookie.getHandler().neutralClick();
+	}
+
 }

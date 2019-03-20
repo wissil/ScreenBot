@@ -30,6 +30,8 @@ public interface InputHandler {
 
 	void removeTopBet();
 
+	void neutralClick(Bookie bookie) throws InvalidBetSlipException;
+
 	void removeAllBetsFromTopBetEvent() throws FatalVBException;
 
 	void clickOKAtBettingBrowser() throws FatalVBException;
