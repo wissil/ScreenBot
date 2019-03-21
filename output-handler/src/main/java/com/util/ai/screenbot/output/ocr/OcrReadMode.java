@@ -6,6 +6,8 @@ public enum OcrReadMode {
 
 	ENGLISH("eng"),
 	
+	EQU("equ"),
+	
 	DIGITS("digits");
 	
 	final String language;
