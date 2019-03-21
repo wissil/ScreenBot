@@ -75,7 +75,7 @@ public class WilliamHillInputBot extends AbstractInputBot {
 		log.debug("Taking bookmaker balance screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_BALANCE, 70);
+			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_BALANCE, 50);
 		} catch (GuiElementNotFoundException e) {
 			throw new FatalVBException("Balance could not be read.");
 		}
