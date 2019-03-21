@@ -12,6 +12,7 @@ import java.util.Objects;
 import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
 import com.util.ai.screenbot.output.elements.gui.bookie.BookieGraphics;
+import com.util.ai.screenbot.output.elements.ocr.conf.expert.ExpertGraphics;
 import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
 import com.util.ai.screenbot.output.elements.ocr.conf.williamhill.WilliamHillGraphics;
 
@@ -35,7 +36,13 @@ public enum Bookie {
 
     BET_365("Bet365", bet365Handler(), true),
 
-    EXPERT("Expert", expertHandler(), false);
+    EXPERT("Expert", expertHandler(), false) {
+    	
+    		@Override
+    		public BookieGraphics getGraphics() {
+    			return new ExpertGraphics();
+    		}
+    };
 
     final String bookieName;
 
