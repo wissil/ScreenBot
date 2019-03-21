@@ -13,6 +13,7 @@ import com.util.ai.screenbot.input.exceptions.BettingBrowserTimeoutException;
 import com.util.ai.screenbot.main.bookie.handlers.BookieHandler;
 import com.util.ai.screenbot.output.elements.gui.bookie.BookieGraphics;
 import com.util.ai.screenbot.output.elements.ocr.conf.marathon.MarathonGraphics;
+import com.util.ai.screenbot.output.elements.ocr.conf.williamhill.WilliamHillGraphics;
 
 public enum Bookie {
 
@@ -24,7 +25,13 @@ public enum Bookie {
         }
     },
 
-    WILLIAM_HILL("WilliamHill", williamHillHandler(), true),
+    WILLIAM_HILL("WilliamHill", williamHillHandler(), true) {
+    	
+    		@Override
+    		public BookieGraphics getGraphics() {
+    			return new WilliamHillGraphics();
+    		}
+    },
 
     BET_365("Bet365", bet365Handler(), true),
 
