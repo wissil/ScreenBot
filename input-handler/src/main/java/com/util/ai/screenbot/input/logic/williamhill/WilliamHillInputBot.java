@@ -85,7 +85,7 @@ public class WilliamHillInputBot extends AbstractInputBot {
 		log.debug("Taking bookmaker odds screenshot ...");
 
 		try {
-			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_ODDS, 25);
+			return SikuliUtils.getImageRigtToElement(WilliamHillGuiConstants.WILLIAM_HILL_ODDS, 30);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Odds input element is missing.", e);
 		}
