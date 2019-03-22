@@ -19,13 +19,13 @@ public class OcrImageProcessorImpl implements OcrImageProcessor {
 		final int _width = image.getWidth() * SCALE;
 		final int _height = image.getHeight() * SCALE;
 		
+		image = ImageHelper.getScaledInstance(image, _width, _height);
+		
 		image = ImageHelper.convertImageToGrayscale(image);
 		if (negative) image = ImageHelper.invertImageColor(image);
 
 		image =	enhancePixels(image, WHITE_TRESH);
 				
-		image = ImageHelper.getScaledInstance(image, _width, _height);
-
 		return image;
 	}
 	

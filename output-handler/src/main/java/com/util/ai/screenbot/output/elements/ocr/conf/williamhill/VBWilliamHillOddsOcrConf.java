@@ -5,9 +5,9 @@ import com.util.ai.screenbot.output.ocr.OcrReadMode;
 
 public class VBWilliamHillOddsOcrConf implements OcrImageProcessingConf {
 
-	private static final int SCALE = 12;
+	private static final int SCALE = 10;
 
-	private static final int WHITE_TRESHOLD = 210;
+	private static final int WHITE_TRESHOLD = 215;
 
 	@Override
 	public int SCALE() {
