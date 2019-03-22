@@ -20,9 +20,10 @@ public class VBSingleBetElementInterpreterTest extends OutputHandlerTestBase {
 	
 	@Test
 	public void singleBetTest() throws IOException, VBElementInterpretationException {
-		final File root = new File("./external/singleBets/");
+		final File root = new File("./external/_general/singleBets/");
 		
 		for (File f : root.listFiles()) {
+			System.out.print(f.getName() + ": ");
 			final BufferedImage image = ImageIO.read(f);
 			final VBSingleBetGui gui = new VBSingleBetGui(image);
 			final VBSingleBetElement element = singleBetInterpreter().interpret(gui);

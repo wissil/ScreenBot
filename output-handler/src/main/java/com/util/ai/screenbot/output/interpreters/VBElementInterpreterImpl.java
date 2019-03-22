@@ -28,13 +28,14 @@ public class VBElementInterpreterImpl<E extends VBScreenElement, G extends VBGui
 
 	@Override
 	public E interpret(G gui) throws VBElementInterpretationException {
+		final BufferedImage processedImage = imageProcessor.process(gui.getImage(), gui.getConf());
+		final String textual = ocr.doOcr(processedImage, gui.getConf().OCR_READ_MODE()).trim();
+	
 		try {
-			final BufferedImage processedImage = imageProcessor.process(gui.getImage(), gui.getConf());
-			final String textual = ocr.doOcr(processedImage, gui.getConf().OCR_READ_MODE()).trim();
 			return parser.parse(textual);
 		} catch (Exception e) {
 			throw new VBElementInterpretationException(
-					String.format("Couldn't interpret the given image [%s] as element.", gui), e);
+					String.format("Couldn't interpret the given image [%s] as element.", textual));
 		}
 	}
 }

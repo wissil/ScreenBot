@@ -7,7 +7,7 @@ public class VBWilliamHillBalanceOcrConf implements OcrImageProcessingConf {
 	
 	private static final int SCALE = 5;
 	
-	private static final int WHITE_TRESHOLD = 120;
+	private static final int WHITE_TRESHOLD = 195;
 
 	@Override
 	public int SCALE() {
