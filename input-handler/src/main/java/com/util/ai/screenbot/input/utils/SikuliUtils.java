@@ -123,11 +123,21 @@ public class SikuliUtils {
 	public static boolean waitForElementToVanish(String elementPath, int timeoutMs) {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
 	}
+	
+	public static BufferedImage getImageBelow(String path, int pixels) throws GuiElementNotFoundException {
+		try {
+			return SCREEN.wait(path, DEFAULT_WAIT_TIMEOUT).below(pixels).getLastScreenImage().getImage();
+		} catch (FindFailed e) {
+			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", path), e);
+		}
+	}
 
 	public static boolean waitForTargetToVanishBelowBase(String basePath, String targetPath, int pixels,
 			double timeout) {
 		try {
 			final Region region = SCREEN.wait(basePath).below(pixels);
+//			final BufferedImage i = region.find(targetPath).getLastScreenImage().getImage();
+			
 			region.click();
 			if (region.find(targetPath).getScore() < EXACT_SIMILARITY)
 				return true;
