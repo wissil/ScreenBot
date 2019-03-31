@@ -2,6 +2,7 @@
 .settings/
 target/
 external/
+out/
 .classpath
 .settings
 .project
