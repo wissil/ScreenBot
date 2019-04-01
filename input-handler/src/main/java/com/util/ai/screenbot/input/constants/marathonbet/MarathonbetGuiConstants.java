@@ -28,5 +28,9 @@ public class MarathonbetGuiConstants {
 
 	public static final String MARATHON_PLACE_BET = MARATHON_PREFIX + "Marathon_PlaceBet" + MIME_TYPE;
 
+	public static final String MARATHON_PLACE_BET_AMENDED = MARATHON_PREFIX + "Marathon_PlaceBet_Amended" + MIME_TYPE;
+
+	public static final String MARATHON_PLACE_BET_CANCEL = MARATHON_PREFIX + "Marathon_PlaceBet_Cancel" + MIME_TYPE;
+
 	public static final String MARATHON_REMOVE_ALL = MARATHON_PREFIX + "Marathon_RemoveAll" + MIME_TYPE;
 }

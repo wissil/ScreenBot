@@ -1,6 +1,6 @@
 package com.util.ai.screenbot.main.automata.states;
 
-import static com.util.ai.screenbot.input.constants.VBGuiConstants.SINGLE_BET_HEADER;
+import static com.util.ai.screenbot.input.constants.VBGuiConstants.BETFAIR_LOGIN;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -46,15 +46,17 @@ public class IdleState extends VBState {
 			 * below the Single Bet header.
 			 */
 			try {
-				final BufferedImage placeholder = SikuliUtils.getImageBelow(SINGLE_BET_HEADER, 20);
+				final BufferedImage placeholder = SikuliUtils.getImageBelow(BETFAIR_LOGIN, 20);
 				final Color currentColor = ColorDeterminator.determine(placeholder);
-				
+
 				if (ColorComparator.areEqualColors(currentColor, VBColors.SINGLE_BET_PRESENT_COLOR, 0.15)) {
+					System.out.println("Equal!");
+					SikuliUtils.clickBelowElement(BETFAIR_LOGIN, 15);
 					new ParseBetState(in, out, email).process();
-				}			
+				}
 			} catch (GuiElementNotFoundException e) {
 				throw new FatalVBException("Gui element not found.", e);
-			}			
+			}
 		}
 	}
 

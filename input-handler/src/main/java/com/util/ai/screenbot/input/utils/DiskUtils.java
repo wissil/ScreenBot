@@ -19,6 +19,10 @@ public class DiskUtils {
 
 	private static final String LOG_DIR_ROOT = "./external/";
 
+	public static void saveBetPresentStatusToDisk(BufferedImage image) {
+		saveToDisk(image, "status");
+	}
+
 	public static void saveBetToDisk(BufferedImage image) {
 
 		saveToDisk(image, "singleBets");
