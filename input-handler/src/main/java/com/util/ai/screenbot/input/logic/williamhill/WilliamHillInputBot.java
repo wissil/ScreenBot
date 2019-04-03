@@ -49,6 +49,7 @@ public class WilliamHillInputBot extends AbstractInputBot {
 		log.debug("Clicking the bet button ...");
 
 		try {
+			SikuliUtils.scrollDown();
 			SikuliUtils.clickOnElement(WilliamHillGuiConstants.WILLIAM_HILL_PLACE_BET);
 		} catch (GuiElementNotFoundException e) {
 			throw new InvalidBetSlipException("Place bet element is missing.", e);

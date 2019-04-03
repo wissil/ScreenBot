@@ -2,6 +2,7 @@ package com.util.ai.screenbot.input.utils;
 
 import java.awt.image.BufferedImage;
 
+import org.sikuli.script.Button;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.ImagePath;
 import org.sikuli.script.Region;
@@ -124,17 +125,6 @@ public class SikuliUtils {
 		return SCREEN.waitVanish(elementPath, timeoutMs);
 	}
 
-	public static BufferedImage getImageBelow(String path, int pixels) throws GuiElementNotFoundException {
-		try {
-			final Region r = SCREEN.wait(path, DEFAULT_WAIT_TIMEOUT).below(pixels);
-			r.saveScreenCapture("./external/status");
-
-			return r.getLastScreenImage().getImage();
-		} catch (FindFailed e) {
-			throw new GuiElementNotFoundException(String.format("Couldn't find element %s.", path), e);
-		}
-	}
-
 	public static boolean waitForTargetToVanishBelowBase(String basePath, String targetPath, int pixels,
 			double timeout) {
 		try {
@@ -148,6 +138,10 @@ public class SikuliUtils {
 		} catch (FindFailed e) {
 			return false;
 		}
+	}
+
+	public static void scrollDown() {
+		SCREEN.wheel(Button.WHEEL_DOWN, 10);
 	}
 
 }

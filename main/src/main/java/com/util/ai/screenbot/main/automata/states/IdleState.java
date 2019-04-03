@@ -46,12 +46,12 @@ public class IdleState extends VBState {
 			 * below the Single Bet header.
 			 */
 			try {
-				final BufferedImage placeholder = SikuliUtils.getImageBelow(BETFAIR_LOGIN, 20);
+				final BufferedImage placeholder = SikuliUtils.getImageBelowElement(BETFAIR_LOGIN, 20);
 				final Color currentColor = ColorDeterminator.determine(placeholder);
+				SikuliUtils.clickBelowElement(BETFAIR_LOGIN, 15);
 
 				if (ColorComparator.areEqualColors(currentColor, VBColors.SINGLE_BET_PRESENT_COLOR, 0.15)) {
 					System.out.println("Equal!");
-					SikuliUtils.clickBelowElement(BETFAIR_LOGIN, 15);
 					new ParseBetState(in, out, email).process();
 				}
 			} catch (GuiElementNotFoundException e) {

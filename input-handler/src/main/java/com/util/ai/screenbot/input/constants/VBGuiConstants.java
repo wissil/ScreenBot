@@ -22,7 +22,7 @@ public class VBGuiConstants {
 
 	public static final String HIDE = "Hide" + MIME_TYPE;
 
-	public static final String SINGLE_BET_HEADER = "SingleBet_Header" + MIME_TYPE;
+	public static final String SINGLE_BET_HEADER = "SingleBet_Header3" + MIME_TYPE;
 
 	public static final String BETFAIR_LOGIN = "BetfairLogin" + MIME_TYPE;
 
